@@ -1,0 +1,27 @@
+<html>
+<head>
+    <script src="/javascripts/jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+    <h1>查询</h1>
+    <button id="btnQuery" type="submit">查询</button>
+
+    <script type="text/javascript">
+        $('#btnQuery').click(function(){
+            console.log('查询');
+            $.ajax({
+                url:'/users/query',
+                type:'post',
+                success:function(data, status){
+                    console.log('success');
+                },
+                error:function(data, err){
+                    console.log('error');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

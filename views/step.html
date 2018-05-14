@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <script src="/javascripts/jquery-3.3.1.min.js"></script>
+        <script src="/javascripts/layer/layer.js"></script>
+    </head>
+    <body>
+        <form>
+            <input id="step" type="number" placeholder="输入步数" required="required" />
+            <button id="btnSubmit" type="submit" class="btn btn-primary btn-block btn-large">提交</button>
+        </form>
+        <p id="msg"></p>
+        
+        <script type="text/javascript">
+            $('#btnSubmit').click(function () {
+                var step = $('#step').val();
+                if (step < 0) {
+                    layer.msg('步数不能为负');
+                } else {
+                    var data = {"step": step};
+                    $.ajax({
+                        url: '/users/step',
+                        type: 'post',
+                        data: data,
+                        success: function (data, status) {
+                            layer.msg('步数成功写入区块链');
+                            $('#msg').text(data);
+                        },
+                        error: function (data, status) {
+
+                        }
+                    });
+                }
+            });
+        </script>
+    </body>
+</html>
