@@ -20,7 +20,6 @@
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="/javascripts/shop/ie-emulation-modes-warning.js"></script>
-    <script src="/javascripts/moment.min.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -82,7 +81,6 @@
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
       <div class="carousel-inner" role="listbox">
         <div class="item active">
-          <img class="first-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide">
           <div class="container">
             <div class="carousel-caption">
 
@@ -92,37 +90,53 @@
                   <p>活动开始时间</p>
                 </div>
 
-                <div class='col-md-4 input-group date'>
-                  <input type='text' class="form-control" id='datetimepicker_begin' /> 
-                  <span class="input-group-addon"> 
-                    <span class="glyphicon glyphicon-calendar"></span>
-                  </span>
+                <div class='col-md-4 input-append date form_datetime'>
+                  <input size="16" type='text' class="form-control" id='datetimepicker_begin' onchange="activity_begin()"/> 
+                  <span class="add-on"><i class="icon-remove"></i></span>
+                  <span class="add-on"><i class="icon-calendar"></i></span>
                 </div>
-                </br></br>
+              </br></br></br>
+                
                 <div class="col-md-3">
                   <p>活动结束时间</p>
                 </div>
 
-                <div class='col-md-4 input-group date'>
-                  <input type='text' class="form-control" id='datetimepicker_end' /> 
-                  <span class="input-group-addon"> 
-                    <span class="glyphicon glyphicon-calendar"></span>
-                  </span>
+                <div class='col-md-4 input-append date form_datetime'>
+                  <input size="16" type='text' class="form-control" id='datetimepicker_end' onchange="activity_end()"/> 
+                  <span class="add-on"><i class="icon-remove"></i></span>
+                  <span class="add-on"><i class="icon-calendar"></i></span>
                 </div>
-                </br></br>
-
+              </br></br></br>
+                
                 <div class="col-md-3">
                   <p>优惠券数量</p>
                 </div>
 
                 <div class="col-md-4">
-                  <input type="text" class="form-control" id="CouponNumber" placeholder="CouponNumber">
+                  <input type="text" class="form-control" id="coupons" placeholder="请输入一个整数"/>
                 </div>
-                </br></br>
+              </br></br></br>
 
-                <p style="text-align:left">参加本活动的商品链接</p>
-                </br></br>
-                <p>pinvon</p>
+                <div class="col-md-3">
+                  <p>折扣度</p>
+                </div>
+
+                <div class="col-md-4">
+                  <input type="text" class="form-control" id="discount" />
+                </div>
+              </br></br></br>
+
+                <div class="col-md-3">
+                  <p>商品链接</p>
+                </div>
+                <div class="col-md-4">
+                  <input type="text" class="form-control" id="url" />
+                </div>
+              </br></br></br>
+
+                <p>
+                  <a id="submit" class="btn btn-lg btn-primary" href="#" role="button" style="text-align:center">提交</a>
+                </p>
               </div>
             </div>
           </div>
@@ -158,17 +172,57 @@
     <script src="/javascripts/shop/ie10-viewport-bug-workaround.js"></script>
 
     <script src="/javascripts/jquery-3.3.1.min.js"></script></script>
+    <script src="/javascripts/layer/layer.js"></script>
     <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+
     <script type="text/javascript">
       $(function () {
-        $('#datetimepicker_begin').datetimepicker({
-          viewMode: 'years'
+        $('.form_datetime').datetimepicker({
+          format: "yyyy-mm-dd hh:ii",
+          autoclose: true,
+          todayBtn: true,
+          startDate: "2013-02-14 10:00",
+          minuteStep: 10
         });
+      });
 
-        $('#datetimepicker_end').datetimepicker({
-          viewMode: 'years'
-        });
+      var nBeginActivity = 0;
+      var nEndActivity = 0;
+
+      function activity_begin() {
+        nBeginActivity = Date.parse(new Date($('#datetimepicker_begin').val()));
+      }
+
+      function activity_end() {
+        nEndActivity = Date.parse(new Date($('#datetimepicker_end').val()));
+      }
+
+      $('#submit').click(function() {
+        var nCoupons = 0;
+        var fDiscount = 0.0;
+        var sUrl = '';
+
+        console.log('pinvon', 'submit');
+        if(nBeginActivity === 0 || nBeginActivity < Date.parse(new Date())) {
+          layer.msg('请输入正确的时间');
+          $("#datetimepicker_begin").css("border", "2px solid red");
+        }
+
+        if(nEndActivity === 0 || nEndActivity < Date.parse(new Date()) || 
+           nEndActivity < nBeginActivity) {
+          layer.msg('请输入正确的时间');
+          $('#datetimepicker_end').css("border", '2px solid red');
+        }
+
+        nCoupons = parseInt($('#coupons').val());
+        console.log(nCoupons);
+
+        fDiscount = parseFloat($('#discount').val());
+        console.log(fDiscount);
+
+        sUrl = $('#url').val();
+        console.log(sUrl);
       });
     </script>
   </body>

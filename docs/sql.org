@@ -1,0 +1,24 @@
+* 安装 MySQL
+
+略
+
+* 创建数据库
+
+#+BEGIN_SRC SQL
+mysql -u root -p
+// 输入密码
+
+CREATE DATABASE sportchain;
+GRANT ALL PRIVILEGES ON sportchain.* TO root@localhost IDENTIFIED BY '123456';
+FLUSH PRIVILEGES;
+
+USE sportchain;
+#+END_SRC
+
+* 导入数据
+
+进入 sportchain.sql 所在目录.
+#+BEGIN_SRC SQL
+mysql -u root -p sportchain < sportchain.sql
+// 输入密码
+#+END_SRC
