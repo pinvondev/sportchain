@@ -4,12 +4,16 @@ var hbs = require('hbs');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var redis = require('redis');
+var redisStore = require('connect-redis')(session);
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
 var shopRouter	= require('./routes/shop');
+
+var redisClient = redis.createClient(6379, '127.0.0.1', {auth_pass: ''});
 
 var app = express();
 
@@ -22,10 +26,14 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 app.use(session({
-  secret: 'test',  // 后期应改成随机字符串
-  cookie: {maxAge: 60 * 1000}
-}));
+  store: new redisStore({client: redisClient}),
+  secret: 'redis',
+  resave: false,
+  saveUninitialized: false
+}))
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
