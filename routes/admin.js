@@ -1,5 +1,5 @@
 var express = require('express');
-var enroll = require('../utils/enrollAdmin');
+var enroll = require('../fabric/enrollAdmin');
 var router = express.Router();
 
 /* GET admin listing. */

@@ -1,9 +1,9 @@
 var express = require('express');
-var query = require('../utils/query');
-var userUtils = require('../utils/user');
+var query = require('../fabric/query');
+var userfabric = require('../fabric/user');
 var fs = require('fs');
-var stepUtils = require('../utils/step');
-var queryUtils = require('../utils/query');
+var stepfabric = require('../fabric/step');
+var queryfabric = require('../fabric/query');
 var router = express.Router();
 
 /* GET users listing. */
@@ -28,7 +28,7 @@ router.post('/register', function(req, res, next) {
       return console.error(err);
     }
   });
-  userUtils.registerUser(name, function(isRegister, msg) {
+  userfabric.registerUser(name, function(isRegister, msg) {
     if (isRegister) {
       req.session.user = {
         'name': name,
@@ -97,7 +97,7 @@ router.post('/step', function (req, res, next) {
   var args = [step.toString(), req.session.user.name, sportEnergy.toString()];
   var ccFun = 'createSportEnergy';
 
-  stepUtils.step(req.session.user.name, ccFun, args);
+  stepfabric.step(req.session.user.name, ccFun, args);
 });
 
 router.get('/query', function(req, res, next){
@@ -112,7 +112,7 @@ router.post('/query', function (req, res, next) {
   var ccFun = 'querySportEnergy';
   var args = [name];
   console.log('pinvon', name, ccFun, args);
-  queryUtils.queryByUsers(name, ccFun, args);
+  queryfabric.queryByUsers(name, ccFun, args);
 });
 
 module.exports = router;

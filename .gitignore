@@ -1,5 +1,5 @@
 pass.txt
 node_modules
-utils/hfc-key-store
+fabric/hfc-key-store
 .vscode
 log

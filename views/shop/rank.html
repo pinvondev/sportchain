@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Health Insurance</title>
+
+<link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/bootstrap/dist/css/bootstrap-theme.css">
+<link rel="stylesheet" href="/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.css">
+
+</head>
+
+<body>
+  <form role="form">
+
+  <div class="form-group form-group-sm">
+        <label class="col-sm-2 control-label" for="insuredName">Insured Name :</label>
+            <div class="col-sm-3">
+                <input class="form-control" type="text" id="insuredName" placeholder="Insured Name">
+        </div>
+    </div>
+
+
+    <div class="form-group form-group-sm">
+        <label class="col-sm-2 control-label" for="rel_PolicyHolder">Relation with Policy Holder :</label>
+        <div class="col-sm-3">
+            <input class="form-control" type="text" id="rel_PolicyHolder" placeholder="Relation with Policy Holder"> <br />
+            <br />
+        </div>
+    </div>
+
+
+  <div class="container" >
+    <div class="col-sm-4" style="height:130px; align:right">
+
+      <div class='input-group date'>
+        <input type='text' class="form-control" id='datetimepicker9' /> 
+        <span class="input-group-addon"> 
+          <span class="glyphicon glyphicon-calendar"></span>
+        </span>
+
+        <script src="/javascripts/jquery-3.3.1.min.js"></script></script>
+        <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+
+        <script type="text/javascript">
+          $(function () {
+            $('#datetimepicker9').datetimepicker({
+              viewMode: 'years'
+            });
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+
+ </form>
+
+ </body>
+</html>
