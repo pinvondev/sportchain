@@ -61,10 +61,6 @@ git checkout v1.1.0
 
 新建项目文件: sportchain
 
-项目结构如下图所示:
-
-[[./0.png]]
-
 在 github 的文件中, 还有 chaincode 目录, 下载后需要将 chaincode 里面的文件放入 fabric-samples/chaincode/fabcar/go 里面.
 
 ** 进展
@@ -100,3 +96,11 @@ git checkout v1.1.0
 [[./docs/node.org][安装 Node]]
 
 [[./docs/sql.org][导入数据]]
+
+** 运行
+
+进入 sportchain 目录.
+#+BEGIN_SRC Shell
+npm install
+npm start
+#+END_SRC
