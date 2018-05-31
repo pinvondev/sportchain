@@ -19,6 +19,10 @@ router.get('/activity', function(req, res, next) {
     res.render('shop/activity');
 });
 
+router.post('/activity', function(req, res, next) {
+   console.log(req.body) ;
+});
+
 router.get('/rank', function(req, res, next) {
     res.render('shop/rank');
 });
