@@ -205,12 +205,14 @@
         if(nBeginActivity === 0 || nBeginActivity < Date.parse(new Date())) {
           layer.msg('请输入正确的时间');
           $("#datetimepicker_begin").css("border", "2px solid red");
+          return ;
         }
 
         if(nEndActivity === 0 || nEndActivity < Date.parse(new Date()) || 
            nEndActivity < nBeginActivity) {
           layer.msg('请输入正确的时间');
           $('#datetimepicker_end').css("border", '2px solid red');
+          return ;
         }
 
         nCoupons = parseInt($('#coupons').val());
@@ -221,6 +223,26 @@
 
         sUrl = $('#url').val();
         console.log(sUrl);
+
+        var data = {
+          nBeginTime: nBeginActivity,
+          nEndTime: nEndActivity,
+          nCoupons: nCoupons,
+          nDiscount: fDiscount,
+          sUrl: sUrl
+        };
+
+        $.ajax({
+          url: '/shop/activity',
+          type: 'post',
+          data: data,
+          success: function(data, status) {
+            console.log('success');
+          },
+          error: function(data, status) {
+            console.log('fail');
+          }
+        });
       });
     </script>
   </body>
