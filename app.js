@@ -30,8 +30,9 @@ app.use(cookieParser());
 app.use(session({
   store: new redisStore({client: redisClient}),
   secret: 'redis',
-  resave: false,
-  saveUninitialized: false
+  resave: true,
+  saveUninitialized: true,
+  cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 }
 }))
 
 app.use(express.static(path.join(__dirname, 'public')));
