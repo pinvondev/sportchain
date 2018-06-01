@@ -16,6 +16,37 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `activity`
+--
+
+DROP TABLE IF EXISTS `activity`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `activity` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `shopName` varchar(50) NOT NULL,
+  `isAlliance` tinyint(1) NOT NULL,
+  `beginTime` bigint(15) NOT NULL,
+  `endTime` bigint(15) NOT NULL,
+  `totalCoupons` int(10) NOT NULL,
+  `realCoupons` int(10) NOT NULL,
+  `discount` decimal(4,3) NOT NULL,
+  `url` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `activity`
+--
+
+LOCK TABLES `activity` WRITE;
+/*!40000 ALTER TABLE `activity` DISABLE KEYS */;
+INSERT INTO `activity` VALUES (1,'0',0,1527844200000,1527865200000,100,100,7.800,'www.anta.com'),(2,'anta',0,1527847200000,1527865200000,100,100,7.800,'www.anta.com');
+/*!40000 ALTER TABLE `activity` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `shops`
 --
 
@@ -27,7 +58,7 @@ CREATE TABLE `shops` (
   `name` varchar(50) DEFAULT NULL,
   `url` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +67,7 @@ CREATE TABLE `shops` (
 
 LOCK TABLES `shops` WRITE;
 /*!40000 ALTER TABLE `shops` DISABLE KEYS */;
-INSERT INTO `shops` VALUES (1,'安踏','www.anta.com'),(2,'阿迪达斯','www.adidas.com');
+INSERT INTO `shops` VALUES (1,'安踏','www.anta.com'),(2,'阿迪达斯','www.adidas.com'),(3,'anta','www.anta.com');
 /*!40000 ALTER TABLE `shops` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +80,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-31 20:11:05
+-- Dump completed on 2018-06-01 17:41:36
