@@ -4,6 +4,7 @@ var $conf = require('../conf/db');
 var $util = require('../util/util');
 var $usersSQL = require('./users');
 var $shopsSQL = require('./shops');
+var $activitySQL = require('./activity');
  
 // 使用连接池，提升性能
 var pool  = mysql.createPool($util.extend({}, $conf.mysql));
@@ -39,26 +40,28 @@ var jsonWrite = function (res, ret) {
 module.exports = {
 	queryAll: function (tableName, params, callback) {
 		if (tableName === 'shops') {
-			console.log('pinvon', 'tablename');
 			query($shopsSQL.queryAll, [params.id], function (error, results) {
 				if (error) {
-					callback(error, null);
+					return callback(error, null);
 				} else {
-					callback(null, results);
+					return callback(null, results);
 				}
 			});
 		}
 	},
-	add: function (params, callback) {
-		query($usersSQL.insert, [params.uname, params.upwd], function (error, results) {
-			console.log('pinvon', 'add', results);
+	insert: function (tableName, params, callback) {
+		var sql = '';
+		if (tableName === 'activity') {
+			sql = $activitySQL;
+		}
+
+		query(sql.insert, params, function (error, result) {
+			console.log('pinvon', 'add', result);
 			if (error) {
-				throw error;
+				return callback(error, null);
+			} else {
+				return callback(null, result);
 			}
-			if (results) {
-				return callback(true);
-			}
-			return callback(false);
 		});
 	},
 	/*
@@ -90,16 +93,18 @@ module.exports = {
 			});
 		});
 	}, */
-	queryByName: function (param, callback) {
-		query($usersSQL.queryByName, param, function(error, results, fields) {
+	queryByName: function (tableName, param, callback) {
+		var sql = '';
+		if (tableName === 'shops') {
+			sql = $shopsSQL;
+		}
+
+		query(sql.queryByName, param, function(error, results) {
 			if (error) {
-				throw error;
+				return callback(error, null);
+			} else {
+				return callback(null, results);
 			}
-			if (results.length > 0) {
-                console.log(results[0]);
-				return callback(results[0]);
-			}
-			return callback(false);
 		});
 	}
 };
