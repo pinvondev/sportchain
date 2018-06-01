@@ -1,0 +1,50 @@
+* 使用 Redis 进行 session 持久化.
+
+** 安装 Redis
+
+[[http://www.redis.cn/download.html][下载安装]]
+
+将 Redis 作为缓存, 可以修改配置文件, 设置缓存区的大小等信息, 也可以什么都不修改, 直接使用.
+
+** 安装相关模块
+
+需要安装 connect-redis, redis, express-session 这几个模块, 已经写入 package.json 中, 所以在根目录下有执行过 npm install 的这一步可以跳过.
+
+** session 的属性设置
+
+#+BEGIN_SRC JavaScript
+var session = require('express-session');
+var redis = require('redis');
+var redisStore = require('connect-redis')(session);
+
+var redisClient = redis.createClient(6379, '127.0.0.1', {auth_pass: ''});
+
+app.use(session({
+  store: new redisStore({client: redisClient}),
+  secret: 'redis',
+  resave: true,
+  saveUninitialized: true,
+  cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 }
+}))
+#+END_SRC
+
+设置了 cookie 的 maxAge 字段, 就可以在关闭浏览器时, cookie 仍有效, 这边设置有效时间为 7 天. 
+
+可以打开 redis-cli 查看设置的 key 的 ttl 字段是否有改变.
+
+设置 session. 最简单的写法如下:
+#+BEGIN_SRC JavaScript
+req.session.user = {
+   'name': name,
+   'pass': pass
+}
+#+END_SRC
+
+读取:
+#+BEGIN_SRC JavaScript
+req.session.user.name;
+#+END_SRC
+
+除了这些之外, 还可以根据自己的需要, 存储其他东西.
+
+最后, 也不需要去编写清理 session 的代码, 因为如果过了 maxAge, Redis 中的 ttl 也就为 0 了, Redis 会自动删除那些 ttl=0 的 keys.
