@@ -16,7 +16,7 @@
                 if (step < 0) {
                     layer.msg('步数不能为负');
                 } else {
-                    var data = {"step": step};
+                    var data = {step: step};
                     $.ajax({
                         url: '/users/step',
                         type: 'post',
