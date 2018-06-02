@@ -83,59 +83,144 @@
         <div class="item active">
           <div class="container">
             <div class="carousel-caption">
+              <p>当活动开始后, 需增加已兑换的优惠券数量, 尚未加入该显示</p>
+              {{#if result.energy }}
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>活动开始时间</p>
+                  </div>
+                  <div class='col-md-4 input-append date form_datetime'>
+                    <input size="16" type='text' class="form-control" id='datetimepicker_begin' 
+                           value="{{ result.beginTime }}" readonly /> 
+                    <span class="add-on"><i class="icon-remove"></i></span>
+                    <span class="add-on"><i class="icon-calendar"></i></span>
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>活动结束时间</p>
+                  </div>
+                  <div class='col-md-4 input-append date form_datetime'>
+                    <input size="16" type='text' class="form-control" id='datetimepicker_end' 
+                           value="{{ result.endTime }}" readonly /> 
+                    <span class="add-on"><i class="icon-remove"></i></span>
+                    <span class="add-on"><i class="icon-calendar"></i></span>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>优惠券数量</p>
+                  </div>
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="coupons" 
+                           value={{ result.totalCoupons }} readonly />
+                  </div>
+                </div>
 
-              <div class="row">
-                <div class="col-md-4">
-                  <p>活动开始时间</p>
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>已发放优惠券数量</p>
+                  </div>
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="realcoupons"
+                           value={{ result.realCoupons }} readonly />
+                  </div>
                 </div>
-                <div class='col-md-4 input-append date form_datetime'>
-                  <input size="16" type='text' class="form-control" id='datetimepicker_begin' onchange="activity_begin()"/> 
-                  <span class="add-on"><i class="icon-remove"></i></span>
-                  <span class="add-on"><i class="icon-calendar"></i></span>
-                </div>     
-              </div>
+  
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>折扣度</p>
+                  </div>
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="discount" 
+                           value={{ result.discount }} readonly />
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>商品链接</p>
+                  </div>
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="url" 
+                           value={{ result.url }} readonly />
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>所需运动能量</p>
+                  </div>
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="energy" 
+                           value={{ result.energy }} readonly />
+                  </div>
+                </div>  
+              {{else}}
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>活动开始时间</p>
+                  </div>
+                  <div class='col-md-4 input-append date form_datetime'>
+                    <input size="16" type='text' class="form-control" id='datetimepicker_begin' onchange="activity_begin()"/> 
+                    <span class="add-on"><i class="icon-remove"></i></span>
+                    <span class="add-on"><i class="icon-calendar"></i></span>
+                  </div>     
+                </div>
 
-              <div class="row">
-                <div class="col-md-4">
-                  <p>活动结束时间</p>
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>活动结束时间</p>
+                  </div>
+                  <div class='col-md-4 input-append date form_datetime'>
+                    <input size="16" type='text' class="form-control" id='datetimepicker_end' onchange="activity_end()"
+                          placeholder="活动时间至少大于4小时"/> 
+                    <span class="add-on"><i class="icon-remove"></i></span>
+                    <span class="add-on"><i class="icon-calendar"></i></span>
+                  </div>
                 </div>
-                <div class='col-md-4 input-append date form_datetime'>
-                  <input size="16" type='text' class="form-control" id='datetimepicker_end' onchange="activity_end()"/> 
-                  <span class="add-on"><i class="icon-remove"></i></span>
-                  <span class="add-on"><i class="icon-calendar"></i></span>
+                
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>优惠券数量</p>
+                  </div>
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="coupons" placeholder="请输入一个整数"
+                          value={{ result.energy }} />
+                  </div>
                 </div>
-              </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>折扣度</p>
+                  </div>
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="discount" />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>商品链接</p>
+                  </div>
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="url" />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>所需运动能量</p>
+                  </div>
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="energy" />
+                  </div>
+                </div>
               
-              <div class="row">
-                <div class="col-md-4">
-                  <p>优惠券数量</p>
-                </div>
-                <div class="col-md-4">
-                  <input type="text" class="form-control" id="coupons" placeholder="请输入一个整数"/>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-4">
-                  <p>折扣度</p>
-                </div>
-                <div class="col-md-4">
-                  <input type="text" class="form-control" id="discount" />
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-4">
-                  <p>商品链接</p>
-                </div>
-                <div class="col-md-4">
-                  <input type="text" class="form-control" id="url" />
-                </div>
-              </div>
-              
-              <p>
-                <a id="submit" class="btn btn-lg btn-primary" href="#" role="button" style="text-align:center">提交</a>
-              </p>
+                <button id="submit" type="button" class="btn btn-lg btn-primary">提交</button>
+              {{/if}}
             </div>
           </div>
         </div>
@@ -200,29 +285,29 @@
         var nCoupons = 0;
         var fDiscount = 0.0;
         var sUrl = '';
+        var nEnergy = 0;
 
-        console.log('pinvon', 'submit');
         if(nBeginActivity === 0 || nBeginActivity < Date.parse(new Date())) {
-          layer.msg('请输入正确的时间');
+          layer.msg('请输入正确的活动开始时间');
           $("#datetimepicker_begin").css("border", "2px solid red");
           return ;
+        } else {
+          $("#datetimepicker_begin").css("border", "2px solid white");
         }
 
         if(nEndActivity === 0 || nEndActivity < Date.parse(new Date()) || 
-           nEndActivity < nBeginActivity) {
-          layer.msg('请输入正确的时间');
+           nEndActivity < nBeginActivity + 4*60*60*1000) {
+          layer.msg('请输入正确的活动结束时间');
           $('#datetimepicker_end').css("border", '2px solid red');
           return ;
+        } else {
+          $('#datetimepicker_end').css("border", '2px solid white');
         }
 
         nCoupons = parseInt($('#coupons').val());
-        console.log(nCoupons);
-
         fDiscount = parseFloat($('#discount').val());
-        console.log(fDiscount);
-
         sUrl = $('#url').val();
-        console.log(sUrl);
+        nEnergy = parseInt($('#energy').val());
 
         var data = {
           nBeginTime: nBeginActivity,
@@ -230,7 +315,7 @@
           nCoupons: nCoupons,
           fDiscount: fDiscount,
           sUrl: sUrl,
-          flag: 'submit'
+          nEnergy: nEnergy
         };
 
         $.ajax({
@@ -238,7 +323,18 @@
           type: 'post',
           data: data,
           success: function(data, status) {
-            console.log('success');
+            if (status === 'success') {
+              if (data.code === 200) {
+                layer.msg('提交成功');
+                $('#submit').addClass('hidden');
+                $('#datetimepicker_begin').attr('readonly', 'true');
+                $('#datetimepicker_end').attr('readonly', 'true');
+                $('#coupons').attr('readonly', 'true');
+                $('#discount').attr('readonly', 'true');
+                $('#url').attr('readonly', 'true');
+                $('#energy').attr('readonly', 'true');
+              }
+            }
           },
           error: function(data, status) {
             console.log('fail');
