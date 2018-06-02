@@ -97,6 +97,8 @@ module.exports = {
 		var sql = '';
 		if (tableName === 'shops') {
 			sql = $shopsSQL;
+		} else if (tableName = 'activity') {
+			sql = $activitySQL;
 		}
 
 		query(sql.queryByName, param, function(error, results) {
