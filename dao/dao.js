@@ -101,11 +101,25 @@ module.exports = {
 			sql = $activitySQL;
 		}
 
-		query(sql.queryByName, param, function(error, results) {
+		query(sql.queryByName, param, function (error, results) {
 			if (error) {
 				return callback(error, null);
 			} else {
 				return callback(null, results);
+			}
+		});
+	},
+	deleteByName: function (tableName, param, callback) {
+		var sql = '';
+		if (tableName === 'activity') {
+			sql = $activitySQL;
+		}
+
+		query(sql.deleteByName, param, function (error, result) {
+			if (error) {
+				return callback(error, null);
+			} else {
+				return callback(null, result);
 			}
 		});
 	}
