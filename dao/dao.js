@@ -122,5 +122,15 @@ module.exports = {
 				return callback(null, result);
 			}
 		});
+	},
+	queryActivityAndShops: function (callback) {
+		var sql = $activitySQL;
+		query(sql.queryActivityAndShops, function (error, result) {
+			if (error) {
+				return callback(error, null);
+			} else {
+				return callback(null, result);
+			}
+		});
 	}
 };
