@@ -4,6 +4,7 @@ var userfabric = require('../fabric/user');
 var fs = require('fs');
 var stepfabric = require('../fabric/step');
 var queryfabric = require('../fabric/query');
+var sql = require('../dao/dao');
 var router = express.Router();
 
 /* GET users listing. */
@@ -114,5 +115,17 @@ router.post('/query', function (req, res, next) {
   console.log('pinvon', name, ccFun, args);
   queryfabric.queryByUsers(name, ccFun, args);
 });
+
+// 将活动信息返回给前端
+router.get('/activity', function (req, res, next) {
+  sql.queryActivityAndShops(function(error, result) {
+    if (error) {
+      throw error;
+    } else {
+      console.log(result);
+      res.send(result);
+    }
+  });
+})
 
 module.exports = router;
