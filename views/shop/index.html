@@ -1,125 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
-
-    <title>Carousel Template for Bootstrap</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="/stylesheets/shop/ie10-viewport-bug-workaround.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="/javascripts/shop/ie-emulation-modes-warning.js"></script>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Custom styles for this template -->
-    <link href="/stylesheets/shop/carousel.css" rel="stylesheet">
-  </head>
-<!-- NAVBAR
-================================================== -->
-  <body>
-    <div class="navbar-wrapper">
-      <div class="container">
-
-        <nav class="navbar navbar-inverse navbar-static-top">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#">SportsChain</a>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>用户登录</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="Keywords" content="网站关键词">
+    <meta name="Description" content="网站介绍">
+    <link rel="stylesheet" href="/stylesheets/shop/base.css">
+    <link rel="stylesheet" href="/stylesheets/shop/iconfont.css">
+    <link rel="stylesheet" href="/stylesheets/shop/reg.css">
+</head>
+<body>
+<div id="ajax-hook"></div>
+<div class="wrap">
+    <div class="wpn">
+        <div class="form-data pos" >
+            <div class="change-login">
+                <p class="account_number on">个人登录</p>
+                <p class="message">企业登录</p>
             </div>
-            <div id="navbar" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="#">商家主页</a></li>
-                <li><a href="/shop/rank">排行</a></li>
-                <li><a href="/shop/activity">我的活动</a></li>
-                <li><a href="#multi">联合活动</a></li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li class="dropdown-header">Nav header</li>
-                    <li><a href="#">Separated link</a></li>
-                    <li><a href="#">One more separated link</a></li>
-                  </ul>
-                </li>
-              </ul>
+            <div class="form1">
+                <p class="p-input pos">
+                    <label for="num">用户名/UID/邮箱</label>
+                    <input type="text" id="num">
+                    <span class="tel-warn num-err hide"><em>账号或密码错误，请重新输入</em><i class="icon-warn"></i></span>
+                </p>
+                <p class="p-input pos">
+                    <label for="pass">请输入密码</label>
+                    <input type="password" style="display:none"/>
+                    <input type="password" id="pass1" autocomplete="new-password">
+                    <span class="tel-warn pass-err hide"><em>账号或密码错误，请重新输入</em><i class="icon-warn"></i></span>
+                </p>
+                <p class="p-input pos code hide">
+                    <label for="veri">请输入验证码</label>
+                    <input type="text" id="veri1">
+                    <img src="">
+                    <span class="tel-warn img-err hide"><em>账号或密码错误，请重新输入</em><i class="icon-warn"></i></span>
+                </p>
+                <p class="p-input pos">
+                    <label for="num2">手机号</label>
+                    <input type="number" id="num4">
+                    <span class="tel-warn num2-err hide"><em>账号或密码错误</em><i class="icon-warn"></i></span>
+                </p>
+                <p class="p-input pos">
+                    <label for="veri-code">输入验证码</label>
+                    <input type="number" id="veri-code2">
+                    <a href="javascript:;" class="send">发送验证码</a>
+                    <span class="time hide"><em>120</em>s</span>
+                    <span class="tel-warn error hide">验证码错误</span>
+                </p>
+                <div class="r-forget cl">
+                    <a href="./reg.html" class="z">账号注册</a>
+                    <a href="./getpass.html" class="y">忘记密码</a>
+                </div>
+                <button class="lang-btn off log-btn"><a href="info_one.html">登录</a></button>
             </div>
-          </div>
-        </nav>
-
-      </div>
-    </div>
-
-
-    <!-- Carousel
-    ================================================== -->
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-      <div class="carousel-inner" role="listbox">
-        <div class="item active">
-          <img class="first-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide">
-          <div class="container">
-            <h1>test</h1>
-            <div class="carousel-caption">
-              <h1>{{shop.name}}</h1>
-              <p>网址: {{shop.url}}</p>
-              <p>工商号: xxx</p>
-              <p>需要完成: 商家点击编辑信息按钮, 该页面的商家信息变成可编辑状态, 编辑完成后点击保存按钮, 将会传给后台存储.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">编辑信息</a></p>
-              </br></br></br></br>
+            <div class="form2 hide">
+                <p class="p-input pos">
+                    <label for="num">用户名/UID/邮箱</label>
+                    <input type="text" id="num3">
+                    <span class="tel-warn num-err hide"><em>账号或密码错误，请重新输入</em><i class="icon-warn"></i></span>
+                </p>
+                <p class="p-input pos">
+                    <label for="pass">请输入密码</label>
+                    <input type="password" style="display:none"/>
+                    <input type="password" id="pass" autocomplete="new-password">
+                    <span class="tel-warn pass-err hide"><em>账号或密码错误，请重新输入</em><i class="icon-warn"></i></span>
+                </p>
+                <p class="p-input pos code hide">
+                    <label for="veri">请输入验证码</label>
+                    <input type="text" id="veri">
+                    <img src="">
+                    <span class="tel-warn img-err hide"><em>账号或密码错误，请重新输入</em><i class="icon-warn"></i></span>
+                </p>
+                <p class="p-input pos">
+                    <label for="num2">手机号</label>
+                    <input type="number" id="num2">
+                    <span class="tel-warn num2-err hide"><em>账号或密码错误</em><i class="icon-warn"></i></span>
+                </p>
+                <p class="p-input pos">
+                    <label for="veri-code">输入验证码</label>
+                    <input type="number" id="veri-code">
+                    <a href="javascript:;" class="send">发送验证码</a>
+                    <span class="time hide"><em>120</em>s</span>
+                    <span class="tel-warn error hide">验证码错误</span>
+                </p>
+                <div class="r-forget cl">
+                    <a href="./reg.html" class="z">账号注册</a>
+                    <a href="./getpass.html" class="y">忘记密码</a>
+                </div>
+                <button class="lang-btn off log-btn" ><a href="info_two.html">登录</a></button>
             </div>
-          </div>
+            <div class="third-party">
+                <a href="#" class="log-qq icon-qq-round"></a>
+                <a href="#" class="log-qq icon-weixin"></a>
+                <a href="#" class="log-qq icon-sina1"></a>
+            </div>
         </div>
-      </div>
-    </div><!-- /.carousel -->
-
-
-    <!-- Marketing messaging and featurettes
-    ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
-
-    <div class="container marketing">
-
-      <!-- FOOTER -->
-      <footer>
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2016 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-      </footer>
-
-    </div><!-- /.container -->
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="/javascripts/jquery-3.3.1.min.js"><\/script>')</script>
-    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-    <script src="/javascripts/shop/holder.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="/javascripts/shop/ie10-viewport-bug-workaround.js"></script>
-  </body>
+    </div>
+</div>
+<script src="/javascripts/jquery-3.3.1.min.js"></script>
+<script src="/javascripts/shop/agree.js"></script>
+<script src="/javascripts/shop/login.js"></script>
+</body>
 </html>
