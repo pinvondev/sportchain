@@ -126,6 +126,25 @@ router.get('/activity', function (req, res, next) {
       res.send(result);
     }
   });
-})
+});
+
+router.get('/transaction', function (req, res, next) {
+  res.render('transaction', { title: 'jiaoyi' });
+});
+
+router.post('/transaction', function (req, res, next) {
+  console.log('wlf', 'post /transaction');
+
+  var name1 = req.body.name1;
+  console.log('wlf', 'user1s name is', name1);
+  var name2 = req.body.name2 ;
+  console.log('wlf', 'user2s name is', name2);
+  var X = req.body.X ;
+  console.log('wlf', 'number of transaction', X.toString());
+  var args = [name1, name2, X.toString()];
+  var ccFun = 'deal';
+
+  stepfabric.step(name1, ccFun, args);
+});
 
 module.exports = router;

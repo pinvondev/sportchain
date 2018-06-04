@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>transaction</title>
+<script src="/javascripts/jquery-3.3.1.min.js"></script>
+        <script src="/javascripts/layer/layer.js"></script>
+
+</head>
+<body>
+<form>
+	<input id="name1" value="{{username}}" required="require"/>
+	<input id="name2" placeholder="商家名" required="require"/>
+	<input id="X" placeholder="交易值" required="require"/>
+	<button id="btnSubmit" type="submit">提交</button>
+</form>
+	<p id="msg"></p>
+	<script type="text/javascript">
+	$('#btnSubmit').click(function(){
+		var name1 = $('#name1').val();
+		var name2 = $('#name2').val();
+		var X = $('#X').val();
+		var data = {"name1":name1, "name2":name2, "X":X};
+		$.ajax({
+			url:'/users/transaction',
+			type:'post',
+			data: data,
+			success: function (data, status) {
+				layer.msg('交易成功写入区块链');
+				$('#msg').text(data);
+			console.log('111');
+			},
+		error: function (data, status){
+				console.log('2222');
+		}
+		});
+	});
+	
+	</script>
+</body>
+</html>
