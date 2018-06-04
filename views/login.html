@@ -78,8 +78,7 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 	<form>
 		<input id="username" type="text" name="u" placeholder="用户名" required="required" />
 		<input id="password" type="password" name="p" placeholder="请输入密码" required="required" />
-        <input id="password1" type="password" name="p1" placeholder="请再次输入密码" required="required" />
-		<button id="btnRegister" type="submit" class="btn btn-primary btn-block btn-large">注册</button>
+		<button id="btnRegister" type="submit" class="btn btn-primary btn-block btn-large">登录</button>
 	</form>
 </div>
 <div style="text-align:center;"></div>
@@ -90,44 +89,36 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 	$('#btnRegister').click(function () {
 		var username = $('#username').val();
 		var password = $('#password').val();
-		var password1 = $('#password1').val();
-		if (password !== password1) {
-			$("#password").css("border", "1px solid red");
-			$("#password1").css("border", "1px solid red");
-		} else if (password.length < 6) {
-			layer.msg('密码长度不能少于6位');
-		} else if (password === password1) {
-			var data = {"uname":username,"upwd":password};
-			$.ajax({
-				url:'/users/login',
-				type:'post',
-				data:data,
-				success: function (data, status) {
-					if (status == 'success') {
-						console.log(data);
-						alert('pause');
-						if (data.code === 400) {
-							layer.msg('登录失败');
-                            $("#username").css("border", "1px solid red");
-                            $('#msg').text(data.msg);
-						} 
-						if (data.code === 200) {
-							layer.msg('登录成功');
-							setTimeout(function () {
-								location.href = '/';
-                            }, 2000);
-                            $('#msg').text(data.msg);
-						}						
-					}
-				},
-				error: function (data, err) {
-					console.log('error function');
+		var data = {"name":username,"pass":password};
+		$.ajax({
+			url:'/users/login',
+			type:'post',
+			data:data,
+			success: function (data, status) {
+				if (status == 'success') {
 					console.log(data);
-					alert('fail');
-					// location.href = 'register';
+					alert('pause');
+					if (data.code === 400) {
+						layer.msg('登录失败');
+						$("#username").css("border", "1px solid red");
+						$('#msg').text(data.msg);
+					} 
+					if (data.code === 200) {
+						layer.msg('登录成功');
+						setTimeout(function () {
+							location.href = '/';
+						}, 2000);
+						$('#msg').text(data.msg);
+					}						
 				}
-			});
-		}
+			},
+			error: function (data, err) {
+				console.log('error function');
+				console.log(data);
+				alert('fail');
+				// location.href = 'register';
+			}
+		});
 	});
 </script>
 

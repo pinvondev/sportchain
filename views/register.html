@@ -97,7 +97,7 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 			layer.msg('密码长度不能少于6位');
 
 		} else if (password === password1) {
-			var data = {"uname":username,"upwd":password};
+			var data = {"name":username,"pass":password};
 			$.ajax({
 				url:'/users/register',
 				type:'post',
