@@ -22,8 +22,8 @@ router.get('/register', function(req, res, next) {
 
 router.post('/register', function(req, res, next) {
   console.log('pinvon', '/register post');
-  var name = req.body.uname;
-  var pass = req.body.upwd;
+  var name = req.body.name;
+  var pass = req.body.pass;
   fs.writeFile('pass.txt', pass, function(err) {
     if (err) {
       return console.error(err);
@@ -60,8 +60,8 @@ router.get('/login', function (req, res, next) {
 
 router.post('/login', function (req, res, next) {
   console.log('pinvon', '/login post');
-  var name = req.body.uname;
-  var pass = req.body.upwd;
+  var name = req.body.name;
+  var pass = req.body.pass;
 
   // 正式实现需要配置数据库, 存储密码, 然后才能判断用户输入的密码是否正确
   fs.readFile('pass.txt', function (err, data) {
