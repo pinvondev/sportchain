@@ -178,7 +178,7 @@ $(function(){
 						ldata.code = code;
 					}
 					$.ajax({
-			            url: '/dologin',
+			            url: '/shops/login',
 			            type: 'post',
 			            dataType: 'json',
 			            async: true,

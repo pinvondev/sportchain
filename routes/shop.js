@@ -7,7 +7,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
     if (req.session === undefined || req.session.user === undefined) {
         console.log('pinvon', 'undefined');
-        res.redirect('../users/login');
+        res.redirect('../shop/login');
     } else {
         sql.queryByName('shops', [req.session.user.name], function (error, results) {
             if (error) {
@@ -19,6 +19,11 @@ router.get('/', function(req, res, next) {
             }
         });
     }
+});
+
+router.get('/login', function (req, res, next) {
+    console.log('pinvon', 'login');
+    res.render('shop/login');
 });
 
 router.get('/activity', function(req, res, next) {
