@@ -53,6 +53,8 @@ module.exports = {
 		var sql = '';
 		if (tableName === 'activity') {
 			sql = $activitySQL;
+		} else if (tableName === 'users') {
+			sql = $usersSQL;
 		}
 
 		query(sql.insert, params, function (error, result) {

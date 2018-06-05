@@ -22,31 +22,37 @@ router.get('/register', function(req, res, next) {
 
 router.post('/register', function(req, res, next) {
   console.log('pinvon', '/register post');
-  var name = req.body.name;
-  var pass = req.body.pass;
-  fs.writeFile('pass.txt', pass, function(err) {
-    if (err) {
-      return console.error(err);
-    }
-  });
-  userfabric.registerUser(name, function(isRegister, msg) {
-    if (isRegister) {
-      req.session.user = {
-        'name': name,
-        'pass': pass
-      }
-      console.log(req.session);
-      result = {
-        code: 200,
-        msg: msg
-      }
-      res.json(result);
+  params = [
+    req.body.name,    // username
+    req.body.pass,    // password
+    '13805976666',    // phone
+    'hello@163.com',  // email
+    0                 // isAdmin
+  ]
+
+  // 增加用户名是否已注册的判断
+
+  sql.insert('users', params, function (error, result) {
+    if (error) {
+      throw error;
     } else {
-      result = {
-        code: 400,
-        msg: msg
-      }
-      res.json(result);
+      console.log('pinvon', result);
+      console.log('pinvon', 'params.req.body.name', params[0]);
+      userfabric.registerUser(params[0], function(isRegister, msg) {
+        if (isRegister) {
+          result = {
+            code: 200,
+            msg: msg
+          }
+          res.json(result);
+        } else {
+          result = {
+            code: 400,
+            msg: msg
+          }
+          res.json(result);
+        }
+      });
     }
   });
 });

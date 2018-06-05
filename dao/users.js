@@ -1,6 +1,6 @@
 // CRUD SQL语句
 var users = {
-	insert:'INSERT INTO users(id, name, pass) VALUES(0,?,?)',
+	insert:'INSERT INTO users(username, password, phone, email, isAdmin) VALUES(?,?,?,?,?)',
 	update:'update users set name=?, pass=? where id=?',
 	delete: 'delete from users where id=?',
 	queryById: 'select * from users where id=?',
