@@ -92,4 +92,8 @@ router.get('/signin', function(req, res, next) {
     res.render('shop/signin');
 });
 
+router.get('/person', function(req, res, next) {
+    res.render('shop/person');
+});
+
 module.exports = router;
