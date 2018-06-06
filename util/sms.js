@@ -6,6 +6,7 @@ module.exports = {
     validateCode: function (tel, done) {
         var str = "along";
         var Appkey = "7da038f591a7f49fc0606ee6dac7cd66";
+        // var AppKey = "7da038f591a7f49fc0606ee6dac7cd67";
         var Appsecret = "d4b911362131";
         var Nonce = "yuanji";
         var time = new Date();
