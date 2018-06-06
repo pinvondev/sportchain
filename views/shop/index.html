@@ -8,7 +8,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
-
+<link rel="stylesheet" href="/stylesheets/shop/base.css">
+<link rel="stylesheet" href="/stylesheets/shop/reg.css">
     <title>Carousel Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
@@ -32,9 +33,9 @@
   </head>
 <!-- NAVBAR
 ================================================== -->
-  <body>
+  <body style="background-color:#3895e8">
     <div class="navbar-wrapper">
-      <div class="container">
+      <div class="container" >
         <nav class="navbar navbar-inverse navbar-static-top">
           <div class="container">
             <div class="navbar-header">
@@ -75,31 +76,23 @@
 
     <!-- Carousel
     ================================================== -->
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-      <div class="carousel-inner" role="listbox">
-        <div class="item active">
-          <img class="first-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide">
-          <div class="container">
+           <div class="form-data pos" style="font-size:18px;width:450px;height:600px;text-align:center">
             <h1>test</h1>
-            <div class="carousel-caption">
-              <h1>{{shop.name}}</h1>
-              <p>网址: {{shop.url}}</p>
+              <h1>{{shop.name}}</h1><br>
+              <p>网址: {{shop.url}}</p><br>
               <p>工商号: xxx</p>
-              <p>需要完成: 商家点击编辑信息按钮, 该页面的商家信息变成可编辑状态, 编辑完成后点击保存按钮, 将会传给后台存储.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">编辑信息</a></p>
-              </br></br></br></br>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div><!-- /.carousel -->
+              <p style="color:red">需要完成: 商家点击编辑信息按钮, 该页</p><p style="color:red"><br>面的商家信息变成可编辑状态, 编辑完</p><p style="color:red"><br>成后点击保存按钮, 将会传给后台存储.</p>
+             <br><br> <p><a class="btn btn-lg btn-primary" href="#" role="button">编辑信息</a></p>
+</div>    
+
+<!-- /.carousel -->
 
 
     <!-- Marketing messaging and featurettes
     ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
-    <div class="container marketing">
+    <div style="margin-top:700px;" class="container marketing">
 
       <!-- FOOTER -->
       <footer>
@@ -108,8 +101,6 @@
       </footer>
 
     </div><!-- /.container -->
-
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

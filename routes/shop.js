@@ -1,13 +1,33 @@
 var express = require('express');
 var sql = require('../dao/dao');
 var utils = require('../util/util');
+var multer = require('multer');
 var router = express.Router();
+
+var pathname = 'upload';
+utils.createFolder(pathname);
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, pathname);    // 保存的路径，备注：需要自己创建
+    },
+    filename: function (req, file, cb) {
+        // 将保存文件名设置为 字段名 + 时间戳，比如 logo-1478521468943
+        cb(null, req.session.user.tel);  
+    }
+});
+
+// 通过 storage 选项来对 上传行为 进行定制化
+var upload = multer({ storage: storage })
 
 /* GET shop page. */
 router.get('/', function(req, res, next) {
-    if (req.session === undefined || req.session.user === undefined) {
+    if (req.session === undefined || req.session.user === undefined) {  // 未登录
         console.log('pinvon', 'undefined');
-        res.redirect('../shop/login');
+        return res.redirect('../shop/login');
+    }
+
+    if (req.session.user.shopName === undefined) {  // 如果商家信息未完善
+        return res.redirect('../shop/person');
     } else {
         sql.queryByName('shops', [req.session.user.name], function (error, results) {
             if (error) {
@@ -22,8 +42,66 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/login', function (req, res, next) {
-    console.log('pinvon', 'login');
-    res.render('shop/login');
+    if (JSON.stringify(req.query) == "{}") {
+		console.log(req.query);
+		res.render('shop/login');
+	} 
+});
+
+router.post('/login', function (req, res, next) {
+    console.log('pinvon', 'post /login');
+    var tableName = '';
+    console.log(req.body);
+    if (req.body.personal === 'true') {
+        tableName = 'personalShop';
+    } else {
+        console.log('pinvon', 'enterpriseShop');
+        tableName = 'enterpriseShop';
+    }
+
+    params = [
+        req.body.tel
+    ];
+
+    sql.queryByPhone(tableName, params, function (error, result) {  // 查询手机号是否注册过
+        if (error) {
+            throw error;
+        } else {
+            console.log('pinvon', result);
+            if (result.length === 0) {
+                back = {
+                    code: 400,
+                    msg: '手机号未注册, 请先注册'
+                }
+                return res.json(back);
+            }
+
+            if (result[0].password != req.body.password) {
+                console.log('pinvon', 'password is error');
+                back = {
+                    code: 401,
+                    msg: '密码错误'
+                }
+                return res.json(back);
+            }
+
+            // 写入 session
+            req.session.user = {
+                'tel': req.body.tel,
+                'pass': req.body.password
+            }
+
+            if (result[0].shopName) {
+                req.session.user.shopName = result[0].shopName;
+            }
+
+            back = {
+                code: 200,
+                msg: '登录成功'
+            }
+            return res.json(back);
+        }
+    });
 });
 
 router.get('/activity', function(req, res, next) {
@@ -88,12 +166,106 @@ router.get('/rank', function(req, res, next) {
     res.render('shop/rank');
 });
 
-router.get('/signin', function(req, res, next) {
-    res.render('shop/signin');
-});
-
 router.get('/person', function(req, res, next) {
-    res.render('shop/person');
+    res.render('shop/person', {tel: req.session.user.tel});
 });
 
+// 商家 Logo 以电话为文件名, 保存到 upload 文件夹
+router.post('/person', upload.single('logo'), function (req, res, next) {
+    console.log(req.body);
+    params = [
+        req.body.shopName,
+        req.body.shopType,
+        req.body.description,
+        req.session.user.tel,
+        req.body.url,
+        req.session.user.tel
+    ];
+
+    // 查询店铺名是否已存在
+    sql.queryByName('personalShop', [req.body.shopName], function (error, result) {
+        if (error) {
+            throw error;
+        } else {
+            if (result.length > 0) {
+                back = {
+                    code: 200,
+                    msg: '商铺名已被注册'
+                }
+                return res.send(back);
+            }
+            sql.updateByPhone('personalShop', params, function (error, result) {
+                if (error) {
+                    throw error;
+                } else {
+                    console.log(result);
+                    back = {
+                        code:200,
+                        msg:'保存成功'
+                    }
+
+                    // 保存店铺名到session
+                    req.session.user.shopName = req.body.shopName;
+                    console.log(req.session.user, 'pinvon session');
+                    return res.send(back);
+                }
+            });
+        }
+    });
+});
+
+router.get('/enterprise', function(req, res, next) {
+    res.render('shop/enterprise', {tel: req.session.tel});
+});
+
+router.get('/register', function (req, res, next) {
+    if (JSON.stringify(req.query) == "{}") {
+        console.log(req.query);
+        res.render('shop/register');
+	}
+});
+
+router.post('/register', function (req, res, next) {
+    var tableName = '';
+    console.log(typeof req.body.personal);
+    if (req.body.personal === 'true') {
+        console.log('pinvon', 'personalShop');
+        tableName = 'personalShop';
+    } else {
+        console.log('pinvon', 'enterpriseShop');
+        tableName = 'enterpriseShop';
+    }
+
+    params = [
+        req.body.tel,
+        req.body.password
+    ];
+
+    sql.queryByPhone(tableName, [req.body.tel], function (error, result) {  // 判断是否注册过
+        if (error) {
+            throw error;
+        } else {
+            if (result.length != 0) {
+                back = {
+                    code:400,
+                    msg:'该手机号已注册过'
+                }
+                return res.json(back);
+            }
+            // 没有注册过
+            sql.insertPhone(tableName, params, function (error, result) {  // 插入新用户
+                if (error) {
+                    throw error;
+                } else {
+                    console.log(result);
+                    back = {
+                        code:200,
+                        msg:'注册成功'
+                    }
+                    return res.json(back);
+                }
+            });
+        }
+    })
+});
 module.exports = router;

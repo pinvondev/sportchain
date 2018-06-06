@@ -5,6 +5,8 @@ var $util = require('../util/util');
 var $usersSQL = require('./users');
 var $shopsSQL = require('./shops');
 var $activitySQL = require('./activity');
+var $personalSQL = require('./personalShop');
+var $enterpriseSQL = require('./enterpriseShop');
  
 // 使用连接池，提升性能
 var pool  = mysql.createPool($util.extend({}, $conf.mysql));
@@ -55,6 +57,8 @@ module.exports = {
 			sql = $activitySQL;
 		} else if (tableName === 'users') {
 			sql = $usersSQL;
+		} else if (tableName === 'personalShop') {
+			sql = $personalSQL;
 		}
 
 		query(sql.insert, params, function (error, result) {
@@ -66,41 +70,31 @@ module.exports = {
 			}
 		});
 	},
-	/*
-	add: function (req, res, next) {
-		pool.getConnection(function(err, connection) {
-			// 建立连接，向表中插入值
-			// 'INSERT INTO user(id, name, age) VALUES(0,?,?)',
-			connection.query($sql.insert, [req.body.uname, req.body.upwd], function(err, result) {
-				if(result) {
-					console.log('add');
-					result = {
-						code: 200,
-						msg:'增加成功'
-					};
-					res.json(result);
-				} else {
-					result = {
-						code: 400,
-						msg: 'fail'
-					};
-					res.json(result);
-				}
- 
-				// 以json形式，把操作结果返回给前台页面
-				// jsonWrite(res, result);
- 
-				// 释放连接 
-				connection.release();
-			});
+	insertPhone: function (tableName, params, callback) {
+		var sql = '';
+		if (tableName === 'personalShop') {
+			console.log('pinvon', 'insertByPhone personalShop');
+			sql = $personalSQL;
+		} else if (tableName === 'enterpriseShop') {
+			sql = $enterpriseSQL;
+		}
+
+		query(sql.insertPhone, params, function (error, result) {
+			if (error) {
+				return callback(error, null);
+			} else {
+				return callback(null, result);
+			}
 		});
-	}, */
+	},
 	queryByName: function (tableName, param, callback) {
 		var sql = '';
 		if (tableName === 'shops') {
 			sql = $shopsSQL;
-		} else if (tableName = 'activity') {
+		} else if (tableName === 'activity') {
 			sql = $activitySQL;
+		} else if (tableName === 'personalShop') {
+			sql = $personalSQL;
 		}
 
 		query(sql.queryByName, param, function (error, results) {
@@ -118,6 +112,36 @@ module.exports = {
 		}
 
 		query(sql.deleteByName, param, function (error, result) {
+			if (error) {
+				return callback(error, null);
+			} else {
+				return callback(null, result);
+			}
+		});
+	},
+	queryByPhone: function (tableName, params, callback) {
+		console.log('pinvon', 'queryPhone');
+		var sql = '';
+		if (tableName === 'personalShop') {
+			sql = $personalSQL;
+		} else if (tableName === 'enterpriseShop') {
+			sql = $enterpriseSQL;
+		}
+
+		query(sql.queryByPhone, params, function (error, result) {
+			if (error) {
+				return callback(error, null);
+			} else {
+				return callback(null, result);
+			}
+		});
+	},
+	updateByPhone: function (tableName, params, callback) {
+		var sql = '';
+		if (tableName === 'personalShop') {
+			sql = $personalSQL;
+		}
+		query(sql.updateByPhone, params, function (error, result) {
 			if (error) {
 				return callback(error, null);
 			} else {

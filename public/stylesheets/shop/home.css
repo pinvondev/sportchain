@@ -63,7 +63,7 @@
 }
 .loading {
     border: 1px solid #D1D1D1;
-    background: url(../img/loading.gif) no-repeat center;
+    background: url(/images/loading.gif) no-repeat center;
 	background-size:20px;
 }
 .aui-up-clarity {

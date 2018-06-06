@@ -1,3 +1,5 @@
+var fs = require('fs');
+
 // 提升性能
 module.exports = {
   extend: function(target, source, flag) {
@@ -20,5 +22,12 @@ module.exports = {
     var minute = date.getMinutes();
     minute = minute < 10 ? ('0' + minute) : minute;
     return year+'-'+month+'-'+day+' '+hour+':'+minute;
+  },
+  createFolder: function (path) {
+    try {
+      fs.accessSync(path); 
+    } catch(e) {
+      fs.mkdirSync(path);
+    } 
   }
 };

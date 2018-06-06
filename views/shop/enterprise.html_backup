@@ -9,8 +9,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="format-detection" content="telephone=no">
 	<title>企业登陆</title>
-<link rel="stylesheet" type="text/css" href="/stylesheets/shop/base_one.css">
-	<link rel="stylesheet" type="text/css" href="/stylesheets/shop/home.css">
+<link rel="stylesheet" type="text/css" href="css/base_one.css">
+	<link rel="stylesheet" type="text/css" href="css/home.css">
 </head>
 <body>
 <section class="aui-content">
@@ -18,7 +18,7 @@
 	<div class="aui-content-up">
 		<form action="" name="form1" method="post">
 			<div class="aui-content-up-form" >
-				<h2 style="text-align: right">登录账户：<span>{{tel}}</span></h2>
+				<h2 style="text-align: right">登录账户：<span>1625121036</span></h2>
 				<h2>企业登陆</h2>
 			</div>
 			<div class="aui-content-up-form" >
@@ -85,7 +85,7 @@
 					<div class="aui-content-img-box aui-content-full">
 						<div class="aui-photo aui-up-img clear">
 							<section class="aui-file-up fl">
-								<img src="/images/up.png" class="add-img">
+								<img src="img/up.png" class="add-img">
 								<input type="file" name="file" id="file_one" class="file" value="" accept="image/jpg,image/jpeg,image/png,image/bmp" multiple/>
 							</section>
 						</div>
@@ -100,7 +100,7 @@
 					<div class="aui-content-img-box aui-content-full">
 						<div class="aui-photo aui-up-img clear">
 							<section class="aui-file-up fl">
-								<img src="/images/up.png" class="add-img">
+								<img src="img/up.png" class="add-img">
 								<input type="file" name="file" id="file_two" class="file" value="" accept="image/jpg,image/jpeg,image/png,image/bmp" multiple/>
 							</section>
 						</div>
@@ -118,7 +118,7 @@
 					<div class="aui-content-img-box aui-content-full">
 						<div class="aui-photo aui-up-img clear">
 							<section class="aui-file-up fl">
-								<img src="/images/up.png" class="add-img">
+								<img src="img/up.png" class="add-img">
 								<input type="file" name="file" id="file_three" class="file" value="" accept="image/jpg,image/jpeg,image/png,image/bmp" multiple/>
 							</section>
 						</div>
@@ -133,7 +133,7 @@
 					<div class="aui-content-img-box aui-content-full">
 						<div class="aui-photo aui-up-img clear">
 							<section class="aui-file-up fl">
-								<img src="/images/up.png" class="add-img">
+								<img src="img/up.png" class="add-img">
 								<input type="file" name="file" id="file_four" class="file" value="" accept="image/jpg,image/jpeg,image/png,image/bmp" multiple/>
 							</section>
 						</div>
@@ -143,7 +143,7 @@
 		</form>
 	</div>
 	<div class="aui-btn-default">
-		<button class="aui-btn aui-btn-account"><a href="/shop/index">保存并提交审核</a></button>
+		<button class="aui-btn aui-btn-account">保存并提交审核</button>
 	</div>
 </section>
 <div class="aui-mask aui-works-mask">

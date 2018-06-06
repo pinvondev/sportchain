@@ -1,3 +1,4 @@
+var fileList;
 $(function() {
     var delParent;
     var defaults = {
@@ -9,14 +10,14 @@ $(function() {
         var idFile = $(this).attr("id");
         var file = document.getElementById(idFile);
         var imgContainer = $(this).parents(".aui-photo");
-        var fileList = file.files;
-        console.log(fileList + "======filelist=====");
+        fileList = file.files;
+        console.log('pinvon', fileList[0]);
         var input = $(this).parent();
         var imgArr = [];
         var numUp = imgContainer.find(".aui-up-section").length;
         var totalNum = numUp + fileList.length;
-        if (fileList.length > 3 || totalNum > 3) {
-            alert("你好！上传图片不得超过3张，请重新选择");
+        if (fileList.length > 1 || totalNum > 1) {
+            alert("你好！上传图片不得超过2张");
         } else if (numUp < 3) {
             fileList = validateUp(fileList);
             for (var i = 0; i < fileList.length; i++) {
@@ -32,7 +33,7 @@ $(function() {
                     $(".aui-works-mask").show();
                     delParent = $(this).parent();
                 });
-                $img0.attr("src", "img/close.png").appendTo($section);
+                $img0.attr("src", "/images/close.png").appendTo($section);
                 var $img = $("<img class='aui-to-up-img aui-up-clarity'>");
                 $img.attr("src", imgArr[i]);
                 $img.appendTo($section);
@@ -92,4 +93,52 @@ $(function() {
         }
         return arrFiles;
     }
-})
+});
+
+function checkna(){
+    na=form1.yourname.value;
+    if( na.length <1 || na.length >6)
+    {
+        divname.innerHTML='<font class="tips_false">长度是1~6个字符</font>';
+    }else{
+        divname.innerHTML='<font class="tips_true">输入正确</font>';
+    }
+}
+
+function checkpsd1(){
+    na=form1.youphone.value;
+    if( na.length <11 || na.length >11)
+    {
+        phone.innerHTML='<font class="tips_false">必须是11位的数字</font>';
+    }else{
+        phone.innerHTML='<font class="tips_true">输入正确</font>';
+    }
+}
+
+function checkpsd2(){
+    na=form1.youziz.value;
+    if( na.length <18 || na.length >18)
+    {
+        zizhi.innerHTML='<font class="tips_false">必须是18位社会信用代码</font>';
+    }else{
+        zizhi.innerHTML='<font class="tips_true">输入正确</font>';
+    }
+}
+
+$('#submit').click(function (){
+    console.log('pinvon', 'touch submit');
+    data = {
+        file: fileList[0]
+    };
+    $.ajax({
+        url:'person',
+        type:'post',
+        data:data,
+        success: function(data, status) {
+            console.log('success');
+        },
+        error: function(data, status) {
+            console.log('fail');
+        }
+    });
+});
