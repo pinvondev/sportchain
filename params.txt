@@ -1,0 +1,21 @@
+// 注册  前->后
+{
+    name,
+    pass
+}
+
+// 登录  前->后
+{
+    name,
+    pass
+}
+
+// 商家列表  后->前
+shopList = [shop_1, shop_2, shop_n]
+shop_x = {
+    shopName,  // 商家名
+    shopLogo,  // 商家Logo
+    energy,    // 商家运动能量
+    descript,  // 商家描述
+    url        // 商家网址
+}
