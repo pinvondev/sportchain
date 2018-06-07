@@ -4,20 +4,23 @@ var utils = require('../utils/util');
 var multer = require('multer');
 var router = express.Router();
 
-var pathname = 'upload';
-utils.createFolder(pathname);
+// var uploadFolder = 'public/upload/';
+// utils.createFolder(uploadFolder);// 通过 storage 选项来对 上传行为 进行定制化
+
+// 通过 filename 属性定制
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, pathname);    // 保存的路径，备注：需要自己创建
+        uploadFolder = 'public/upload/'+req.session.user.tel;
+        utils.createFolder(uploadFolder);
+        cb(null, uploadFolder);    // 保存的路径，备注：需要自己创建
     },
     filename: function (req, file, cb) {
-        // 将保存文件名设置为 字段名 + 时间戳，比如 logo-1478521468943
         cb(null, req.session.user.tel);  
     }
 });
 
 // 通过 storage 选项来对 上传行为 进行定制化
-var upload = multer({ storage: storage })
+var upload = multer({ storage: storage });
 
 /* GET shop page. */
 router.get('/', function(req, res, next) {
@@ -276,5 +279,9 @@ router.post('/register', function (req, res, next) {
             });
         }
     })
+});
+
+router.get('/test', function (req, res, next) {
+    res.sendFile('/home/pinvon/go/src/github.com/hyperledger/projects/fabric-samples/sportchain/upload/13459238667');
 });
 module.exports = router;
