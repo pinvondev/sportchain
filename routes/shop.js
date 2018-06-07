@@ -1,6 +1,6 @@
 var express = require('express');
 var sql = require('../dao/dao');
-var utils = require('../util/util');
+var utils = require('../utils/util');
 var multer = require('multer');
 var router = express.Router();
 
@@ -29,15 +29,24 @@ router.get('/', function(req, res, next) {
     if (req.session.user.shopName === undefined) {  // 如果商家信息未完善
         return res.redirect('../shop/person');
     } else {
-        sql.queryByName('shops', [req.session.user.name], function (error, results) {
+        params = ['personalShop', '*', 'phone=?', [req.session.user.tel]];
+        sql.queryByConditions(params, function (error, result) {
             if (error) {
                 throw error;
             } else {
-                console.log(results);
-                shopId = results.id;
-                res.render('shop/', { shop: results });
+                console.log(result);
+                res.render('shop/', { shop: result[0] });
             }
         });
+        // sql.queryByName('shops', [req.session.user.name], function (error, results) {
+        //     if (error) {
+        //         throw error;
+        //     } else {
+        //         console.log(results);
+        //         shopId = results.id;
+        //         res.render('shop/', { shop: results });
+        //     }
+        // });
     }
 });
 

@@ -25,36 +25,81 @@ router.post('/register', function(req, res, next) {
   params = [
     req.body.name,    // username
     req.body.pass,    // password
-    '13805976666',    // phone
-    'hello@163.com',  // email
-    0                 // isAdmin
+    req.body.phone,    // phone
+    req.body.email,    // email
+    0                // isAdmin
   ]
 
   // 增加用户名是否已注册的判断
-
-  sql.insert('users', params, function (error, result) {
-    if (error) {
-      throw error;
-    } else {
-      console.log('pinvon', result);
-      console.log('pinvon', 'params.req.body.name', params[0]);
-      userfabric.registerUser(params[0], function(isRegister, msg) {
-        if (isRegister) {
-          result = {
-            code: 200,
-            msg: msg
-          }
-          res.json(result);
+  if (params[0] && params[1] && params[2] && params[3]) {
+    sql.queryByName('users', params, function (error, result) {
+      if (error) {
+        throw error;
+      } else {
+        if (result.length === 0) {
+          sql.insert('users', params, function (error, result) {
+            if (error) {
+              throw error;
+            } else {
+              userfabric.registerUser(params[0], function (isRegister,msg) {
+                if (isRegister) {
+                  result = {
+                    code:200,
+                    msg: msg
+                  }
+                  res.json(result);
+                } else {
+                  result = {
+                    code: 400,
+                    msg: msg
+                  }
+                  res.json(result);
+                }
+              });
+            }
+          });
         } else {
-          result = {
-            code: 400,
-            msg: msg
+          back = {
+            code: 101,
+            msg: '该用户名已经被注册！'
           }
-          res.json(result);
+          return res.send(back);
         }
-      });
+      }
+    });
+
+    /*sql.insert('users', params, function (error, result) {
+      if (error) {
+        throw error;
+      } else {
+        console.log('pinvon', result);
+        console.log('pinvon', 'params.req.body.name', params[0]);
+        userfabric.registerUser(params[0], function (isRegister, msg) {
+          if (isRegister) {
+            result = {
+              code: 200,
+              msg: msg
+            }
+            res.json(result);
+          } else {
+            result = {
+              code: 400,
+              msg: msg
+            }
+            res.json(result);
+          }
+        });
+      }
+    });*/
+
+  }else {
+    back = {
+      code: 400,
+      msg: '请填写完整的用户信息!'
     }
-  });
+    return res.send(back);
+  }
+
 });
 
 router.get('/login', function (req, res, next) {
@@ -66,28 +111,48 @@ router.get('/login', function (req, res, next) {
 
 router.post('/login', function (req, res, next) {
   console.log('pinvon', '/login post');
-  var name = req.body.name;
-  var pass = req.body.pass;
+  params = [
+    req.body.name
+  ]
 
   // 正式实现需要配置数据库, 存储密码, 然后才能判断用户输入的密码是否正确
-  fs.readFile('pass.txt', function (err, data) {
-    if (err) {
-      return console.error(err);
-    }
-    console.log(data.toString());
-    console.log(typeof pass);
-    if (data.toString().indexOf(pass) > -1) {
-      req.session.user = {
-        'name': name,
-        'pass': pass
+  if (params && req.body.pass) {
+    sql.queryByName('users', params, function (error, result) {
+      if (error) {
+        throw error;
+      } else {
+        if (result.length == 0 ){
+          back = {
+            code: 404,
+            msg: '用户名或密码错误！'
+          }
+          return res.send(back);
+
+        }else if (result[0].password != req.body.pass) {  // 密码错误
+          back = {
+            code: 400,
+            msg: '用户名或密码错误！'
+          }
+          return res.send(back);
+        }else{
+          back = {
+            code: 200,
+            msg: '登录成功！'
+          }
+          return res.send(back);
+        }
+
+        // mi ma zheng que
+
       }
-      console.log(req.session);
-      result = {
-        code: 200
-      }
-      res.json(result);
+    });
+  } else {
+    back = {
+      code: 400,
+      msg: '请填写完整的用户信息!'
     }
-  });
+    return res.send(back);
+  }
 });
 
 router.get('/step', function (req, res, next) {

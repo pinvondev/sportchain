@@ -10,6 +10,9 @@
     pass
 }
 
+// 商家信息显示 shop/
+
+
 // 商家列表  后->前
 shopList = [shop_1, shop_2, shop_n]
 shop_x = {

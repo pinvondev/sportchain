@@ -77,6 +77,8 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 	<h1>注册</h1>
 	<form>
 		<input id="username" type="text" name="u" placeholder="用户名" required="required" />
+		<input id="phone" type="text" name="phone" placeholder="手机号码" required="required" />
+		<input id="email" type="text" name="email" placeholder="邮箱" required="required" />
 		<input id="password" type="password" name="p" placeholder="请输入密码" required="required" />
         <input id="password1" type="password" name="p1" placeholder="请再次输入密码" required="required" />
 		<button id="btnRegister" type="submit" class="btn btn-primary btn-block btn-large">注册</button>
@@ -88,6 +90,8 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 <script type="text/javascript">
 	$('#btnRegister').click(function () {
 		var username = $('#username').val();
+		var phone = $('#phone').val();
+		var email = $('#email').val();
 		var password = $('#password').val();
 		var password1 = $('#password1').val();
 		if (password !== password1) {
@@ -97,7 +101,7 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 			layer.msg('密码长度不能少于6位');
 
 		} else if (password === password1) {
-			var data = {"name":username,"pass":password};
+			var data = {"name":username,"pass":password,"phone":phone,"email":email};
 			$.ajax({
 				url:'/users/register',
 				type:'post',

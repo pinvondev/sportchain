@@ -76,14 +76,16 @@
 
     <!-- Carousel
     ================================================== -->
-           <div class="form-data pos" style="font-size:18px;width:450px;height:600px;text-align:center">
-            <h1>test</h1>
-              <h1>{{shop.name}}</h1><br>
-              <p>网址: {{shop.url}}</p><br>
-              <p>工商号: xxx</p>
-              <p style="color:red">需要完成: 商家点击编辑信息按钮, 该页</p><p style="color:red"><br>面的商家信息变成可编辑状态, 编辑完</p><p style="color:red"><br>成后点击保存按钮, 将会传给后台存储.</p>
-             <br><br> <p><a class="btn btn-lg btn-primary" href="#" role="button">编辑信息</a></p>
-</div>    
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+    </div>
+    <div class="form-data pos" style="font-size:18px;width:450px;height:600px;text-align:center">
+      <img src="../../upload/13459238667">
+      <h1>{{shop.shopname}}</h1><br>
+      <p>网址: {{shop.shoplink}}</p><br>
+      <p>工商号: xxx</p>
+      <br><br> <p><a class="btn btn-lg btn-primary" href="/shop/person" role="button">编辑信息</a></p>
+    </div>
 
 <!-- /.carousel -->
 
@@ -104,8 +106,6 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="/javascripts/jquery-3.3.1.min.js"><\/script>')</script>
     <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <script src="/javascripts/shop/holder.min.js"></script>

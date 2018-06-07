@@ -1,7 +1,7 @@
 // 实现与MySQL交互
 var mysql = require('mysql');
 var $conf = require('../conf/db');
-var $util = require('../util/util');
+var $util = require('../utils/util');
 var $usersSQL = require('./users');
 var $shopsSQL = require('./shops');
 var $activitySQL = require('./activity');
@@ -93,6 +93,9 @@ module.exports = {
 			sql = $shopsSQL;
 		} else if (tableName === 'activity') {
 			sql = $activitySQL;
+		} else if (tableName === 'users') {
+			console.log('pinvon', 'usersSQL');
+            sql = $usersSQL;
 		} else if (tableName === 'personalShop') {
 			sql = $personalSQL;
 		}
@@ -158,5 +161,15 @@ module.exports = {
 				return callback(null, result);
 			}
 		});
+	},
+	queryByConditions: function (params, callback) {
+		var sql = $personalSQL.queryByConditions(params[0], params[1], params[2]);
+		query(sql, params[3], function (error, result) {
+			if (error) {
+				return callback(error, null);
+			} else {
+				return callback(null, result);
+			}
+		})
 	}
 };
