@@ -134,10 +134,14 @@ router.post('/login', function (req, res, next) {
             msg: '用户名或密码错误！'
           }
           return res.send(back);
-        }else{
+        } else {
           back = {
             code: 200,
             msg: '登录成功！'
+          }
+          req.session.user = {
+            'name': req.body.name,
+            'pass': req.body.pass
           }
           return res.send(back);
         }
