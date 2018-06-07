@@ -69,7 +69,9 @@ git checkout v1.1.0
 
 [[./docs/node.org][安装 Node]]
 
-[[./docs/sql.org][导入数据]]
+[[./docs/session.org][使用 Redis 作为缓存]]
+
+[[./docs/sql.org][导入数据到 MySQL]]
 
 ** 运行
 
