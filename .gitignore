@@ -3,3 +3,4 @@ node_modules
 fabric/hfc-key-store
 .vscode
 log
+public/upload/*
