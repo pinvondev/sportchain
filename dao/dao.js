@@ -7,6 +7,7 @@ var $shopsSQL = require('./shops');
 var $activitySQL = require('./activity');
 var $personalSQL = require('./personalShop');
 var $enterpriseSQL = require('./enterpriseShop');
+var final = require('./final');
  
 // 使用连接池，提升性能
 var pool  = mysql.createPool($util.extend({}, $conf.mysql));
@@ -163,7 +164,19 @@ module.exports = {
 		});
 	},
 	queryByConditions: function (params, callback) {
-		var sql = $personalSQL.queryByConditions(params[0], params[1], params[2]);
+		var sql = final.queryByConditions(params[0], params[1], params[2]);
+		query(sql, params[3], function (error, result) {
+			console.log(sql);
+			if (error) {
+				return callback(error, null);
+			} else {
+				return callback(null, result);
+			}
+		})
+	},
+	updateByConditions: function (params, callback) {
+		var sql = final.updateByConditions(params[0], params[1], params[2]);
+		console.log('pinvon', sql, params[3]);
 		query(sql, params[3], function (error, result) {
 			if (error) {
 				return callback(error, null);

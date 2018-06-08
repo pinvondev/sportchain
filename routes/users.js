@@ -226,18 +226,69 @@ router.post('/transaction', function (req, res, next) {
 // 获取二维码
 router.get('/qrcode', function (req, res, next) {
   // 二维码包含信息: 活动ID, 用户名, 是否为联合活动
-  sql.queryByName('activity', [req.body.shop_name], function (error, result) {
+  // 检查是否存在该活动
+  params = ['activity', '*', 'shopName=?', [req.query.shop_name]];
+  sql.queryByConditions(params, function (error, result) {
     if (error) {
       throw error;
     } else {
-      if (req.body.is_alliance === result[0].isAlliance) {
-        var info = result[0].id + ';' + req.session.user.name + ';' + req.body.is_alliance;
-        var temp_qrcode = qr_image.image(info);
-        res.type('png');
-        return temp_qrcode.pipe(res);
+      // 如果该活动的优惠券已兑完
+      if (result[0].realCoupons >= result[0].totalCoupons) {
+        back = {
+          code: 400,
+          msg: '无剩余优惠券可兑换'
+        }
+        return res.json(back);
+      } else {
+        // 更新数据库
+        update_params = [
+          'activity', 
+          'realCoupons=?', 
+          'id=?', 
+          [result[0].realCoupons+1, result[0].id]
+        ];
+        sql.updateByConditions(update_params, function (error, update_result) {
+          if (error) {
+            throw error;
+          } else {
+            back = {
+              code: 200,
+              msg: result[0].id + ';' + req.session.user.name + ';'
+            }
+            return res.json(back);
+          }
+        });
       }
     }
   });
+});
+
+// 用户进入商家界面
+router.get('/shop', function (req, res, next) {
+  // 返回商家名, 商家Logo, 商家描述, 商家能量
+  var params = [
+    'personalShop',
+    'shopname, introduction, shoplink, shoplogo, phone, energy',
+    ''
+  ]
+  sql.queryByConditions(params, function (error, results) {
+    if (error) {
+      throw error;
+    } else {
+      var shops = [];
+      for (var index = 0; index < results.length; ++index) {
+        shop = [];
+        shop_logo = 'public/upload/' + results[index].shoplogo + '/' + results[index].shoplogo + '.png';
+        shop.push(results[index].shopname, results[index].introduction,
+                  results[index].shoplink, shop_logo, results[index].energy);
+        shops.push(shop);
+      }
+      back = {
+        shops: shops
+      }
+      return res.json(back);
+    }
+  })
 });
   
 module.exports = router;

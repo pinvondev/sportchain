@@ -20,17 +20,22 @@
 }
 
 // 二维码 后->前
-// 一张二维码图片
+{
+    str_code;     // 生成二维码的字符串
+}
 
-// 商家信息显示 shop/
-
+// 商家信息显示
+路由: /user/shops GET
+{
+    refresh       // 第几次刷新
+}
 
 // 商家列表  后->前
-shopList = [shop_1, shop_2, shop_n]
-shop_x = {
-    shopName,  // 商家名
-    shopLogo,  // 商家Logo
-    energy,    // 商家运动能量
-    descript,  // 商家描述
-    url        // 商家网址
-}
+shops = [shop_1, shop_2, shop_n]
+shop_x = [
+    shopname,       // 商家名
+    introduction,   // 商家描述
+    shoplink,       // 商家链接
+    shoplogo,       // 商家Logo
+    energy          // 商家运动能量
+]
