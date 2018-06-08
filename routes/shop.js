@@ -15,7 +15,7 @@ var storage = multer.diskStorage({
         cb(null, uploadFolder);    // 保存的路径，备注：需要自己创建
     },
     filename: function (req, file, cb) {
-        cb(null, req.session.user.tel);  
+        cb(null, file.originalname);  
     }
 });
 
@@ -189,7 +189,7 @@ router.post('/person', upload.single('logo'), function (req, res, next) {
         req.body.shopName,
         req.body.shopType,
         req.body.description,
-        req.session.user.tel,
+        req.file.originalname,
         req.body.url,
         req.session.user.tel
     ];

@@ -5,6 +5,7 @@ var fs = require('fs');
 var stepfabric = require('../fabric/step');
 var queryfabric = require('../fabric/query');
 var qr_image = require('qr-image');
+var path = require('path');
 var sql = require('../dao/dao');
 var router = express.Router();
 
@@ -232,36 +233,99 @@ router.get('/qrcode', function (req, res, next) {
     if (error) {
       throw error;
     } else {
-      // 如果该活动的优惠券已兑完
-      if (result[0].realCoupons >= result[0].totalCoupons) {
-        back = {
-          code: 400,
-          msg: '无剩余优惠券可兑换'
-        }
-        return res.json(back);
-      } else {
-        // 更新数据库
-        update_params = [
-          'activity', 
-          'realCoupons=?', 
-          'id=?', 
-          [result[0].realCoupons+1, result[0].id]
-        ];
-        sql.updateByConditions(update_params, function (error, update_result) {
+      if (typeof result[0].user_id != 'object') {  // 检查用户是否已经兑换过
+        params_user = ['users', 'id', 'username=?', [req.query.name]];
+        sql.queryByConditions(params_user, function (error, result_user) {
           if (error) {
             throw error;
           } else {
-            back = {
-              code: 200,
-              msg: result[0].id + ';' + req.session.user.name + ';'
+            var has_id = hasUserID(result[0].user_id, result_user[0].id);
+            if (has_id) {
+              back = {
+                code: 400,
+                msg: '您已兑换过该优惠券'
+              }
+              return res.json(back);
+            } else {
+              if (result[0].realCoupons >= result[0].totalCoupons) {
+                back = {
+                  code: 401,
+                  msg: '无剩余优惠券可兑换'
+                }
+                return res.json(back);
+              } else {
+                // 更新数据库
+                update_params = [
+                  'activity', 
+                  'realCoupons=?, user_id=?', 
+                  'id=?',
+                  [result[0].realCoupons+1, result[0].user_id+'|'+result_user[0].id, result[0].id]
+                ];
+                sql.updateByConditions(update_params, function (error, update_result) {
+                  if (error) {
+                    throw error;
+                  } else {
+                    back = {
+                      code: 200,
+                      msg: result[0].id + ';' + req.session.user.name + ';'
+                    }
+                    return res.json(back);
+                  }
+                });
+              }
             }
-            return res.json(back);
+          }
+        });
+      } else {
+        params_user = ['users', 'id', 'username=?', [req.query.name]];
+        sql.queryByConditions(params_user, function (error, result_user) {
+          if (error) {
+            throw error;
+          } else {
+            if (result[0].realCoupons >= result[0].totalCoupons) {
+              back = {
+                code: 401,
+                msg: '无剩余优惠券可兑换'
+              }
+              return res.json(back);
+            } else {
+              console.log('pinvon', 'is null');
+              // 更新数据库
+              update_params = [
+                'activity', 
+                'realCoupons=?, user_id=?', 
+                'id=?', 
+                [result[0].realCoupons+1, result[0].user_id+'|'+result_user[0].id, result[0].id]
+              ];
+              sql.updateByConditions(update_params, function (error, update_result) {
+                if (error) {
+                  throw error;
+                } else {
+                  back = {
+                    code: 200,
+                    msg: result[0].id + ';' + req.session.user.name + ';'
+                  }
+                  return res.json(back);
+                }
+              });
+            }
           }
         });
       }
     }
   });
 });
+
+function hasUserID(str, user_id) {
+  var users = str.split('|');
+  console.log('pinvon', 'users', users, user_id);
+  for (var index = 0; index < users.length; ++index) {
+    if (user_id === parseInt(users[index])) {
+      return true;
+    }
+  }
+  return false;
+}
 
 // 用户进入商家界面
 router.get('/shop', function (req, res, next) {
@@ -278,7 +342,7 @@ router.get('/shop', function (req, res, next) {
       var shops = [];
       for (var index = 0; index < results.length; ++index) {
         shop = [];
-        shop_logo = 'public/upload/' + results[index].shoplogo + '/' + results[index].shoplogo + '.png';
+        shop_logo = '/images/' + results[index].phone + '/' + results[index].shoplogo;
         shop.push(results[index].shopname, results[index].introduction,
                   results[index].shoplink, shop_logo, results[index].energy);
         shops.push(shop);
@@ -289,6 +353,10 @@ router.get('/shop', function (req, res, next) {
       return res.json(back);
     }
   })
+});
+
+router.get('/images', function (req, res, next) {
+  res.render('test', {image: '/images/bj.jpg'});
 });
   
 module.exports = router;
