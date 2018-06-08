@@ -280,8 +280,4 @@ router.post('/register', function (req, res, next) {
         }
     })
 });
-
-router.get('/test', function (req, res, next) {
-    res.sendFile('/home/pinvon/go/src/github.com/hyperledger/projects/fabric-samples/sportchain/upload/13459238667');
-});
 module.exports = router;

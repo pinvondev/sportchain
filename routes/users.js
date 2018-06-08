@@ -4,6 +4,7 @@ var userfabric = require('../fabric/user');
 var fs = require('fs');
 var stepfabric = require('../fabric/step');
 var queryfabric = require('../fabric/query');
+var qr_image = require('qr-image');
 var sql = require('../dao/dao');
 var router = express.Router();
 
@@ -222,4 +223,21 @@ router.post('/transaction', function (req, res, next) {
   stepfabric.step(name1, ccFun, args);
 });
 
+// 获取二维码
+router.get('/qrcode', function (req, res, next) {
+  // 二维码包含信息: 活动ID, 用户名, 是否为联合活动
+  sql.queryByName('activity', [req.body.shop_name], function (error, result) {
+    if (error) {
+      throw error;
+    } else {
+      if (req.body.is_alliance === result[0].isAlliance) {
+        var info = result[0].id + ';' + req.session.user.name + ';' + req.body.is_alliance;
+        var temp_qrcode = qr_image.image(info);
+        res.type('png');
+        return temp_qrcode.pipe(res);
+      }
+    }
+  });
+});
+  
 module.exports = router;

@@ -1,14 +1,26 @@
 // 注册  前->后
+路由: user/register POST
 {
     name,
     pass
 }
 
 // 登录  前->后
+路由: user/login POST
 {
     name,
     pass
 }
+
+// 二维码 前->后
+路由: user/qrcode GET
+{
+    shop_name,    // 商家名称
+    is_alliance   // 是否为联盟活动
+}
+
+// 二维码 后->前
+// 一张二维码图片
 
 // 商家信息显示 shop/
 
