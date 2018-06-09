@@ -33,14 +33,14 @@ router.get('/', function(req, res, next) {
         return res.redirect('../shop/person');
     } else {
         params = ['personalShop', '*', 'phone=?', [req.session.user.tel]];
-        sql.queryByConditions(params, function (error, result) {
-            if (error) {
-                throw error;
-            } else {
+        sql.queryByConditions(params)
+            .then((result) => {
                 console.log(result);
                 res.render('shop/', { shop: result[0] });
-            }
-        });
+            })
+            .catch((error) => {
+                throw error;
+            })
         // sql.queryByName('shops', [req.session.user.name], function (error, results) {
         //     if (error) {
         //         throw error;
