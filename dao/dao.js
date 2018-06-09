@@ -1,5 +1,12 @@
 // 实现与MySQL交互
 var mysql = require('mysql');
+var conn = mysql.createConnection({
+ host: 'localhost',
+ user: 'root',
+ password: '123456',
+ database:'sportchain',
+ port: 3306
+});
 var $conf = require('../conf/db');
 var $util = require('../utils/util');
 var $usersSQL = require('./users');
@@ -41,17 +48,21 @@ var jsonWrite = function (res, ret) {
 };
  
 module.exports = {
-	queryAll: function (tableName, params, callback) {
-		if (tableName === 'shops') {
-			query($shopsSQL.queryAll, [params.id], function (error, results) {
-				if (error) {
-					return callback(error, null);
-				} else {
-					return callback(null, results);
-				}
-			});
-		}
-	},
+	queryAll: function (tableName, callback) {
+        	        var tempArr = new Array();
+                	conn.query("select * from enterpriseShop",function(err,results){
+		if(err){
+        	                throw err;
+        	        }
+		if(results){
+                        console.log(results);
+                        for(var i = 0; i < results.length; i++){
+                        tempArr[i] = results[i];
+                        }
+                        return callback(null, results);
+                }
+                });
+        },
 	insert: function (tableName, params, callback) {
 		var sql = '';
 		if (tableName === 'activity') {
@@ -99,8 +110,10 @@ module.exports = {
             sql = $usersSQL;
 		} else if (tableName === 'personalShop') {
 			sql = $personalSQL;
-		}
-
+		} else if (tableName === 'enterpriseShop') {
+                        sql = $enterpriseSQL;
+                  //      console.log(sql);
+                }
 		query(sql.queryByName, param, function (error, results) {
 			if (error) {
 				return callback(error, null);
@@ -144,7 +157,10 @@ module.exports = {
 		var sql = '';
 		if (tableName === 'personalShop') {
 			sql = $personalSQL;
-		}
+		} else if ( tableName === 'enterpriseShop') {
+                        sql = $enterpriseSQL;
+                 //       console.log(sql);
+                }
 		query(sql.updateByPhone, params, function (error, result) {
 			if (error) {
 				return callback(error, null);

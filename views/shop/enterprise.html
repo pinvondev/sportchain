@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -9,6 +9,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="format-detection" content="telephone=no">
 	<title>企业登陆</title>
+	<script type="text/javascript" src="/javascripts//jquery-3.3.1.min.js"></script>
+    <script src="/javascripts/layer/layer.js"></script>
 <link rel="stylesheet" type="text/css" href="/stylesheets/shop/base_one.css">
 	<link rel="stylesheet" type="text/css" href="/stylesheets/shop/home.css">
 </head>
@@ -16,9 +18,9 @@
 <section class="aui-content">
 	<div style="height:20px;"></div>
 	<div class="aui-content-up">
-		<form action="" name="form1" method="post">
+		<form action="/shop/enterprise" name="form1" method="post" enctype="multipart/form-data">
 			<div class="aui-content-up-form" >
-				<h2 style="text-align: right">登录账户：<span>{{tel}}</span></h2>
+				<h2 style="text-align: right">登录账户：{{tel}}<span></span></h2>
 				<h2>企业登陆</h2>
 			</div>
 			<div class="aui-content-up-form" >
@@ -30,6 +32,21 @@
 				<div class="aui-form-input">
 					<input type="text" class="aui-form-control-two" name="yourname" onBlur="checkna()" required id="1" placeholder="请输入身份证名字">
 					<span class="tips" id="divname">长度1~6个字符</span>
+				</div>
+			</div>
+			<div class="aui-form-group clear">
+				<label class="aui-label-control">
+					店铺Logo
+				</label>
+				<div class="aui-form-input">
+					<div class="aui-content-img-box aui-content-full">
+						<div class="aui-photo aui-up-img clear">
+							<section class="aui-file-up fl">
+								<img src="/images/up.png" class="add-img">
+								<input type="file" name="file1" id="file1" class="file" value="" accept="image/jpg,image/jpeg,image/png,image/bmp" multiple/>
+							</section>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="aui-form-group clear">
@@ -46,8 +63,17 @@
 					组织机构代码
 				</label>
 				<div class="aui-form-input">
-					<input type="text" class="aui-form-control-two" name="youphone" id="3" placeholder="请输入代码" onBlur="checkpsd1()" required/>
+					<input type="text" class="aui-form-control-two" name="youphone1" id="3" placeholder="请输入代码" onBlur="checkpsd1()" required/>
 					<span class="tips" id="code">必须是代码</span>
+				</div>
+			</div>
+			<div class="aui-form-group clear">
+				<label class="aui-label-control">
+					店铺链接
+				</label>
+				<div class="aui-form-input">
+					<input type="text" class="aui-form-control-two" name="url" required id="1" placeholder="请输入店铺网址">
+					<span class="tips" id="divname">必须是网页链接</span>
 				</div>
 			</div>
 			<div class="aui-content-up-form" >
@@ -70,7 +96,7 @@
 					法人代表名称
 				</label>
 				<div class="aui-form-input">
-					<input type="text" class="aui-form-control-two" name="yourname" onBlur="checkna()" required id="5" placeholder="请输入法人名字">
+					<input type="text" class="aui-form-control-two" name="yourname1" onBlur="checkna()" required id="5" placeholder="请输入法人名字">
 					<span class="tips" id="layer_name">长度1~6个字符</span>
 				</div>
 			</div>
@@ -86,7 +112,7 @@
 						<div class="aui-photo aui-up-img clear">
 							<section class="aui-file-up fl">
 								<img src="/images/up.png" class="add-img">
-								<input type="file" name="file" id="file_one" class="file" value="" accept="image/jpg,image/jpeg,image/png,image/bmp" multiple/>
+								<input type="file" name="file2" id="file2" class="file" value="" accept="image/jpg,image/jpeg,image/png,image/bmp" multiple/>
 							</section>
 						</div>
 					</div>
@@ -101,7 +127,7 @@
 						<div class="aui-photo aui-up-img clear">
 							<section class="aui-file-up fl">
 								<img src="/images/up.png" class="add-img">
-								<input type="file" name="file" id="file_two" class="file" value="" accept="image/jpg,image/jpeg,image/png,image/bmp" multiple/>
+								<input type="file" name="file3" id="file3" class="file" value="" accept="image/jpg,image/jpeg,image/png,image/bmp" multiple/>
 							</section>
 						</div>
 					</div>
@@ -119,7 +145,7 @@
 						<div class="aui-photo aui-up-img clear">
 							<section class="aui-file-up fl">
 								<img src="/images/up.png" class="add-img">
-								<input type="file" name="file" id="file_three" class="file" value="" accept="image/jpg,image/jpeg,image/png,image/bmp" multiple/>
+								<input type="file" name="file4" id="file4" class="file" value="" accept="image/jpg,image/jpeg,image/png,image/bmp" multiple/>
 							</section>
 						</div>
 					</div>
@@ -134,16 +160,17 @@
 						<div class="aui-photo aui-up-img clear">
 							<section class="aui-file-up fl">
 								<img src="/images/up.png" class="add-img">
-								<input type="file" name="file" id="file_four" class="file" value="" accept="image/jpg,image/jpeg,image/png,image/bmp" multiple/>
+								<input type="file" name="file5" id="file5" class="file" value="" accept="image/jpg,image/jpeg,image/png,image/bmp" multiple/>
 							</section>
 						</div>
 					</div>
 				</div>
 			</div>
-		</form>
-	</div>
 	<div class="aui-btn-default">
-		<button class="aui-btn aui-btn-account"><a href="/shop/index">保存并提交审核</a></button>
+                <input id="btnSubmit" type="submit" value="提交" style="margin-bottom: 20px;">
+        </div>
+	
+	</form>
 	</div>
 </section>
 <div class="aui-mask aui-works-mask">
@@ -155,8 +182,8 @@
 		</p>
 	</div>
 </div>
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/up.js"></script>
+<script type="text/javascript" src="/javascripts/shop/jquery.min.js"></script>
+<script type="text/javascript" src="/javascripts/shop/up.js"></script>
 <script type="text/javascript">
 	function checkna(){
 		na=form1.yourname.value;
@@ -185,6 +212,42 @@
 			zizhi.innerHTML='<font class="tips_true">输入正确</font>';
 		}
 	}
+
+
+	var file1 = document.getElementById("file1");
+	 var file2 = document.getElementById("file2");
+	 var file3 = document.getElementById("file3");
+	 var file4 = document.getElementById("file4");
+	 var file5 = document.getElementById("file5");
+	var formdata = new FormData();
+	for (var i = 0; i < 5; i++){
+		formdata.append('file', file[i]);
+		console.log(file[i]);
+	}
+	$.ajax({  
+                url: '/shops/enterprise',  
+                type: 'POST',  
+                data: formdata,  
+                cache: false,  
+                contentType: false,  
+                processData: false,  
+                success: function(data){  
+                    if(200 === data.code) {  
+                        $('#result').html("上传成功！");  
+                        $('#img').attr('src',data.data);  
+                    } else {  
+                        $('#result').html("上传失败！");  
+                    }  
+                    console.log('imgUploader upload success');  
+                },  
+                error: function(){  
+                    $("#result").html("与服务器通信发生错误");  
+                }  
+            });   
 </script>
 </body>
 </html>
+
+  </body>
+</html>
+

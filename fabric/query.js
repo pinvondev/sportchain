@@ -4,7 +4,7 @@ var util = require('util');
 var os = require('os');
 
 module.exports = {
-    queryByUsers: function (username, fcn, args) {
+    queryByUsers: function (username, fcn, args, callback) {
         console.log('pinvon', 'queryByUsers', 'fabric');
         var fabric_client = new Fabric_Client();
 
@@ -60,13 +60,14 @@ module.exports = {
                     console.error("error from query = ", query_responses[0]);
                 } else {
                     console.log("Response is ", query_responses[0].toString());
+                    callback(null, query_responses[0].toString());
                 }
             } else {
                 console.log("No payloads were returned from query");
             }
         }).catch((err) => {
             console.error('Failed to query successfully :: ' + err);
+            callback(err, null);
         });
-
     }
 }

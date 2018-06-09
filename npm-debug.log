@@ -1,6 +1,6 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/home/pinvon/.nvm/versions/node/v6.10.0/bin/node',
-1 verbose cli   '/home/pinvon/.nvm/versions/node/v6.10.0/bin/npm',
+1 verbose cli [ '/home/wlf/.nvm/versions/node/v6.10.0/bin/node',
+1 verbose cli   '/home/wlf/.nvm/versions/node/v6.10.0/bin/npm',
 1 verbose cli   'start' ]
 2 info using npm@3.10.10
 3 info using node@v6.10.0
@@ -9,25 +9,25 @@
 6 silly lifecycle sportchain@0.0.0~prestart: no script for prestart, continuing
 7 info lifecycle sportchain@0.0.0~start: sportchain@0.0.0
 8 verbose lifecycle sportchain@0.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle sportchain@0.0.0~start: PATH: /home/pinvon/.nvm/versions/node/v6.10.0/lib/node_modules/npm/bin/node-gyp-bin:/home/pinvon/go/src/github.com/hyperledger/projects/fabric-samples/sportchain/node_modules/.bin:/home/pinvon/.nvm/versions/node/v6.10.0/bin:/home/pinvon/code/Python/bayes/XSB/bin:/home/pinvon/code/Python/bayes/XSB/utils:/home/pinvon/code/Python/bayes/mulval/bin:/home/pinvon/code/Python/bayes/mulval/utils:~/Android/Sdk/tools:~/Android/Sdk/tools/bin:~/Android/Sdk/platform-tools:/home/pinvon/go/bin:/usr/local/go/bin:/usr/lib/jvm/jdk1.8.0_161/bin:/usr/lib:/usr/local/texlive/2017/bin/x86_64-linux:/home/pinvon/bin:/home/pinvon/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
-10 verbose lifecycle sportchain@0.0.0~start: CWD: /home/pinvon/go/src/github.com/hyperledger/projects/fabric-samples/sportchain
+9 verbose lifecycle sportchain@0.0.0~start: PATH: /home/wlf/.nvm/versions/node/v6.10.0/lib/node_modules/npm/bin/node-gyp-bin:/home/wlf/go/src/github.com/hyperledger/fabric/examples/e2e_cli/fabric-samples/sportchain-master/node_modules/.bin:/home/wlf/.nvm/versions/node/v6.10.0/bin:/home/wlf/node/bin:/home/wlf/go/bin:/usr/local/go/bin:/home/wlf/bin:/home/wlf/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+10 verbose lifecycle sportchain@0.0.0~start: CWD: /home/wlf/go/src/github.com/hyperledger/fabric/examples/e2e_cli/fabric-samples/sportchain-master
 11 silly lifecycle sportchain@0.0.0~start: Args: [ '-c', 'node ./bin/www' ]
 12 silly lifecycle sportchain@0.0.0~start: Returned: code: 1  signal: null
 13 info lifecycle sportchain@0.0.0~start: Failed to exec start script
 14 verbose stack Error: sportchain@0.0.0 start: `node ./bin/www`
 14 verbose stack Exit status 1
-14 verbose stack     at EventEmitter.<anonymous> (/home/pinvon/.nvm/versions/node/v6.10.0/lib/node_modules/npm/lib/utils/lifecycle.js:255:16)
+14 verbose stack     at EventEmitter.<anonymous> (/home/wlf/.nvm/versions/node/v6.10.0/lib/node_modules/npm/lib/utils/lifecycle.js:255:16)
 14 verbose stack     at emitTwo (events.js:106:13)
 14 verbose stack     at EventEmitter.emit (events.js:191:7)
-14 verbose stack     at ChildProcess.<anonymous> (/home/pinvon/.nvm/versions/node/v6.10.0/lib/node_modules/npm/lib/utils/spawn.js:40:14)
+14 verbose stack     at ChildProcess.<anonymous> (/home/wlf/.nvm/versions/node/v6.10.0/lib/node_modules/npm/lib/utils/spawn.js:40:14)
 14 verbose stack     at emitTwo (events.js:106:13)
 14 verbose stack     at ChildProcess.emit (events.js:191:7)
 14 verbose stack     at maybeClose (internal/child_process.js:877:16)
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
 15 verbose pkgid sportchain@0.0.0
-16 verbose cwd /home/pinvon/go/src/github.com/hyperledger/projects/fabric-samples/sportchain
-17 error Linux 4.10.0-40-generic
-18 error argv "/home/pinvon/.nvm/versions/node/v6.10.0/bin/node" "/home/pinvon/.nvm/versions/node/v6.10.0/bin/npm" "start"
+16 verbose cwd /home/wlf/go/src/github.com/hyperledger/fabric/examples/e2e_cli/fabric-samples/sportchain-master
+17 error Linux 4.13.0-39-generic
+18 error argv "/home/wlf/.nvm/versions/node/v6.10.0/bin/node" "/home/wlf/.nvm/versions/node/v6.10.0/bin/npm" "start"
 19 error node v6.10.0
 20 error npm  v3.10.10
 21 error code ELIFECYCLE

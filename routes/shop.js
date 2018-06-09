@@ -96,7 +96,7 @@ router.post('/login', function (req, res, next) {
                 }
                 return res.json(back);
             }
-
+		console.log("bodytel:",req.body.tel);
             // 写入 session
             req.session.user = {
                 'tel': req.body.tel,
@@ -175,8 +175,23 @@ router.post('/activity', function(req, res, next) {
 });
 
 router.get('/rank', function(req, res, next) {
-    res.render('shop/rank');
+//    res.render('shop/rank');
+    sql.queryAll('enterpriseShop', function (error, result) {
+        if(error){
+                throw error;
+                console.log(error);
+        } else {
+                var temp = new Array();
+                for(var i = 0; i< result.length; i++){
+                        temp[i] = result[i];
+                }
+            console.log('pinvon', temp);
+            res.render('shop/rank',{title:'test', results:temp});
+            return;
+        }
+    });
 });
+
 
 router.get('/person', function(req, res, next) {
     res.render('shop/person', {tel: req.session.user.tel});
@@ -227,8 +242,55 @@ router.post('/person', upload.single('logo'), function (req, res, next) {
 });
 
 router.get('/enterprise', function(req, res, next) {
-    res.render('shop/enterprise', {tel: req.session.tel});
+    res.render('shop/enterprise', {tel: req.session.user.tel});
 });
+
+router.post('/enterprise', upload.array('file', 20), function (req, res, next) {
+        var tels = req.session.user.tel;
+        console.log("tels:",tels);
+        params = [
+          req.body.yourname,
+          req.body.youphone,
+          req.body.youphone1,
+          req.body.url,
+          req.body.style_c,
+          req.body.yourname1,
+         req.session.user.tel
+        ];
+        console.log("tel",params);
+        console.log("data:",req.body.yourname);
+         sql.queryByName('enterpriseShop', [req.body.yourname], function (error, result) {
+        console.log(req.body.yourname);
+          if (error) {
+            throw error;
+        } else {
+            if (result.length > 0) {
+                back = {
+                    code: 200,
+                    msg: '店铺名已被注册'
+                }
+                return res.send(back);
+            }
+            sql.updateByPhone('enterpriseShop', params, function (error, result) {
+                if (error) {
+                    throw error;
+                } else {
+                    console.log(result);
+                    back = {
+                        code:200,
+                        msg:'保存成功'
+                    }
+
+                    // 保存店铺名到session
+                    req.session.user.shopName = req.body.yourname;
+                  return res.send(back);
+                return req.redirect('/shop');
+                }
+            });
+        }
+    });
+});
+
 
 router.get('/register', function (req, res, next) {
     if (JSON.stringify(req.query) == "{}") {

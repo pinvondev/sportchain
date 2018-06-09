@@ -174,7 +174,14 @@ router.post('/query', function (req, res, next) {
   var ccFun = 'querySportEnergy';
   var args = [name];
   console.log('pinvon', name, ccFun, args);
-  queryfabric.queryByUsers(name, ccFun, args);
+  queryfabric.queryByUsers(name, ccFun, args, function(error, fabric_response) {
+    if (error) {
+      console.log(error);
+    } else {
+      result = JSON.parse(fabric_response);
+      res.json(result);
+    }
+  });
 });
 
 // 将活动信息返回给前端
@@ -306,14 +313,14 @@ router.get('/shop', function (req, res, next) {
   // 返回商家名, 商家Logo, 商家描述, 商家能量
   var params = [
     'personalShop',
-    'shopname, introduction, shoplink, shoplogo, phone, energy',
+    'id, shopname, introduction, shoplink, shoplogo, phone, energy',
     ''
   ]
   sql.queryByConditions(params)
     .then((results) => {
       var shops = [];
       for (var index = 0; index < results.length; ++index) {
-        shop = [];
+        var shop = [];
         shop_logo = '/images/' + results[index].phone + '/' + results[index].shoplogo;
         shop.push(results[index].shopname, results[index].introduction,
                   results[index].shoplink, shop_logo, results[index].energy);
