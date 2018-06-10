@@ -98,10 +98,6 @@ router.post('/login', function (req, res, next) {
                 }
                 return res.json(back);
             }
-<<<<<<< Updated upstream
-		    console.log("bodytel:",req.body.tel);
-=======
->>>>>>> Stashed changes
             // 写入 session
             req.session.user = {
                 'tel': req.body.tel,
@@ -123,35 +119,6 @@ router.post('/login', function (req, res, next) {
 });
 
 router.get('/activity', function(req, res, next) {
-<<<<<<< Updated upstream
-    console.log(req.session);
-    sql.queryByName('activity', [req.session.user.shopName], function (error, result) {
-        if (error) {
-            throw error;
-        } else if (result.length === 0) {// 如果未设置活动
-            console.log('pinvon', 'get activity', result);
-            res.render('shop/activity', { result: result[0] });
-        } else if (result[0].endTime < Date.parse(new Date())) {// 如果活动时间已过, 则从表中删除该活动记录
-            console.log('pinvon', 'timeout');
-            sql.deleteByName('activity', [req.session.user.shopName], function (error, result) {
-                if (error) {
-                    throw error;
-                } else {
-                    res.render('shop/activity');
-                }
-            });
-        } else {
-            // 如果已经设置过活动时间, 则显示活动细节
-            beginTime = utils.timestampToDate(result[0].beginTime);
-            result[0].beginTime = beginTime;
-
-            endTime = utils.timestampToDate(result[0].endTime);
-            result[0].endTime = endTime;
-            console.log('pinvon', result[0]);
-            res.render('shop/activity', {result: result[0]});
-        }
-    });
-=======
     console.log('pinvon req.session', req.session);
     var shop_params = [];
     var results = {};
@@ -210,7 +177,6 @@ router.get('/activity', function(req, res, next) {
         throw error;
     })
     
->>>>>>> Stashed changes
 });
 
 router.post('/activity', function(req, res, next) {
