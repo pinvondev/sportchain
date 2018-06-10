@@ -9,58 +9,97 @@
     <link rel="stylesheet" href="/stylesheets/shop/base.css">
     <link rel="stylesheet" href="/stylesheets/shop/iconfont.css">
     <link rel="stylesheet" href="/stylesheets/shop/reg.css">
+    <style>
+	button{
+	 width: 200px;  
+        padding:8px;  
+        background-color: #428bca;  
+        border-color: #357ebd;  
+        color: #fff;  
+        -moz-border-radius: 10px;  
+        -webkit-border-radius: 10px;  
+        border-radius: 10px; /* future proofing */  
+        -khtml-border-radius: 10px; /* for old Konqueror browsers */  
+        text-align: center;  
+        vertical-align: middle;  
+        border: 1px solid transparent;  
+        font-weight: 900;  
+        font-size:125% }
+    </style>
 </head>
 
-<body>
+<body sytle="background:url("/images/bg.jpg") no-repeat 0px 0px;" >
 <div id="ajax-hook"></div>
 <div class="wrap">
     <div class="wpn">
-        <div class="form-data pos" >
+	<div style="height:50px;">&nbsp</div>
+	 <div style="text-align:center;width:100%;font-size:46px;color:white;font-family:STHupo">企&nbsp业&nbsp管&nbsp理&nbsp登&nbsp录<div>
+        <div class="form-data pos"style="margin-top:50px" >
             <div class="change-login">
-                <p class="account_number on">个人登录</p>
-                <p class="message">企业登录</p>
+                <p class="account_number on" style="margin-top:-13px;font-size:23px">个人登录</p>
+                <p class="message" style="margin-top:-13px;margin-left:140px;font-size:23px">企业登录</p>
             </div>
-            <div class="form1">
+            <div class="form1" style="margin-top:67px">
                 <p class="p-input pos">
-                    <label for="num2">手机号</label>
+                    <label style="color:white;font-size:px;margin-left:-160px" for="num2">手机号</label>
                     <input type="number" id="num4">
                 </p>
                 <p class="p-input pos">
-                    <label for="veri-code">输入验证码</label>
+                    <label for="veri-code" style="color:white;margin-left:-160px">输入验证码</label>
                     <input type="number" id="veri-code2">
-                    <a class="send">发送验证码</a>
+                    <a class="send" style="color:white;font-size:13px">发送验证码</a>
                     <span class="time hide"><em>120</em>s</span>
-                    <span class="tel-warn error hide">验证码错误</span>
+                    <span class="tel-warn error hide" style="font-size:16px">验证码错误</span>
                 </p>
                 <p class="p-input pos">
-                    <label for="pass">请输入密码</label>
+                    <label for="pass" style="color:white;font-size:;margin-left:-160px">请输入密码</label>
                     <input type="password" style="display:none"/>
                     <input type="password" id="pass1" autocomplete="new-password">
-                    <span class="tel-warn pass-err hide"><em>账号或密码错误，请重新输入</em><i class="icon-warn"></i></span>
+                    <span class="tel-warn pass-err hide" style="color:white;font-size:"><em>账号或密码错误，请重新输入</em><i class="icon-warn"></i></span>
                 </p>
-                <p class="right_now" style="padding-left:60px">还没账号?<a href="/shop/register">马上注册</a></p>
-                <button id="btnLogin" type="submit" class="lang-btn off log-btn" onclick="login()">登录</button>
+                <p class="right_now" style="padding-left:60px;color:white;font-size:14px;margin-left:-290px">还没账号?&nbsp&nbsp&nbsp<a style="color:white" href="/shop/register">马上注册~</a></p>
+                <button id="btnLogin"style="width: 140px; 
+        background-color: #AD5A5A;
+        border:solid 8px #FF7575;
+        border-radius: 40px;
+        color: #FF2D2D;
+	height:83px;  
+        text-align: center;  
+        vertical-align: middle;  
+        font-weight: 900;
+	vertical-align:middle; paddin-bottom:10px;
+        font-size:20px;"  type="submit" class="lang-btn off log-btn" onclick="login()">登录</button>
             </div>
 
-            <div class="form2 hide">
+            <div class="form2 hide" style="margin-top:66px">
                 <p class="p-input pos">
-                    <label for="num2">手机号</label>
+                    <label for="num2" style="color:white;font-size:;margin-left:-160px">手机号</label>
                     <input type="number" id="num2">
                 </p>
                 <p class="p-input pos">
-                    <label for="veri-code">输入验证码</label>
+                    <label for="veri-code"style="color:white;font-size:;margin-left:-160px">输入验证码</label>
                     <input type="number" id="veri-code">
-                    <a class="send">发送验证码</a>
+                    <a class="send"style="color:white;font-size:13px">发送验证码</a>
                     <span class="time hide"><em>120</em>s</span>
-                    <span class="tel-warn error hide">验证码错误</span>
+                    <span class="tel-warn error hide"style="font-size:16px">验证码错误</span>
                 </p>
                 <p class="p-input pos">
-                    <label for="pass">请输入密码</label>
+                    <label for="pass"style="color:white;font-size:;margin-left:-160px">请输入密码</label>
                     <input type="password" style="display:none"/>
                     <input type="password" id="pass3" autocomplete="new-password">
                     <span class="tel-warn pass-err hide"><em>账号或密码错误，请重新输入</em><i class="icon-warn"></i></span>
                 </p>
-                <button id="btnLogin2" type="submit" class="lang-btn off log-btn" onclick="login2()">登录</button>
+                <button id="btnLogin2"style="width: 140px; 
+        background-color: #AD5A5A;
+        border:solid 10px #FF7575;
+        border-radius: 40px;
+        color: #FF2D2D;
+        height:83px;  
+        text-align: center;  
+        vertical-align: middle;  
+        font-weight: 900;
+        vertical-align:middle; paddin-bottom:10px;
+        font-size:20px;"  type="submit" class="lang-btn off log-btn" onclick="login2()">登录</button>
             </div>
         </div>
     </div>

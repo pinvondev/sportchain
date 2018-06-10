@@ -98,11 +98,12 @@ router.post('/login', function (req, res, next) {
                 }
                 return res.json(back);
             }
-		console.log("bodytel:",req.body.tel);
+		    console.log("bodytel:",req.body.tel);
             // 写入 session
             req.session.user = {
                 'tel': req.body.tel,
-                'pass': req.body.password
+                'pass': req.body.password,
+                'personal': req.body.personal
             }
 
             if (result[0].shopName) {
@@ -119,15 +120,16 @@ router.post('/login', function (req, res, next) {
 });
 
 router.get('/activity', function(req, res, next) {
-    sql.queryByName('activity', [req.session.user.name], function (error, result) {
+    console.log(req.session);
+    sql.queryByName('activity', [req.session.user.shopName], function (error, result) {
         if (error) {
             throw error;
         } else if (result.length === 0) {// 如果未设置活动
             console.log('pinvon', 'get activity', result);
-            res.render('shop/activity');
+            res.render('shop/activity', { result: result[0] });
         } else if (result[0].endTime < Date.parse(new Date())) {// 如果活动时间已过, 则从表中删除该活动记录
             console.log('pinvon', 'timeout');
-            sql.deleteByName('activity', [req.session.user.name], function (error, result) {
+            sql.deleteByName('activity', [req.session.user.shopName], function (error, result) {
                 if (error) {
                     throw error;
                 } else {
@@ -187,8 +189,8 @@ router.get('/rank', function(req, res, next) {
                 for(var i = 0; i< result.length; i++){
                         temp[i] = result[i];
                 }
-	    var date ={ data:result, };
-	    return res.json(date);
+	    var data ={ data:result, };
+	    return res.json(data);
 //	    fs.writeFile('shops.json', '{ "data":'+date+',}',  function(err) {
 //		if (err) {
 //		return console.error(err);

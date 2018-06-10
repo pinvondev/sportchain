@@ -33,11 +33,11 @@ router.post('/register', function(req, res, next) {
   ]
 
   // 临时 将邮箱与电话改为可选
-  if (params[2] === '') {
+  if (params[2] === undefined) {
     params[2] = 'test';
   }
 
-  if (params[3] === '') {
+  if (params[3] === undefined) {
     params[3] = 'test';
   }
   console.log(params);
@@ -53,7 +53,8 @@ router.post('/register', function(req, res, next) {
               throw error;
             } else {
               userfabric.registerUser(params[0], function (isRegister,msg) {
-                if (isRegister) {
+                  console.log('pinvon', msg, isRegister);
+                  if (isRegister) {
                   result = {
                     code:200,
                     msg: msg
@@ -200,23 +201,34 @@ router.post('/query', function (req, res, next) {
     if (error) {
       console.log(error);
     } else {
-      result = JSON.parse(fabric_response);
-      res.json(result);
+        if (fabric_response === '') {
+            back = {
+                code: 400,
+                msg: 'query is empty'
+            }
+            return res.json(back);
+        }
+        result = JSON.parse(fabric_response);
+        back = {
+            code: 200,
+            msg: result
+        }
+        return res.json(back);
     }
   });
 });
 
 // 将活动信息返回给前端
-router.get('/activity', function (req, res, next) {
-  sql.queryActivityAndShops(function(error, result) {
-    if (error) {
-      throw error;
-    } else {
-      console.log(result);
-      res.send(result);
-    }
-  });
-});
+//router.get('/activity', function (req, res, next) {
+//  sql.queryActivityAndShops(function(error, result) {
+//    if (error) {
+//      throw error;
+//    } else {
+//      console.log(result);
+//      res.send(result);
+//    }
+//  });
+//});
 
 router.get('/transaction', function (req, res, next) {
   res.render('transaction', { title: 'jiaoyi' });
@@ -224,12 +236,12 @@ router.get('/transaction', function (req, res, next) {
 
 router.post('/transaction', function (req, res, next) {
   console.log('wlf', 'post /transaction');
-
-  var name1 = req.body.name1;
+    console.log(req.body);
+  var name1 = req.body.username;
   console.log('wlf', 'user1s name is', name1);
-  var name2 = req.body.name2 ;
+  var name2 = req.body.shopname ;
   console.log('wlf', 'user2s name is', name2);
-  var X = req.body.X ;
+  var X = req.body.energynum ;
   console.log('wlf', 'number of transaction', X.toString());
   var args = [name1, name2, X.toString()];
   var ccFun = 'deal';
@@ -331,27 +343,26 @@ function hasUserID(str, user_id) {
 }
 
 // 用户进入商家界面
-router.get('/shop', function (req, res, next) {
+// /users/activity get
+// params: shop_name
+router.post('/activity', function (req, res, next) {
+    console.log(req.body.shopid);
+    console.log('activity', 'pinvon');
   // 返回商家名, 商家Logo, 商家描述, 商家能量
   var params = [
-    'personalShop',
-    'shopname, introduction, shoplink, shoplogo, phone, energy',
-    ''
-  ]
+    'activity',
+    '*',
+    'id=?',
+    req.body.shopid
+  ];
   sql.queryByConditions(params)
     .then((results) => {
-      var shops = [];
-      for (var index = 0; index < results.length; ++index) {
-        shop = [];
-        shop_logo = '/images/' + results[index].phone + '/' + results[index].shoplogo;
-        shop.push(results[index].shopname, results[index].introduction,
-                  results[index].shoplink, shop_logo, results[index].energy);
-        shops.push(shop);
+      var data = {
+        code: 200,
+        data: results
       }
-      back = {
-        shops: shops
-      }
-      return res.json(back);
+      console.log('pinvon result', data);
+      return res.json(data);
     })
     .catch((error) => {
       throw error;
@@ -380,6 +391,7 @@ router.get('/logout', function (req, res, next) {
   req.session.destroy((err) => {
     console.log(err);
   });
+  console.log('/logout success');
   res.redirect('/');
 })
   
