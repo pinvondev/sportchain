@@ -313,14 +313,14 @@ router.get('/shop', function (req, res, next) {
   // 返回商家名, 商家Logo, 商家描述, 商家能量
   var params = [
     'personalShop',
-    'id, shopname, introduction, shoplink, shoplogo, phone, energy',
+    'shopname, introduction, shoplink, shoplogo, phone, energy',
     ''
   ]
   sql.queryByConditions(params)
     .then((results) => {
       var shops = [];
       for (var index = 0; index < results.length; ++index) {
-        var shop = [];
+        shop = [];
         shop_logo = '/images/' + results[index].phone + '/' + results[index].shoplogo;
         shop.push(results[index].shopname, results[index].introduction,
                   results[index].shoplink, shop_logo, results[index].energy);
@@ -346,6 +346,11 @@ router.get('/images', function (req, res, next) {
     .catch(function (error) {
       throw error;
     });
+});
+
+//enter xuanchuan.html
+router.get('/xuanchuan', function (req, res, next) {
+  res.render('xuanchuan', { title: 'SportsChain' });
 });
   
 module.exports = router;
