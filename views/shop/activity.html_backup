@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Carousel Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="/stylesheets/shop/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="/javascripts/shop/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom styles for this template -->
+    <link href="/stylesheets/shop/carousel.css" rel="stylesheet">
+    <link href="/stylesheets/shop/signin.css" rel="stylesheet">
+    <link href="/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+  </head>
+<!-- NAVBAR
+================================================== -->
+  <body style="background-color:#3895e8">
+    <div class="navbar-wrapper">
+      <div class="container">
+
+        <nav class="navbar navbar-inverse navbar-static-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">SportsChain</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li><a href="/shop/">商家主页</a></li>
+                <li><a href="/shop/rank1">排行</a></li>
+                <li class="active"><a href="/shop/activity">我的活动</a></li>
+                <li><a href="#multi">联合活动</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li class="dropdown-header">Nav header</li>
+                    <li><a href="#">Separated link</a></li>
+                    <li><a href="#">One more separated link</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+      </div>
+    </div>
+
+
+    <!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+          <div class="container">
+            <div class="carousel-caption">
+              {{#if result.energy }}
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>活动开始时间</p>
+                  </div>
+                  <div class='col-md-4 input-append date form_datetime'>
+                    <input size="16" type='text' class="form-control" id='datetimepicker_begin' 
+                           value="{{ result.beginTime }}" readonly /> 
+                    <span class="add-on"><i class="icon-remove"></i></span>
+                    <span class="add-on"><i class="icon-calendar"></i></span>
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>活动结束时间</p>
+                  </div>
+                  <div class='col-md-4 input-append date form_datetime'>
+                    <input size="16" type='text' class="form-control" id='datetimepicker_end' 
+                           value="{{ result.endTime }}" readonly /> 
+                    <span class="add-on"><i class="icon-remove"></i></span>
+                    <span class="add-on"><i class="icon-calendar"></i></span>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>优惠券数量</p>
+                  </div>
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="coupons" 
+                           value={{ result.totalCoupons }} readonly />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>已发放优惠券数量</p>
+                  </div>
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="realcoupons"
+                           value={{ result.realCoupons }} readonly />
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>折扣度</p>
+                  </div>
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="discount" 
+                           value={{ result.discount }} readonly />
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>商品链接</p>
+                  </div>
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="url" 
+                           value={{ result.url }} readonly />
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>所需运动能量</p>
+                  </div>
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="energy" 
+                           value={{ result.energy }} readonly />
+                  </div>
+                </div>  
+              {{else}}
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>活动开始时间</p>
+                  </div>
+                  <div class='col-md-4 input-append date form_datetime'>
+                    <input size="16" type='text' class="form-control" id='datetimepicker_begin' onchange="activity_begin()"/> 
+                    <span class="add-on"><i class="icon-remove"></i></span>
+                    <span class="add-on"><i class="icon-calendar"></i></span>
+                  </div>     
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>活动结束时间</p>
+                  </div>
+                  <div class='col-md-4 input-append date form_datetime'>
+                    <input size="16" type='text' class="form-control" id='datetimepicker_end' onchange="activity_end()"
+                          placeholder="活动时间至少大于4小时"/> 
+                    <span class="add-on"><i class="icon-remove"></i></span>
+                    <span class="add-on"><i class="icon-calendar"></i></span>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>优惠券数量</p>
+                  </div>
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="coupons" placeholder="请输入一个整数" />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>折扣度</p>
+                  </div>
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="discount" />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>商品链接</p>
+                  </div>
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="url" />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>所需运动能量</p>
+                  </div>
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="energy" />
+                  </div>
+                </div>
+              
+                <button id="submit" type="button" class="btn btn-lg btn-primary">提交</button>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /.carousel -->
+
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing">
+      <!-- FOOTER -->
+      <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2016 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+      </footer>
+
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/javascripts/jquery-3.3.1.min.js"><\/script>')</script>
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="/javascripts/shop/holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/javascripts/shop/ie10-viewport-bug-workaround.js"></script>
+
+    <script src="/javascripts/jquery-3.3.1.min.js"></script></script>
+    <script src="/javascripts/layer/layer.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+
+    <script type="text/javascript">
+      $(function () {
+        $('.form_datetime').datetimepicker({
+          format: "yyyy-mm-dd hh:ii",
+          autoclose: true,
+          todayBtn: true,
+          startDate: "2013-02-14 10:00",
+          minuteStep: 10
+        });
+      });
+
+      var nBeginActivity = 0;
+      var nEndActivity = 0;
+
+      function activity_begin() {
+        nBeginActivity = Date.parse(new Date($('#datetimepicker_begin').val()));
+      }
+
+      function activity_end() {
+        nEndActivity = Date.parse(new Date($('#datetimepicker_end').val()));
+      }
+
+      $('#submit').click(function() {
+        var nCoupons = 0;
+        var fDiscount = 0.0;
+        var sUrl = '';
+        var nEnergy = 0;
+
+        if(nBeginActivity === 0 || nBeginActivity < Date.parse(new Date())) {
+          layer.msg('请输入正确的活动开始时间');
+          $("#datetimepicker_begin").css("border", "2px solid red");
+          return ;
+        } else {
+          $("#datetimepicker_begin").css("border", "2px solid white");
+        }
+
+        if(nEndActivity === 0 || nEndActivity < Date.parse(new Date()) || 
+           nEndActivity < nBeginActivity + 4*60*60*1000) {
+          layer.msg('请输入正确的活动结束时间');
+          $('#datetimepicker_end').css("border", '2px solid red');
+          return ;
+        } else {
+          $('#datetimepicker_end').css("border", '2px solid white');
+        }
+
+        nCoupons = parseInt($('#coupons').val());
+        fDiscount = parseFloat($('#discount').val());
+        sUrl = $('#url').val();
+        nEnergy = parseInt($('#energy').val());
+
+        var data = {
+          nBeginTime: nBeginActivity,
+          nEndTime: nEndActivity,
+          nCoupons: nCoupons,
+          fDiscount: fDiscount,
+          sUrl: sUrl,
+          nEnergy: nEnergy
+        };
+
+        $.ajax({
+          url: '/shop/activity',
+          type: 'post',
+          data: data,
+          success: function(data, status) {
+            if (status === 'success') {
+              if (data.code === 200) {
+                layer.msg('提交成功');
+                $('#submit').addClass('hidden');
+                $('#datetimepicker_begin').attr('readonly', 'true');
+                $('#datetimepicker_end').attr('readonly', 'true');
+                $('#coupons').attr('readonly', 'true');
+                $('#discount').attr('readonly', 'true');
+                $('#url').attr('readonly', 'true');
+                $('#energy').attr('readonly', 'true');
+              }
+            }
+          },
+          error: function(data, status) {
+            console.log('fail');
+          }
+        });
+      });
+    </script>
+  </body>
+
+</html>
