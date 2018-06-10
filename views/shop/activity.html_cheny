@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Clean Blog - Contact Page</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="/stylesheets/shop/templatemo_style.css" rel="stylesheet" type="text/css" />
+<link href="/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+</head>
+
+<style type="text/css">
+/* Basic Grey */
+form.basic-grey {
+margin-left:auto;
+margin-right:auto;
+max-width: 500px;
+background: #F7F7F7;
+padding: 25px 15px 25px 10px;
+font: 12px Georgia, "Times New Roman", Times, serif;
+color: #888;
+text-shadow: 1px 1px 1px #FFF;
+border:1px solid #E4E4E4;
+}
+.basic-grey h1 {
+font-size: 25px;
+padding: 0px 0px 10px 40px;
+display: block;
+border-bottom:1px solid #E4E4E4;
+margin: -10px -15px 30px -10px;;
+color: #888;
+}
+.basic-grey h1>span {
+display: block;
+font-size: 11px;
+}
+.basic-grey label {
+display: block;
+margin: 0px;
+}
+.basic-grey label>span {
+float: left;
+width: 20%;
+text-align: right;
+padding-right: 10px;
+margin-top: 10px;
+color: #888;
+}
+.basic-grey input[type="text"] {
+border: 1px solid #DADADA;
+color: #888;
+height: 30px;
+margin-bottom: 16px;
+margin-right: 6px;
+margin-top: 2px;
+outline: 0 none;
+padding: 3px 3px 3px 5px;
+width: 70%;
+font-size: 12px;
+line-height:15px;
+box-shadow: inset 0px 1px 4px #ECECEC;
+-moz-box-shadow: inset 0px 1px 4px #ECECEC;
+-webkit-box-shadow: inset 0px 1px 4px #ECECEC;
+}
+
+.basic-grey .button {
+background: #E27575;
+border: none;
+padding: 10px 25px 10px 25px;
+color: #FFF;
+box-shadow: 1px 1px 5px #B6B6B6;
+border-radius: 3px;
+text-shadow: 1px 1px 1px #9E3F3F;
+cursor: pointer;
+}
+.basic-grey .button:hover {
+background: #CF7A7A
+}
+</style>
+
+<body>
+
+<div id="templatemo_wrapper">
+
+	<div id="templatemo_menu">
+                
+        <ul>
+            <li><a href="index.html">我的信息</a></li>
+            <li><a href="portfolio.html">排行</a></li>
+            <li><a href="contact.html" class="current">我的活动</a></li>
+            <li><a href="about.html" >联合活动</a></li>
+        </ul>    	
+    
+    </div> <!-- end of templatemo_menu -->
+
+    <div id="templatemo_left_column">
+    
+        <div id="templatemo_header">
+        
+            <div id="site_title">
+                <h1><a href="#"><span>{{result.shopname}}</span></a></h1>
+            </div><!-- end of site_title -->
+            
+        </div> <!-- end of header -->  
+        
+        <div id="templatemo_sidebar">
+    	
+            <div id="templatemo_rss">
+            
+                <img>
+                
+            </div>
+            
+            <h4>店铺信息</h4>
+            <ul class="templatemo_list">
+                <li><a href="#">店铺链接: {{shop.shoplink}}</a></li>
+                <li><a href="#">店铺类型：xxx</a></li>
+                <li><a href="#">联系电话：xxx</a></li>
+                <li><a href="#">邮箱：xxx</a></li>
+                <li><a href="#">店铺简介：xxx</a></li>
+                <li><a style="color: blue" href="/shop/person">修改信息</a></li>
+            </ul>
+            
+            <div class="cleaner_h40"></div>
+            
+            
+            
+            
+        </div> <!-- end of templatemo_sidebar --> 
+    
+    </div> <!-- end of templatemo_left_column -->
+    
+    <div id="templatemo_right_column">
+    
+        <div id="templatemo_main">
+            <div id="show_time0" style="height: 20px">
+                  <script>
+                    setInterval("show_time0.innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());",1000); 
+                  </script>
+            </div>
+        
+        <div class="cleaner_h50"></div>
+            <h2>商品活动规则<h2>
+
+            <div id="contact_form">
+
+                {{#if result.energy }}
+                
+                <form method="post" name="contact" action="#" class="basic-grey">
+                
+                    <input type="hidden" name="post" value="Send" />
+                    <label>活动开始时间:
+                    <input type="text" id="datetimepicker_begin" class="required input_field" value="{{ result.beginTime }}" readonly/>
+                    </label>
+                    <div class="cleaner_h10"></div>
+                    
+                    <label>活动结束时间: 
+                    <input type="text" id="datetimepicker_end" class="required input_field" value="{{ result.endTime }}" readonly />
+                    </label>
+                    <div class="cleaner_h10"></div>
+                  
+                    <label>优惠券数量: 
+                    <input type="text" id="coupons" class="required input_field" value={{ result.totalCoupons }} readonly />
+                    </label>
+                    <div class="cleaner_h10"></div>
+
+                    <label>已发放优惠券数量:
+                    <input type="text" id="realcoupons" class="required input_field" value={{ result.realCoupons }} readonly />
+                    </label>
+                    <div class="cleaner_h10"></div>
+
+                    <label>折扣度:
+                    <input type="text" id="discount" class="required input_field" value={{ result.discount }} readonly />
+                    </label>
+                    <div class="cleaner_h10"></div>
+
+                    <label>商品链接:
+                    <input type="text" id="url" class="required input_field" value={{ result.url }} readonly />
+                    </label>
+                    <div class="cleaner_h10"></div>
+
+                    <label>所需运动能量:
+                    <input type="text" id="energy" class="required input_field" value={{ result.energy }} readonly />
+                    </label>
+
+                    <div class="cleaner_h10"></div>
+                
+              </form>
+              {{else}}
+               <form method="post" name="contact" action="#" class="basic-grey">
+                
+                    <input type="hidden" name="post" value="Send" />
+                    <label>活动开始时间:
+                    <input type="text" id="datetimepicker_begin" class="required input_field" onchange="activity_begin()"/>
+                    </label>
+                    <div class="cleaner_h10"></div>
+
+                    
+                    <label>活动结束时间: 
+                    <input type="text" id="datetimepicker_end" class="required input_field" onchange="activity_end()" placeholder="活动时间至少大于4小时"/>
+                    </label>
+                    <div class="cleaner_h10"></div>
+                    
+                  
+                    <label>优惠券数量:
+                    <input type="text" id="coupons" class="required input_field" placeholder="请输入一个整数" />
+                    </label> 
+                    <div class="cleaner_h10"></div>
+
+
+                    <label>折扣度:
+                    <input type="text" id="discount" class="required input_field" />
+                    </label>
+
+                    <label>商品链接:
+                    <input type="text" id="url" class="required input_field" />
+                    </label>
+
+                    <label>所需运动能量:
+                    <input type="text" id="energy" class="required input_field" />
+                    </label>
+
+
+                    <input type="submit"  class="submit_btn" name="submit" id="submit" value="Send" />
+                    <input type="reset" class="submit_btn" name="reset" id="reset" value="Reset" />
+                
+              </form>
+
+             {{/if}}
+            </div> 
+        
+        </div> <!-- end of main -->
+        <div class="cleaner"></div>
+    </div> <!-- end of right column -->
+    
+    
+  <div class="cleaner_h20"></div>
+  
+  	<div id="templatemo_footer">
+    
+		Copyright © 2048 <a href="#">Your Company Name</a> <!-- Credit: www.templatemo.com -->| 
+        Validate <a href="http://validator.w3.org/check?uri=referer">XHTML</a> &amp; <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a>
+        
+    </div>
+  
+    <div class="cleaner"></div>
+</div> <!-- end of warpper -->
+<!-- templatemo 251 clean blog -->
+<!-- 
+Clean Blog Template 
+http://www.templatemo.com/preview/templatemo_251_clean_blog 
+  -->
+<script src="/javascripts/jquery-3.3.1.min.js"></script>
+<script src="/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript">
+      $(function () {
+        $('.form_datetime').datetimepicker({
+          format: "yyyy-mm-dd hh:ii",
+          autoclose: true,
+          todayBtn: true,
+          startDate: "2013-02-14 10:00",
+          minuteStep: 10
+        });
+      });
+
+      var nBeginActivity = 0;
+      var nEndActivity = 0;
+
+      function activity_begin() {
+        nBeginActivity = Date.parse(new Date($('#datetimepicker_begin').val()));
+      }
+
+      function activity_end() {
+        nEndActivity = Date.parse(new Date($('#datetimepicker_end').val()));
+      }
+
+      $('#submit').click(function() {
+        var nCoupons = 0;
+        var fDiscount = 0.0;
+        var sUrl = '';
+        var nEnergy = 0;
+
+        if(nBeginActivity === 0 || nBeginActivity < Date.parse(new Date())) {
+          layer.msg('请输入正确的活动开始时间');
+          $("#datetimepicker_begin").css("border", "2px solid red");
+          return ;
+        } else {
+          $("#datetimepicker_begin").css("border", "2px solid white");
+        }
+
+        if(nEndActivity === 0 || nEndActivity < Date.parse(new Date()) || 
+           nEndActivity < nBeginActivity + 4*60*60*1000) {
+          layer.msg('请输入正确的活动结束时间');
+          $('#datetimepicker_end').css("border", '2px solid red');
+          return ;
+        } else {
+          $('#datetimepicker_end').css("border", '2px solid white');
+        }
+
+        nCoupons = parseInt($('#coupons').val());
+        fDiscount = parseFloat($('#discount').val());
+        sUrl = $('#url').val();
+        nEnergy = parseInt($('#energy').val());
+
+        var data = {
+          nBeginTime: nBeginActivity,
+          nEndTime: nEndActivity,
+          nCoupons: nCoupons,
+          fDiscount: fDiscount,
+          sUrl: sUrl,
+          nEnergy: nEnergy
+        };
+
+        $.ajax({
+          url: '/shop/activity',
+          type: 'post',
+          data: data,
+          success: function(data, status) {
+            if (status === 'success') {
+              if (data.code === 200) {
+                layer.msg('提交成功');
+                $('#submit').addClass('hidden');
+                $('#datetimepicker_begin').attr('readonly', 'true');
+                $('#datetimepicker_end').attr('readonly', 'true');
+                $('#coupons').attr('readonly', 'true');
+                $('#discount').attr('readonly', 'true');
+                $('#url').attr('readonly', 'true');
+                $('#energy').attr('readonly', 'true');
+              }
+            }
+          },
+          error: function(data, status) {
+            console.log('fail');
+          }
+        });
+      });
+    </script>
+
+</body>
+</html>
