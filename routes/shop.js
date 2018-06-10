@@ -3,7 +3,7 @@ var sql = require('../dao/dao');
 var utils = require('../utils/util');
 var multer = require('multer');
 var router = express.Router();
-
+var fs = require('fs');
 // var uploadFolder = 'public/upload/';
 // utils.createFolder(uploadFolder);// 通过 storage 选项来对 上传行为 进行定制化
 
@@ -185,7 +185,39 @@ router.get('/rank', function(req, res, next) {
                 for(var i = 0; i< result.length; i++){
                         temp[i] = result[i];
                 }
-            console.log('pinvon', temp);
+	    var date ={ data:result, };
+	    return res.json(date);
+//	    fs.writeFile('shops.json', '{ "data":'+date+',}',  function(err) {
+//		if (err) {
+//		return console.error(err);
+//		}
+//		console.log("数据写入成功！"); 
+//	    });
+//            res.render('shop/rank',{title:'test', results:temp});
+//            return;
+        }
+    });
+});
+
+router.get('/rank1', function(req, res, next) {
+//    res.render('shop/rank');
+    sql.queryAll('enterpriseShop', function (error, result) {
+        if(error){
+                throw error;
+                console.log(error);
+        } else {
+                var temp = new Array();
+                for(var i = 0; i< result.length; i++){
+                        temp[i] = result[i];
+                }
+//            var date ={ data:result, };
+//            return res.json(date);
+//          fs.writeFile('shops.json', '{ "data":'+date+',}',  function(err) {
+//              if (err) {
+//              return console.error(err);
+//              }
+//              console.log("数据写入成功！"); 
+//          });
             res.render('shop/rank',{title:'test', results:temp});
             return;
         }
