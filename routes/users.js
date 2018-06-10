@@ -156,11 +156,19 @@ router.post('/step', function (req, res, next) {
   var step = req.body.step;
   var sportEnergy = step / 100;  // 公式要另外设置, 这边只是做简单除法
   console.log('pinvon', 'number of step', req.body.step);
-  
-  var args = [req.session.user.name, step.toString(), sportEnergy.toString()];
-  var ccFun = 'setEnergy';
 
-  stepfabric.step(req.session.user.name, ccFun, args, function (error, result) {
+  var args = [];
+  var name = '';
+  if (req.session.user.tel === undefined) {
+    args.push(req.session.user.name, step.toString(), sportEnergy.toString());
+    name = req.session.user.name;
+  } else {
+    args.push(req.session.user.tel, step.toString(), sportEnergy.toString());
+    name = req.session.user.tel;
+  }
+  
+  var ccFun = 'setEnergy';
+  stepfabric.step(name, ccFun, args, function (error, result) {
     if (error) {
       console.log('pinvon', error);
       userfabric.registerUser(req.session.user.name, function (isRegister, msg) {
