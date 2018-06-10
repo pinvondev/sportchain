@@ -111,10 +111,10 @@ module.exports = {
 		} else if (tableName === 'personalShop') {
 			sql = $personalSQL;
 		} else if (tableName === 'enterpriseShop') {
-                        sql = $enterpriseSQL;
-                  //      console.log(sql);
-                }
+            sql = $enterpriseSQL;
+        }
 		query(sql.queryByName, param, function (error, results) {
+			console.log('pinvon queryByName', sql.queryByName, param);
 			if (error) {
 				return callback(error, null);
 			} else {
@@ -193,6 +193,7 @@ module.exports = {
 	queryByConditions: function (params) {
 		return new Promise(function (resolve, reject) {
 			var sql = final.queryByConditions(params[0], params[1], params[2]);
+			console.log('pinvon queryByConditions', sql);
 			query(sql, params[3], (error, result) => {
 				error ? reject(error) : resolve(result);
 			});

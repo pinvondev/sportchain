@@ -26,12 +26,12 @@ var upload = multer({ storage: storage });
 
 /* GET shop page. */
 router.get('/', function(req, res, next) {
-    if (req.session === undefined || req.session.user.tel === undefined) {  // 未登录
+    if (req.session === undefined || req.session.user === undefined || req.session.user.tel === undefined) {  // 未登录
         console.log('pinvon', 'undefined');
         return res.redirect('../shop/login');
     }
 
-    if (req.session.user.shopName === undefined) {  // 如果商家信息未完善
+    if (req.session.user.name === undefined) {  // 如果商家信息未完善
         return res.redirect('../shop/person');
     } else {
         params = ['personalShop', '*', 'phone=?', [req.session.user.tel]];
@@ -98,7 +98,10 @@ router.post('/login', function (req, res, next) {
                 }
                 return res.json(back);
             }
+<<<<<<< Updated upstream
 		    console.log("bodytel:",req.body.tel);
+=======
+>>>>>>> Stashed changes
             // 写入 session
             req.session.user = {
                 'tel': req.body.tel,
@@ -107,7 +110,7 @@ router.post('/login', function (req, res, next) {
             }
 
             if (result[0].shopName) {
-                req.session.user.shopName = result[0].shopName;
+                req.session.user.name = result[0].shopName;
             }
 
             back = {
@@ -120,6 +123,7 @@ router.post('/login', function (req, res, next) {
 });
 
 router.get('/activity', function(req, res, next) {
+<<<<<<< Updated upstream
     console.log(req.session);
     sql.queryByName('activity', [req.session.user.shopName], function (error, result) {
         if (error) {
@@ -147,12 +151,72 @@ router.get('/activity', function(req, res, next) {
             res.render('shop/activity', {result: result[0]});
         }
     });
+=======
+    console.log('pinvon req.session', req.session);
+    var shop_params = [];
+    var results = {};
+    if (req.session.user.personal) {
+        shop_params.push(
+            'personalShop',
+            '*',
+            'phone=?',
+            req.session.user.tel
+        );
+    } else {
+        shop_params.push(
+            'enterpriseShop',
+            'id, enterpriseName as shopname, shopLogo as shoplogo, shoplink, email, energy',
+            'phone=?',
+            req.session.user.tel
+        );
+    }
+    console.log('pinvon shop_params', shop_params);
+    sql.queryByConditions(shop_params)
+    .then((shop_result) => {
+        console.log('pinvon shop_result', shop_result);
+        sql.queryByName('activity', [req.session.user.name], function (error, result) {
+            if (error) {
+                throw error;
+            } else if (result.length === 0) {// 如果未设置活动
+                console.log('pinvon result.length', result);
+                results.shop_info = shop_result[0];
+                return res.render('shop/activity', {result: results});
+            } else if (result[0].endTime < Date.parse(new Date())) {// 如果活动时间已过, 则从表中删除该活动记录
+                console.log('pinvon', 'timeout');
+                sql.deleteByName('activity', [req.session.user.name], function (error, result) {
+                    if (error) {
+                        throw error;
+                    } else {
+                        results.shop_info = shop_result[0];
+                        return res.render('shop/activity', {result: results});
+                    }
+                });
+            } else {
+                // 如果已经设置过活动时间, 则显示活动细节
+                console.log('pinvon result', result[0]);
+                beginTime = utils.timestampToDate(result[0].beginTime);
+                result[0].beginTime = beginTime;
+
+                endTime = utils.timestampToDate(result[0].endTime);
+                result[0].endTime = endTime;
+                results.shop_info = shop_result[0];
+                results.activity_info = result[0]
+                console.log('pinvon results', results);
+                return res.render('shop/activity', {result: results});
+            }
+        });
+    })
+    .catch((error) => {
+        throw error;
+    })
+    
+>>>>>>> Stashed changes
 });
 
 router.post('/activity', function(req, res, next) {
     console.log(req.body);
     params = [
-        req.session.user.shopName,
+        req.session.user.name,
         0,
         req.body.nBeginTime,
         req.body.nEndTime,
@@ -257,9 +321,6 @@ router.post('/person', upload.single('logo'), function (req, res, next) {
                 }
                 return res.render('shop/person', {code: back.code});
             }
-
-
-
             sql.updateByPhone('personalShop', params, function (error, result) {
                 if (error) {
                     throw error;
@@ -271,7 +332,7 @@ router.post('/person', upload.single('logo'), function (req, res, next) {
                     }
 
                     // 保存店铺名到session
-                    req.session.user.shopName = req.body.shopName;
+                    req.session.user.name = req.body.shopName;
                     console.log(req.session.user, 'pinvon session');
                     return res.render('shop/person', {code: back.code});
                 }
@@ -321,7 +382,7 @@ router.post('/enterprise', upload.array('file', 20), function (req, res, next) {
                     }
 
                     // 保存店铺名到session
-                    req.session.user.shopName = req.body.yourname;
+                    req.session.user.name = req.body.yourname;
                   return res.send(back);
                 return req.redirect('/shop');
                 }
