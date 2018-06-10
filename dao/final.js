@@ -30,6 +30,10 @@ var final = {
             sql = `update ${tables} set ${columns} where ${filter}`;
         }
         return sql;
+    },
+    unionDescOrder: function (columns_1, table_1, columns_2, table_2, filter) {
+        let sql = `(select ${columns_1} from ${table_1}) union (select ${columns_2} from ${table_2}) order by ${filter} desc`;
+        return sql;
     }
 };
  

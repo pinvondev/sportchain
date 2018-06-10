@@ -15,7 +15,7 @@ var customRequest = function (chaincodeId, fcn, args, chainId, txId) {
 }
 
 module.exports = {
-    step: function (username, fcn, args) {
+    step: function (username, fcn, args, callback) {
         console.log('pinvon', 'step sdk');
         var fabric_client = new Fabric_Client();
 
@@ -149,11 +149,13 @@ module.exports = {
 
             if(results && results[1] && results[1].event_status === 'VALID') {
                 console.log('Successfully committed the change to the ledger by the peer');
+                callback(null, results);
             } else {
                 console.log('Transaction failed to be committed to the ledger due to ::'+results[1].event_status);
             }
         }).catch((err) => {
             console.error('Failed to invoke successfully :: ' + err);
+            callback(err, null);
         });
     }
 }

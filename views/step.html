@@ -22,11 +22,13 @@
                         type: 'post',
                         data: data,
                         success: function (data, status) {
+                            console.log(data);
+                            alert('pause');
                             layer.msg('步数成功写入区块链');
                             $('#msg').text(data);
                         },
                         error: function (data, status) {
-
+                            console.log('error');
                         }
                     });
                 }

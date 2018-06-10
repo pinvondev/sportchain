@@ -224,14 +224,15 @@
 		formdata.append('file', file[i]);
 		console.log(file[i]);
 	}
+	console.log(formdata);
 	$.ajax({  
                 url: '/shops/enterprise',  
                 type: 'POST',  
-                data: formdata,  
+                data: formdata,
                 cache: false,  
                 contentType: false,  
                 processData: false,  
-                success: function(data){  
+                success: function(data){
                     if(200 === data.code) {  
                         $('#result').html("上传成功！");  
                         $('#img').attr('src',data.data);  

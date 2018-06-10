@@ -7,6 +7,7 @@ var session = require('express-session');
 var redis = require('redis');
 var redisStore = require('connect-redis')(session);
 var logger = require('morgan');
+var schedule = require('./utils/schedule');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -33,7 +34,9 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 }
-}))
+}));
+
+schedule.cronStyle();
 
 app.use(express.static(path.join(__dirname, 'public')));
 

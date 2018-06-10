@@ -1,4 +1,5 @@
 var fs = require('fs');
+var ip = require('ip');
 
 // 提升性能
 module.exports = {
@@ -29,5 +30,8 @@ module.exports = {
     } catch(e) {
       fs.mkdirSync(path);
     } 
+  },
+  getIP: function () {
+    console.log(ip.address());
   }
 };

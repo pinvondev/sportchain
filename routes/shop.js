@@ -2,6 +2,8 @@ var express = require('express');
 var sql = require('../dao/dao');
 var utils = require('../utils/util');
 var multer = require('multer');
+var ip = require('ip');
+var userfabric = require('../fabric/user');
 var router = express.Router();
 var fs = require('fs');
 // var uploadFolder = 'public/upload/';
@@ -24,7 +26,7 @@ var upload = multer({ storage: storage });
 
 /* GET shop page. */
 router.get('/', function(req, res, next) {
-    if (req.session === undefined || req.session.user === undefined) {  // 未登录
+    if (req.session === undefined || req.session.user.tel === undefined) {  // 未登录
         console.log('pinvon', 'undefined');
         return res.redirect('../shop/login');
     }
@@ -148,7 +150,7 @@ router.get('/activity', function(req, res, next) {
 router.post('/activity', function(req, res, next) {
     console.log(req.body);
     params = [
-        req.session.user.name,
+        req.session.user.shopName,
         0,
         req.body.nBeginTime,
         req.body.nEndTime,
@@ -236,7 +238,7 @@ router.post('/person', upload.single('logo'), function (req, res, next) {
         req.body.shopName,
         req.body.shopType,
         req.body.description,
-        req.file.originalname,
+        ip.address() + ':3000/upload/' + req.session.user.tel + '/' + req.file.originalname,
         req.body.url,
         req.session.user.tel
     ];
@@ -248,11 +250,14 @@ router.post('/person', upload.single('logo'), function (req, res, next) {
         } else {
             if (result.length > 0) {
                 back = {
-                    code: 200,
+                    code: 400,
                     msg: '商铺名已被注册'
                 }
-                return res.send(back);
+                return res.render('shop/person', {code: back.code});
             }
+
+
+
             sql.updateByPhone('personalShop', params, function (error, result) {
                 if (error) {
                     throw error;
@@ -266,7 +271,7 @@ router.post('/person', upload.single('logo'), function (req, res, next) {
                     // 保存店铺名到session
                     req.session.user.shopName = req.body.shopName;
                     console.log(req.session.user, 'pinvon session');
-                    return res.send(back);
+                    return res.render('shop/person', {code: back.code});
                 }
             });
         }
@@ -359,16 +364,26 @@ router.post('/register', function (req, res, next) {
                 return res.json(back);
             }
             // 没有注册过
-            sql.insertPhone(tableName, params, function (error, result) {  // 插入新用户
-                if (error) {
-                    throw error;
-                } else {
-                    console.log(result);
-                    back = {
-                        code:200,
-                        msg:'注册成功'
+            userfabric.registerUser(req.body.tel, function(isRegister, msg) {
+                if (!isRegister) {
+                    result = {
+                        code: 400,
+                        msg: msg
                     }
-                    return res.json(back);
+                    res.json(result);
+                } else {
+                    sql.insertPhone(tableName, params, function (error, result) {  // 插入新用户
+                        if (error) {
+                            throw error;
+                        } else {
+                            console.log(result);
+                            back = {
+                                code:200,
+                                msg:'注册成功'
+                            }
+                            return res.json(back);
+                        }
+                    });
                 }
             });
         }

@@ -146,7 +146,7 @@ router.post('/login', function (req, res, next) {
 });
 
 router.get('/step', function (req, res, next) {
-  res.render('step', { title: '步数' });
+    res.render('step', { title: '步数' });
 });
 
 router.post('/step', function (req, res, next) {
@@ -159,7 +159,29 @@ router.post('/step', function (req, res, next) {
   var args = [req.session.user.name, step.toString(), sportEnergy.toString()];
   var ccFun = 'setEnergy';
 
-  stepfabric.step(req.session.user.name, ccFun, args);
+  stepfabric.step(req.session.user.name, ccFun, args, function (error, result) {
+    if (error) {
+      console.log('pinvon', error);
+      userfabric.registerUser(req.session.user.name, function (isRegister, msg) {
+        if (isRegister) {
+          back = {
+            code: 400,
+            msg: '网络异常, 请重新提交'
+          }
+          return res.json(back);
+        }
+      });
+    } else {
+      console.log('pinvon', result)
+      if(result && result[1] && result[1].event_status === 'VALID') {
+        back = {
+          code: 200,
+          msg: 'test'
+        }
+        return res.json(back);
+      }
+    }
+  });
 });
 
 router.get('/query', function(req, res, next){
@@ -352,5 +374,13 @@ router.get('/images', function (req, res, next) {
 router.get('/xuanchuan', function (req, res, next) {
   res.render('xuanchuan', { title: 'SportsChain' });
 });
+
+router.get('/logout', function (req, res, next) {
+  res.clearCookie(req.session.name);
+  req.session.destroy((err) => {
+    console.log(err);
+  });
+  res.redirect('/');
+})
   
 module.exports = router;

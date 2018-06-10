@@ -205,5 +205,14 @@ module.exports = {
 				error ? reject(error) : resolve(result);
 			});
 		});
+	},
+	unionDescOrder: function (params) {
+		return new Promise(function (resolve, reject) {
+			var sql = final.unionDescOrder(params[0], params[1], params[2], params[3], params[4]);
+			console.log(sql);
+			query(sql, (error, result) => {
+				error ? reject(error) : resolve(result);
+			});
+		});
 	}
 };

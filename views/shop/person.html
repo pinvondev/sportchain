@@ -19,6 +19,9 @@
         <div style="height:20px;"></div>
         <div class="aui-content-up">
         <form action="/shop/person" method="post" enctype="multipart/form-data" onsubmit="return valid()">
+            {{#if code}}
+            <input id="code" value={{code}} hidden></input>
+            {{/if}}
             <div class="aui-content-up-form" >
                 <h2 style="text-align: right">登录账户：<span>{{tel}}</span></h2>
                 <h2>个人登陆</h2>
@@ -97,6 +100,20 @@
                 return true;
             } else {
                 return false;
+            }
+        }
+
+        if ($('#code').val()) {
+            console.log('test');
+            code = parseInt($('#code').val());
+            console.log(code);
+            if (code === 400) {
+                layer.msg('店铺名已注册');
+            } else if (code === 200) {
+                layer.msg('保存成功');
+                setTimeout(function () {
+                    location.href = '/shop';
+                }, 2000);
             }
         }
     </script>

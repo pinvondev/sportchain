@@ -39,8 +39,58 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 		return s.deal(APIstub, args)
 	} else if function == "setEnergy" {
 		return s.setEnergy(APIstub, args)
+	} else if function == "getHistory" {
+		return s.getHistory(APIstub, args)
 	}
 	return shim.Error("Invalid Smart Contract function name.")
+}
+
+// 获取用户的历史交易
+// 参数: 用户名
+func (s *SmartContract) getHistory(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
+	fmt.Println("进入 gethisgory")
+	if len(args) != 1 {
+		return shim.Error("需要1个参数")
+	}
+
+	err := sanitizeArguments(args)
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
+	type AuditHistory struct {
+		TxId  string      `json:"txId"`
+		Value SportEnergy `json:"value"`
+	}
+	var history []AuditHistory
+	var sportEnergy SportEnergy
+
+	resultsIterator, err := APIstub.GetHistoryForKey(args[0])
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+	defer resultsIterator.Close()
+
+	for resultsIterator.HasNext() {
+		historyData, err := resultsIterator.Next()
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+		var tx AuditHistory
+		tx.TxId = historyData.TxId
+		json.Unmarshal(historyData.Value, &sportEnergy)
+		if historyData.Value == nil {
+			var emptySportEnergy SportEnergy
+			tx.Value = emptySportEnergy
+		} else {
+			json.Unmarshal(historyData.Value, &sportEnergy)
+			tx.Value = sportEnergy
+		}
+		history = append(history, tx)
+	}
+	fmt.Println(history, "pinvon")
+	historyAsBytes, _ := json.Marshal(history)
+	return shim.Success(historyAsBytes)
 }
 
 // 用户上传步数 兑换运动能量
