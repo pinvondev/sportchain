@@ -1,24 +1,27 @@
 @charset "utf-8";
 body{
-    background-color: #3895e8;
+    background-color: #121a2a;
 }
 .wrap{
     box-sizing: border-box;
     height: 100vh;
-    background: url("/images/bj.jpg") no-repeat center;
-    background-size: auto 100vh;
+    background: url("/images/bg.jpg") no-repeat center;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
     position:  relative;
 }
 .form-data{
-    background-color: #ffffff;
-    width: 460px;
+    background-color: #FF5151;
+    width: 760px;
+	height:400px;
     left: 50%;
-    margin-left: -230px;
+    margin-left: -380px;
     border-radius: 5px;
     box-shadow: 0 0 30px rgba(0,0,0,.1);
     padding: 65px 0 30px 0;
     position: fixed;
     top: 15%;
+    border-radius: 20px;
 }
 .form-data .tel-warn{
     position: absolute;
@@ -30,7 +33,7 @@ body{
 .form-data .tel-warn i{
     display: inline-block;
     vertical-align: middle;
-    color: #ea5d5f;
+    color: white;
     font-size: 16px;
     margin-top: -3px;
     margin-left: 5px;
@@ -39,18 +42,19 @@ body{
     padding: 5px 0;
     height: 44px;
     box-sizing: border-box;
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #AE0000;
     width: 340px;
     margin: 0 auto 16px;
     line-height: 14px;
     display: block;
+    color:white;
 }
 .form-data .code{
     width: 340px;
     margin-left: 60px;
 }
 .form-data .code input{
-    width: 200px;
+    width: 180px;
 }
 .form-data .code img{
     width: 120px;
@@ -69,7 +73,7 @@ body{
     height: 34px;
     line-height: 34px;
     text-align: center;
-    color: #000;
+    color: white;
     left: 320px;
     bottom: 0;
 }
@@ -248,14 +252,15 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0 auto 10px;
     display: flex;
     justify-content: space-around;
-    font-size: 14px;
-    color: #cacaca;
+    font-size: 23px;
+    color: white;
+    font-size:15px;
 }
 .form-data .change-login p{
     cursor: pointer;
 }
 .form-data .change-login p.on{
-    color: #76b9f7;
+    color: reid;
 }
 .find_password{
     background-color: #ffffff;
