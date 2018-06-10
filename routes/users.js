@@ -236,12 +236,12 @@ router.get('/transaction', function (req, res, next) {
 
 router.post('/transaction', function (req, res, next) {
   console.log('wlf', 'post /transaction');
-
-  var name1 = req.body.name1;
+    console.log(req.body);
+  var name1 = req.body.username;
   console.log('wlf', 'user1s name is', name1);
-  var name2 = req.body.name2 ;
+  var name2 = req.body.shopname ;
   console.log('wlf', 'user2s name is', name2);
-  var X = req.body.X ;
+  var X = req.body.energynum ;
   console.log('wlf', 'number of transaction', X.toString());
   var args = [name1, name2, X.toString()];
   var ccFun = 'deal';
@@ -345,14 +345,15 @@ function hasUserID(str, user_id) {
 // 用户进入商家界面
 // /users/activity get
 // params: shop_name
-router.get('/activity', function (req, res, next) {
+router.post('/activity', function (req, res, next) {
+    console.log(req.body.shopid);
     console.log('activity', 'pinvon');
   // 返回商家名, 商家Logo, 商家描述, 商家能量
   var params = [
     'activity',
     '*',
-    'shopName=?',
-    req.query.shop_name
+    'id=?',
+    req.body.shopid
   ];
   sql.queryByConditions(params)
     .then((results) => {
