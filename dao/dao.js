@@ -49,20 +49,20 @@ var jsonWrite = function (res, ret) {
  
 module.exports = {
 	queryAll: function (tableName, callback) {
-        	        var tempArr = new Array();
-                	conn.query("select * from enterpriseShop",function(err,results){
-		if(err){
-        	                throw err;
-        	        }
-		if(results){
-                        console.log(results);
-                        for(var i = 0; i < results.length; i++){
-                        tempArr[i] = results[i];
-                        }
-                        return callback(null, results);
-                }
-                });
-        },
+        var tempArr = new Array();
+        conn.query("select * from personalShop",function(err,results){
+		if (err) {
+        	throw err;
+        }
+		if (results) {
+            console.log(results);
+            for(var i = 0; i < results.length; i++){
+                tempArr[i] = results[i];
+            }
+            return callback(null, results);
+        }
+        });
+    },
 	insert: function (tableName, params, callback) {
 		var sql = '';
 		if (tableName === 'activity') {

@@ -133,7 +133,7 @@ router.get('/activity', function(req, res, next) {
     } else {
         shop_params.push(
             'enterpriseShop',
-            'id, enterpriseName as shopname, shopLogo as shoplogo, shoplink, email, energy',
+            'id, enterpriseName as shopName, shopLogo as shoplogo, shoplink, email, energy',
             'phone=?',
             req.session.user.tel
         );
@@ -210,27 +210,23 @@ router.post('/activity', function(req, res, next) {
 });
 
 router.get('/rank', function(req, res, next) {
-//    res.render('shop/rank');
-    sql.queryAll('enterpriseShop', function (error, result) {
-        if(error){
-                throw error;
-                console.log(error);
-        } else {
-                var temp = new Array();
-                for(var i = 0; i< result.length; i++){
-                        temp[i] = result[i];
-                }
-	    var data ={ data:result, };
-	    return res.json(data);
-//	    fs.writeFile('shops.json', '{ "data":'+date+',}',  function(err) {
-//		if (err) {
-//		return console.error(err);
-//		}
-//		console.log("数据写入成功！"); 
-//	    });
-//            res.render('shop/rank',{title:'test', results:temp});
-//            return;
+    params = [
+        'personalShop',
+        'shoplogo, shopname as enterpriseName, introduction as description, phone, id',
+        ''
+    ]
+    sql.queryByConditions(params)
+    .then((result) => {
+        var temp = new Array();
+        for(var i = 0; i< result.length; i++){
+            temp[i] = result[i];
         }
+	    var data = { data: result };
+        console.log('pinvon', data);
+	    return res.json(data);
+    })
+    .catch((error) => {
+        throw error;
     });
 });
 
@@ -271,7 +267,7 @@ router.post('/person', upload.single('logo'), function (req, res, next) {
         req.body.shopName,
         req.body.shopType,
         req.body.description,
-        ip.address() + ':3000/upload/' + req.session.user.tel + '/' + req.file.originalname,
+        'http://' + ip.address() + ':3000/upload/' + req.session.user.tel + '/' + req.file.originalname,
         req.body.url,
         req.session.user.tel
     ];

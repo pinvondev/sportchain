@@ -254,14 +254,31 @@ router.post('/transaction', function (req, res, next) {
   console.log(req.body);
   var name1 = req.body.username;
   console.log('wlf', 'user1s name is', name1);
-  var name2 = req.body.shopname ;
+  var name2 = req.body.shopphone;
   console.log('wlf', 'user2s name is', name2);
-  var X = req.body.energynum ;
+  var X = req.body.energynum;
   console.log('wlf', 'number of transaction', X.toString());
   var args = [name1, name2, X.toString()];
   var ccFun = 'deal';
 
-  stepfabric.step(name1, ccFun, args);
+    stepfabric.step(name1, ccFun, args, function (error, result) {
+        if (error) {
+            console.log('pinvon', error);
+            back = {
+                code: 400,
+                msg: '网络异常'
+            }
+            return res.json(back);
+        } else {
+            if (result && result[1] && result[1].event_status === 'VALID') {
+                back = {
+                    code: 200,
+                    msg: 'success'
+                }
+                return res.json(back);
+            }
+        }
+    });
 });
 
 // 获取二维码
@@ -290,15 +307,15 @@ router.get('/qrcode', function (req, res, next) {
           } else {
             // 更新数据库
             update_params = [
-              'activity', 
-              'realCoupons=?, user_id=?', 
+              'activity',
+              'realCoupons=?, user_id=?',
               'id=?',
               [result[0].realCoupons+1, result[0].user_id+'|'+result_user[0].id, result[0].id]
             ];
             sql.updateByConditions(update_params).then((update_result) => {
               back = {
                 code: 200,
-                msg: result[0].id + ';' + req.session.user.name + ';'
+                msg: result[0].url + ';' + result[0].id + ';' + req.session.user.name + ';'
               }
               return res.json(back);
             }).catch((error) => {
@@ -363,25 +380,37 @@ function hasUserID(str, user_id) {
 router.post('/activity', function (req, res, next) {
     console.log(req.body.shopid);
     console.log('activity', 'pinvon');
-  // 返回商家名, 商家Logo, 商家描述, 商家能量
-  var params = [
-    'activity',
-    '*',
-    'id=?',
-    req.body.shopid
-  ];
-  sql.queryByConditions(params)
-    .then((results) => {
-      var data = {
-        code: 200,
-        data: results
-      }
-      console.log('pinvon result', data);
-      return res.json(data);
-    })
-    .catch((error) => {
-      throw error;
-    });
+    // 返回商家名, 商家Logo, 商家描述, 商家能量
+    var shop_params = [
+        'personalShop',
+        'shopname',
+        'id=?',
+        req.body.shopid
+    ];
+    sql.queryByConditions(shop_params)
+        .then((shop_result) => {
+            var params = [
+                'activity',
+                '*',
+                'shopName=?',
+                shop_result[0].shopname
+            ];
+            sql.queryByConditions(params)
+                .then((results) => {
+                    var data = {
+                        code: 200,
+                        data: results
+                    }
+                    console.log('pinvon result', data);
+                    return res.json(data);
+                })
+                .catch((error) => {
+                    throw error;
+                });
+        })
+        .catch((error) => {
+            throw error;
+        });
 });
 
 router.get('/images', function (req, res, next) {

@@ -38,4 +38,8 @@ router.get('/history', function (req, res, next) {
   })
 });
 
+router.get('/test', function (req, res, next) {
+    return res.render('test');
+})
+
 module.exports = router;
