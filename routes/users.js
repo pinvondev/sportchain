@@ -314,7 +314,7 @@ router.post('/transaction', function (req, res, next) {
                             'personalShop',
                             'energy=' + sportEnergy.toString(),
                             'phone=?',
-                            req.session.user.tel
+                            name2
                         ];
                         sql.updateByConditions(update_params)
                             .then((result) => {
