@@ -215,5 +215,14 @@ module.exports = {
 				error ? reject(error) : resolve(result);
 			});
 		});
-	}
+	},
+    descByConditions: function (params) {
+        return new Promise(function (resolve, reject) {
+            var sql = final.descByConditions(params[0], params[1], params[2], params[3]);
+            console.log('pinvon descByConditions', sql);
+            query(sql, (error, result) => {
+                error ? reject(error) : resolve(result);
+            });
+        });
+    }
 };

@@ -91,10 +91,10 @@ font-weight: bold;
   <tbody>
       {{#each results}}
       <tr>
-        <td style="width:20%;">{{ this.id }}</td>
-        <td style="width:25%;">{{ this.enterpriseName }}</td>
-        <td style="width:20%;"><a href='{{ this.shoplink }}'>进入{{this.enterpriseName}}主页</a></td>
-        <td style="width:30%;">{{ this.energy}}</td>
+        <td style="width:20%;">{{ @gindex }}</td>
+        <td style="width:25%;">{{ this.shopname }}</td>
+        <td style="width:20%;"><a href='{{ this.shoplink }}'>进入{{thisshopname}}主页</a></td>
+        <td style="width:30%;">{{ this.energy }}</td>
       </tr>
       {{/each}}
   </tbody>                                                                                            </table>

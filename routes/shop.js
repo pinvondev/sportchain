@@ -32,28 +32,31 @@ router.get('/', function(req, res, next) {
         return res.redirect('../shop/login');
     }
 
-    if (req.session.user.name === undefined) {  // 如果商家信息未完善
-        return res.redirect('../shop/person');
-    } else {
-        params = ['personalShop', '*', 'phone=?', [req.session.user.tel]];
-        sql.queryByConditions(params)
-            .then((result) => {
-                console.log(result);
-                res.render('shop/', { shop: result[0] });
-            })
-            .catch((error) => {
-                throw error;
-            })
-        // sql.queryByName('shops', [req.session.user.name], function (error, results) {
-        //     if (error) {
-        //         throw error;
-        //     } else {
-        //         console.log(results);
-        //         shopId = results.id;
-        //         res.render('shop/', { shop: results });
-        //     }
-        // });
-    }
+    params = [
+        'personalShop',
+        'shopname',
+        'phone=?',
+        req.session.user.tel
+    ];
+    sql.queryByConditions(params)
+        .then((result) => {
+            if (result[0].shopname.length <= 0) {
+                return res.redirect('../shop/person');
+            }
+        })
+        .catch((error) => {
+            return console.log(error);
+        });
+
+    params = ['personalShop', '*', 'phone=?', [req.session.user.tel]];
+    sql.queryByConditions(params)
+        .then((result) => {
+            console.log(result);
+            res.render('shop/', { shop: result[0] });
+        })
+        .catch((error) => {
+            throw error;
+        })
 });
 
 router.get('/login', function (req, res, next) {
@@ -106,8 +109,8 @@ router.post('/login', function (req, res, next) {
                 'personal': req.body.personal
             }
 
-            if (result[0].shopName) {
-                req.session.user.name = result[0].shopName;
+            if (result[0].shopname) {
+                req.session.user.name = result[0].shopname;
             }
 
             back = {
@@ -231,28 +234,26 @@ router.get('/rank', function(req, res, next) {
 });
 
 router.get('/rank1', function(req, res, next) {
-//    res.render('shop/rank');
-    sql.queryAll('enterpriseShop', function (error, result) {
-        if(error){
+    //    res.render('shop/rank');
+    params = [
+        'personalShop',
+        '*',
+        '',
+        'energy'
+    ]
+    sql.descByConditions(params)
+        .then((result) => {
+            var temp = new Array();
+            for(var i = 0; i< result.length; i++){
+                temp[i] = result[i];
+            }
+            res.render('shop/rank',{ title:'test', results:temp });
+            return;
+        })
+        .catch((error) => {
                 throw error;
                 console.log(error);
-        } else {
-                var temp = new Array();
-                for(var i = 0; i< result.length; i++){
-                        temp[i] = result[i];
-                }
-//            var date ={ data:result, };
-//            return res.json(date);
-//          fs.writeFile('shops.json', '{ "data":'+date+',}',  function(err) {
-//              if (err) {
-//              return console.error(err);
-//              }
-//              console.log("数据写入成功！"); 
-//          });
-            res.render('shop/rank',{title:'test', results:temp});
-            return;
-        }
-    });
+        });
 });
 
 

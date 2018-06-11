@@ -187,6 +187,31 @@ router.post('/step', function (req, res, next) {
           code: 200,
           msg: 'test'
         }
+          if (req.session.user.tel != undefined) {
+              query_params = [
+                  'personalShop',
+                  'energy',
+                  'phone=?',
+                  req.session.user.tel
+              ]
+              sql.queryByConditions(query_params)
+                  .then((query_result) => {
+                      sportEnergy = query_result[0].energy + sportEnergy;
+                      update_params = [
+                          'personalShop',
+                          'energy=' + sportEnergy.toString(),
+                          'phone=?',
+                          req.session.user.tel
+                      ];
+                      sql.updateByConditions(update_params)
+                          .then((result) => {
+                              console.log('pinvon step queryByConditions', result);
+                          })
+                          .catch((error) => {
+                              console.log('pinvon step queryByConditions', error);
+                          });
+                  })
+          }
         return res.json(back);
       }
     }
@@ -275,6 +300,30 @@ router.post('/transaction', function (req, res, next) {
                     code: 200,
                     msg: 'success'
                 }
+
+                query_params = [
+                    'personalShop',
+                    'energy',
+                    'phone=?',
+                    name2
+                ];
+                sql.queryByConditions(query_params)
+                    .then((query_result) => {
+                        var sportEnergy = query_result[0].energy + X;
+                        update_params = [
+                            'personalShop',
+                            'energy=' + sportEnergy.toString(),
+                            'phone=?',
+                            req.session.user.tel
+                        ];
+                        sql.updateByConditions(update_params)
+                            .then((result) => {
+                                console.log('pinvon step queryByConditions', result);
+                            })
+                            .catch((error) => {
+                                console.log('pinvon step queryByConditions', error);
+                            });
+                    })
                 return res.json(back);
             }
         }

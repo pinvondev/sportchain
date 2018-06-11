@@ -29,8 +29,7 @@ function register() {
             if (status === 'success') {
                 console.log(data);
                 if (data.code === 200) {
-                    layer.msg('注册成功1');
-                    alert('pause');
+                    layer.msg('注册成功');
                     setTimeout(function () {
                         location.href = '/shop/login';
                     }, 2000);
@@ -71,8 +70,7 @@ function register2() {
             if (status === 'success') {
                 console.log(data);
                 if (data.code === 200) {
-                    layer.msg('注册成功2');
-                    alert('pause2');
+                    layer.msg('注册成功');
                     setTimeout(function () {
                         location.href = '/shop/login';
                     }, 2000);

@@ -10,7 +10,7 @@ var final = {
 			sql = `select ${columns} from ${tables}`;
 		} else {
 			sql = `select ${columns} from ${tables} where ${filter}`;
-		}		
+		}
 		return sql;
     },
     insertByConditions: function (tables, columns, values, filter) {
@@ -33,6 +33,15 @@ var final = {
     },
     unionDescOrder: function (columns_1, table_1, columns_2, table_2, filter) {
         let sql = `(select ${columns_1} from ${table_1}) union (select ${columns_2} from ${table_2}) order by ${filter} desc`;
+        return sql;
+    },
+    descByConditions: function (tables, columns, filter, order_name) {
+        let sql = '';
+        if (filter === '') {
+            sql = `select ${columns} from ${tables} order by ${order_name} desc`;
+        } else {
+            sql = `select ${columns} from ${tables} where ${filter} order by ${order_name} desc`;
+        }
         return sql;
     }
 };
