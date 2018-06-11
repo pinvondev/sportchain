@@ -4,6 +4,7 @@ var utils = require('../utils/util');
 var multer = require('multer');
 var ip = require('ip');
 var userfabric = require('../fabric/user');
+var stepfabric = require('../fabric/step');
 var router = express.Router();
 var fs = require('fs');
 // var uploadFolder = 'public/upload/';
@@ -368,10 +369,8 @@ router.post('/register', function (req, res, next) {
     var tableName = '';
     console.log(typeof req.body.personal);
     if (req.body.personal === 'true') {
-        console.log('pinvon', 'personalShop');
         tableName = 'personalShop';
     } else {
-        console.log('pinvon', 'enterpriseShop');
         tableName = 'enterpriseShop';
     }
 
@@ -400,16 +399,25 @@ router.post('/register', function (req, res, next) {
                     }
                     res.json(result);
                 } else {
-                    sql.insertPhone(tableName, params, function (error, result) {  // 插入新用户
+                    var args = [req.body.tel, '0', '0'];
+                    stepfabric.step(req.body.tel, 'setEnergy', args, function (error, result) {  // 注册时商家上链
                         if (error) {
-                            throw error;
+                            console.log(error);
                         } else {
-                            console.log(result);
-                            back = {
-                                code:200,
-                                msg:'注册成功'
+                            if (result && result[1] && result[1].event_status === 'VALID') {
+                                sql.insertPhone(tableName, params, function (error, result) {  // 插入新用户
+                                    if (error) {
+                                        throw error;
+                                    } else {
+                                        console.log('pinvon register shop', result);
+                                        back = {
+                                            code:200,
+                                            msg:'注册成功'
+                                        }
+                                        return res.json(back);
+                                    }
+                                });
                             }
-                            return res.json(back);
                         }
                     });
                 }

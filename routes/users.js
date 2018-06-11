@@ -244,7 +244,7 @@ router.get('/transaction', function (req, res, next) {
 
 router.post('/transaction', function (req, res, next) {
   console.log('wlf', 'post /transaction');
-    console.log(req.body);
+  console.log(req.body);
   var name1 = req.body.username;
   console.log('wlf', 'user1s name is', name1);
   var name2 = req.body.shopname ;
