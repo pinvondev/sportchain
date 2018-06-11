@@ -201,7 +201,14 @@ router.get('/query', function(req, res, next){
 router.post('/query', function (req, res, next) {
   console.log('pinvon', 'post /query');
   console.log(req.session);
-  var name = req.session.user.name;
+
+  var name = '';
+  if (req.session.user.tel === undefined) {  // 运动爱好者
+    name = req.session.user.name;
+  } else {  // 商家
+    name = req.session.user.tel;
+  }
+
   var ccFun = 'querySportEnergy';
   var args = [name];
   console.log('pinvon', name, ccFun, args);

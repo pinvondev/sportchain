@@ -14,7 +14,10 @@
                 url:'/users/query',
                 type:'post',
                 success:function(data, status){
-                    console.log('success');
+                    if (data.code === 200) {
+                        var msg = '当前运动能量: ' + data.msg.energy;
+                        alert(msg);
+                    }
                 },
                 error:function(data, err){
                     console.log('error');
