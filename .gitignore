@@ -4,3 +4,4 @@ fabric/hfc-key-store
 .vscode
 log
 public/upload/*
+test.json

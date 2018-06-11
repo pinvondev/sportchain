@@ -19,7 +19,10 @@
 	<div style="height:20px;"></div>
 	<div class="aui-content-up">
 		<form action="/shop/enterprise" name="form1" method="post" enctype="multipart/form-data">
-			<div class="aui-content-up-form" >
+          {{#if code}}
+          <input id="code" value={{code}} hidden></input>
+          {{/if}}
+          <div class="aui-content-up-form" >
 				<h2 style="text-align: right">登录账户：{{tel}}<span></span></h2>
 				<h2>企业登陆</h2>
 			</div>
@@ -213,38 +216,19 @@
 		}
 	}
 
-
-	var file1 = document.getElementById("file1");
-	 var file2 = document.getElementById("file2");
-	 var file3 = document.getElementById("file3");
-	 var file4 = document.getElementById("file4");
-	 var file5 = document.getElementById("file5");
-	var formdata = new FormData();
-	for (var i = 0; i < 5; i++){
-		formdata.append('file', file[i]);
-		console.log(file[i]);
-	}
-	console.log(formdata);
-	$.ajax({  
-                url: '/shops/enterprise',  
-                type: 'POST',  
-                data: formdata,
-                cache: false,  
-                contentType: false,  
-                processData: false,  
-                success: function(data){
-                    if(200 === data.code) {  
-                        $('#result').html("上传成功！");  
-                        $('#img').attr('src',data.data);  
-                    } else {  
-                        $('#result').html("上传失败！");  
-                    }  
-                    console.log('imgUploader upload success');  
-                },  
-                error: function(){  
-                    $("#result").html("与服务器通信发生错误");  
-                }  
-            });   
+     if ($('#code').val()) {                                                                                                                                                                          
+            console.log('test');                                                                                                                                                                        
+            code = parseInt($('#code').val());                                                                                                                                                          
+            console.log(code);                                                                                                                                                                          
+            if (code === 400) {                                                                                                                                                                        
+                layer.msg('店铺名已注册');                                                                                                                                                              
+            } else if (code === 200) {                                                                                                                                                                  
+                layer.msg('保存成功');                                                                                                                                                                  
+                setTimeout(function () {                                                                                                                                                                
+                  location.href = '/shop';                                                                                                                                                             
+                }, 2000);                                                                                                                                                                               
+            }                                                                                                                                                                                           
+        }       
 </script>
 </body>
 </html>

@@ -349,8 +349,7 @@ router.post('/enterprise', upload.array('file', 20), function (req, res, next) {
 
                     // 保存店铺名到session
                     req.session.user.name = req.body.yourname;
-                  return res.send(back);
-                return req.redirect('/shop');
+                    return res.render('shop/enterprise',{code:back.code});
                 }
             });
         }
