@@ -29,7 +29,8 @@ router.get('/history', function (req, res, next) {
         back = {
           txid: result[index].txId,
           step: result[index].value.step,
-          energy: result[index].value.energy
+          energy: result[index].value.energy,
+          timestamp: result[index].value.timestamp
         }
         backs.push(back);
       }

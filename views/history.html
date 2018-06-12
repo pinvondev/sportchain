@@ -38,7 +38,7 @@
         <h1>交易历史记录</h1>
       </div>
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
           <table class="table">
             <thead>
               <tr>
@@ -46,6 +46,7 @@
                 <th>交易ID</th>
                 <th>步数</th>
                 <th>能量</th>
+                <th>交易生效时间</th>
               </tr>
             </thead>
             <tbody>
@@ -56,6 +57,7 @@
                         <td>{{txid}}</td>
                         <td>{{step}}</td>
                         <td>{{energy}}</td>
+                        <td>{{timestamp}}</td>
                     </tr>
                 {{/each}}
               {{else}}

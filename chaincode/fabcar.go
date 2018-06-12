@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"strconv"
+	"time"
 
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	sc "github.com/hyperledger/fabric/protos/peer"
@@ -13,13 +14,15 @@ type SmartContract struct {
 }
 
 type SportEnergy struct {
-	Step   string `json:"step"`
-	Owner  string `json:"owner"`
-	Energy string `json:"energy"`
+	Step      string `json:"step"`
+	Owner     string `json:"owner"`
+	Energy    string `json:"energy"`
+	Timestamp string `json:"timestamp"`
 }
 
 func (s *SmartContract) Init(APIstub shim.ChaincodeStubInterface) sc.Response {
-	sportEnergy := SportEnergy{Step: "0", Owner: "admin", Energy: "5000000000"}
+	timestamp := time.Now().Format("2006-01-02 15:04:05")
+	sportEnergy := SportEnergy{Step: "0", Owner: "admin", Energy: "5000000000", Timestamp: timestamp}
 	sportEnergyAsBytes, err := json.Marshal(sportEnergy)
 	if err != nil {
 		shim.Error(err.Error())
@@ -110,6 +113,7 @@ func (s *SmartContract) setEnergy(APIstub shim.ChaincodeStubInterface, args []st
 		sportEnergy.Step = "0"
 		sportEnergy.Owner = args[0]
 		sportEnergy.Energy = "0"
+		sportEnergy.Timestamp = time.Now().Format("2006-01-02 15:04:05")
 	} else { // 解析成SportEnergy对象, 并放入sportEnergy
 		json.Unmarshal(sportEnergyAsBytes, &sportEnergy)
 	}
@@ -123,6 +127,7 @@ func (s *SmartContract) setEnergy(APIstub shim.ChaincodeStubInterface, args []st
 
 	sportEnergy.Step = strconv.Itoa(step)
 	sportEnergy.Energy = strconv.Itoa(energy)
+	sportEnergy.Timestamp = time.Now().Format("2006-01-02 15:04:05")
 
 	sportEnergyAsBytes, _ = json.Marshal(sportEnergy) // 将sportEnergy序列化成JSON格式
 	APIstub.PutState(args[0], sportEnergyAsBytes)     // 将JSON格式的sportEnergy写入状态数据库
@@ -153,7 +158,9 @@ func (s *SmartContract) createSportEnergy(APIstub shim.ChaincodeStubInterface, a
 		return shim.Error(err.Error())
 	}
 
-	var sportEnergy = SportEnergy{Step: args[0], Owner: args[1], Energy: args[2]}
+	timestamp := time.Now().Format("2006-01-02 15:04:05")
+
+	var sportEnergy = SportEnergy{Step: args[0], Owner: args[1], Energy: args[2], Timestamp: timestamp}
 
 	sportEnergyAsBytes, _ := json.Marshal(sportEnergy)
 	APIstub.PutState(args[1], sportEnergyAsBytes)
@@ -217,8 +224,10 @@ func (s *SmartContract) deal(APIstub shim.ChaincodeStubInterface, args []string)
 	A = strconv.Itoa(Aval)
 	B = strconv.Itoa(Bval)
 
-	var user11 = SportEnergy{Step: user1.Step, Owner: name1, Energy: A}
-	var user22 = SportEnergy{Step: user2.Step, Owner: name2, Energy: B}
+	timestamp := time.Now().Format("2006-01-02 15:04:05")
+
+	var user11 = SportEnergy{Step: user1.Step, Owner: name1, Energy: A, Timestamp: timestamp}
+	var user22 = SportEnergy{Step: user2.Step, Owner: name2, Energy: B, Timestamp: timestamp}
 
 	AJSONasBytes, err := json.Marshal(user11)
 	if err != nil {
