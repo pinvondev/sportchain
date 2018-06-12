@@ -52,7 +52,7 @@ router.get('/', function(req, res, next) {
     sql.queryByConditions(params)
         .then((result) => {
             console.log(result);
-            res.render('shop/', { shop: result[0] });
+            return res.render('shop/', { shop: result[0] });
         })
         .catch((error) => {
             throw error;
@@ -61,9 +61,9 @@ router.get('/', function(req, res, next) {
 
 router.get('/login', function (req, res, next) {
     if (JSON.stringify(req.query) == "{}") {
-		console.log(req.query);
-		res.render('shop/login');
-	} 
+	console.log(req.query);
+	return res.render('shop/login');
+    } 
 });
 
 router.post('/login', function (req, res, next) {
@@ -206,8 +206,7 @@ router.post('/activity', function(req, res, next) {
             response = {
                 code: 200
             }
-            res.json(response);
-            return ;
+            return res.json(response);
         }
     });
 });
@@ -247,8 +246,7 @@ router.get('/rank1', function(req, res, next) {
             for(var i = 0; i< result.length; i++){
                 temp[i] = result[i];
             }
-            res.render('shop/rank',{ title:'test', results:temp });
-            return;
+            return res.render('shop/rank',{ title:'test', results:temp });
         })
         .catch((error) => {
                 throw error;
@@ -258,7 +256,7 @@ router.get('/rank1', function(req, res, next) {
 
 
 router.get('/person', function(req, res, next) {
-    res.render('shop/person', {tel: req.session.user.tel});
+    return res.render('shop/person', {tel: req.session.user.tel});
 });
 
 // 商家 Logo 以电话为文件名, 保存到 upload 文件夹
@@ -268,7 +266,7 @@ router.post('/person', upload.single('logo'), function (req, res, next) {
         req.body.shopName,
         req.body.shopType,
         req.body.description,
-        'http://' + ip.address() + ':3000/upload/' + req.session.user.tel + '/' + req.file.originalname,
+        'http://123.207.62.191' + ':3000/upload/' + req.session.user.tel + '/' + req.file.originalname,
         req.body.url,
         req.session.user.tel
     ];
@@ -356,10 +354,10 @@ router.post('/enterprise', upload.array('file', 20), function (req, res, next) {
 
 
 router.get('/register', function (req, res, next) {
-    if (JSON.stringify(req.query) == "{}") {
+//    if (JSON.stringify(req.query) == "{}") {
         console.log(req.query);
-        res.render('shop/register');
-	}
+        return res.render('shop/register');
+//    }
 });
 
 router.post('/register', function (req, res, next) {

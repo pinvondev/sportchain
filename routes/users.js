@@ -33,13 +33,9 @@ router.post('/register', function(req, res, next) {
   ]
 
   // 临时 将邮箱与电话改为可选
-  if (params[2] === undefined) {
-    params[2] = 'test';
-  }
+  params[2] = 'test';
+  params[3] = 'test';
 
-  if (params[3] === undefined) {
-    params[3] = 'test';
-  }
   console.log(params);
   // 增加用户名是否已注册的判断
   if (params[0] && params[1] && params[2] && params[3]) {
@@ -159,9 +155,9 @@ router.post('/step', function (req, res, next) {
 
   var args = [];
   var name = '';
-  if (req.session.user.tel === undefined) {
-    args.push(req.session.user.name, step.toString(), sportEnergy.toString());
-    name = req.session.user.name;
+  if (req.body.name) {
+    args.push(req.body.name, step.toString(), sportEnergy.toString());
+    name = req.body.name;
   } else {
     args.push(req.session.user.tel, step.toString(), sportEnergy.toString());
     name = req.session.user.tel;
@@ -187,7 +183,7 @@ router.post('/step', function (req, res, next) {
           code: 200,
           msg: 'test'
         }
-          if (req.session.user.tel != undefined) {
+          if (req.session.user != undefined) {
               query_params = [
                   'personalShop',
                   'energy',
@@ -225,11 +221,12 @@ router.get('/query', function(req, res, next){
 
 router.post('/query', function (req, res, next) {
   console.log('pinvon', 'post /query');
-  console.log(req.session);
+  console.log(req.body);
 
   var name = '';
-  if (req.session.user.tel === undefined) {  // 运动爱好者
-    name = req.session.user.name;
+  if (req.body.name) {  // 运动爱好者
+    console.log('pinvon');
+    name = req.body.name;
   } else {  // 商家
     name = req.session.user.tel;
   }
