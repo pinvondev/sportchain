@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 
 // 获取历史信息
 router.get('/history', function (req, res, next) {
-  queryfabric.queryByUsers(req.session.user.name, 'getHistory', [req.query.name], function (error, result) {
+    queryfabric.queryByUsers('admin', 'getHistory', [req.query.name], function (error, result) {
     if (error) {
       return res.render('history');
     } else {

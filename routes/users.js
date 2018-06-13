@@ -150,7 +150,7 @@ router.post('/step', function (req, res, next) {
   console.log('pinvon', 'post /step', req.session);
   
   var step = req.body.step;
-  var sportEnergy = step / 100;  // 公式要另外设置, 这边只是做简单除法
+  var sportEnergy = step;  // 公式要另外设置, 这边只是做简单除法
   console.log('pinvon', 'number of step', req.body.step);
 
   var args = [];
@@ -187,7 +187,7 @@ router.post('/step', function (req, res, next) {
           code: 200,
           msg: 'test'
         }
-          if (req.session.user.tel != undefined) {
+          if (req.session.user.tel) {
               query_params = [
                   'personalShop',
                   'energy',
