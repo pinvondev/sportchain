@@ -39,8 +39,19 @@ router.get('/history', function (req, res, next) {
   })
 });
 
+router.get('/block', function (req, res, next) {
+  queryfabric.queryByBlockId(req.query.num, function(error, result) {
+    if (error) {
+      return res.json(error);
+    } else {
+      console.log('pinvon', result);
+      return res.json(result);
+    }
+  })
+});
+
 router.get('/test', function (req, res, next) {
     return res.render('test');
-})
+});
 
 module.exports = router;

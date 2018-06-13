@@ -155,14 +155,18 @@ router.post('/step', function (req, res, next) {
 
   var args = [];
   var name = '';
-  if (req.body.name) {
+
+  if (req.body.name === undefined) {
+    args.push(req.session.user.name, step.toString(), sportEnergy.toString());
+    name = req.session.user.name;
+  } else if (req.body.name) {
     args.push(req.body.name, step.toString(), sportEnergy.toString());
     name = req.body.name;
   } else {
     args.push(req.session.user.tel, step.toString(), sportEnergy.toString());
     name = req.session.user.tel;
   }
-  
+  console.log('pinvon', name);
   var ccFun = 'setEnergy';
   stepfabric.step(name, ccFun, args, function (error, result) {
     if (error) {
@@ -183,7 +187,7 @@ router.post('/step', function (req, res, next) {
           code: 200,
           msg: 'test'
         }
-          if (req.session.user != undefined) {
+          if (req.session.user.tel != undefined) {
               query_params = [
                   'personalShop',
                   'energy',
