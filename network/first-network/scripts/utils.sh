@@ -35,51 +35,6 @@ setGlobals () {
 	else
 		CORE_PEER_ADDRESS=peer1.org${ORG}.example.com:7051
 	fi
-:<<BLOCK
-    for ((index=1; index<=$ORG; index++)); do
-        CORE_PEER_LOCALMSPID="Org${index}MSP"
-		CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org${index}.example.com/peers/peer0.org${index}.example.com/tls/ca.crt
-		CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org${index}.example.com/users/Admin@org${index}.example.com/msp
-		if [ $PEER -eq 0 ]; then
-			CORE_PEER_ADDRESS=peer0.org${index}.example.com:7051
-		else
-			CORE_PEER_ADDRESS=peer1.org${index}.example.com:7051
-		fi
-    done
-
-
-	if [ $ORG -eq 1 ] ; then
-		CORE_PEER_LOCALMSPID="Org1MSP"
-		CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
-		CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
-		if [ $PEER -eq 0 ]; then
-			CORE_PEER_ADDRESS=peer0.org1.example.com:7051
-		else
-			CORE_PEER_ADDRESS=peer1.org1.example.com:7051
-		fi
-	elif [ $ORG -eq 2 ] ; then
-		CORE_PEER_LOCALMSPID="Org2MSP"
-		CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
-		CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
-		if [ $PEER -eq 0 ]; then
-			CORE_PEER_ADDRESS=peer0.org2.example.com:7051
-		else
-			CORE_PEER_ADDRESS=peer1.org2.example.com:7051
-		fi
-
-	elif [ $ORG -gt 2 ] ; then
-		CORE_PEER_LOCALMSPID="Org${ORG}MSP"
-		CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org${ORG}.example.com/peers/peer0.org${ORG}.example.com/tls/ca.crt
-		CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org${ORG}.example.com/users/Admin@org${ORG}.example.com/msp
-		if [ $PEER -eq 0 ]; then
-			CORE_PEER_ADDRESS=peer0.org${ORG}.example.com:7051
-		else
-			CORE_PEER_ADDRESS=peer1.org${ORG}.example.com:7051
-		fi
-	else
-		echo "================== ERROR !!! ORG Unknown =================="
-	fi
-BLOCK
 	env |grep CORE
 }
 

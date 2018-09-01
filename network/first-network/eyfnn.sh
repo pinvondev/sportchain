@@ -101,10 +101,21 @@ function networkUp () {
   # start org${ORGID} peers
   cp docker-compose-orgn.yaml docker-compose-org${ORGID}.yaml
   sed -i "s/rg3/rg${ORGID}/g" docker-compose-org${ORGID}.yaml
-  my_port_1=`echo "11051 ${ORGID}"|awk '{printf("%d",$1+$2)}'`
-  my_port_2=`echo "11053 ${ORGID}"|awk '{printf("%d",$1-$2)}'`
+  
+  CURRENT_DIR=$PWD
+  cd org${ORGID}-artifacts/crypto-config/peerOrganizations/org${ORGID}.example.com/ca/
+  PRIV_KEY=$(ls *_sk)
+  cd "$CURRENT_DIR"
+  sed -i "s/CA3_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-org${ORGID}.yaml
+
+  my_port_1=`echo "11051 ${ORGID}"|awk '{printf("%d",$1-$2)}'`
+  my_port_2=`echo "11053 ${ORGID}"|awk '{printf("%d",$1+$2)}'`
+  my_port_3=`echo "27054 ${ORGID}"|awk '{printf("%d",$1-$2)}'`
+  my_port_4=`echo "27055 ${ORGID}"|awk '{printf("%d",$1+$2)}'`
   sed -i "s/11051/${my_port_1}/g" docker-compose-org${ORGID}.yaml
   sed -i "s/11053/${my_port_2}/g" docker-compose-org${ORGID}.yaml
+  sed -i "s/27054/${my_port_3}/g" docker-compose-org${ORGID}.yaml
+  sed -i "s/27055/${my_port_4}/g" docker-compose-org${ORGID}.yaml
   if [ "${IF_COUCHDB}" == "couchdb" ]; then
       IMAGE_TAG=${IMAGETAG} docker-compose -f $COMPOSE_FILE_ORGN -f $COMPOSE_FILE_COUCH_ORG3 up -d 2>&1
   else
@@ -344,7 +355,7 @@ COMPOSE_FILE_ORGN=docker-compose-org${ORGID}.yaml
         echo "${EXPMODE} with channel '${CHANNEL_NAME}' and CLI timeout of '${CLI_TIMEOUT}' seconds and CLI delay of '${CLI_DELAY}' seconds"
   fi
 # ask for confirmation to proceed
-askProceed
+# askProceed
 mkdir org${ORGID}-artifacts
 
 #Create the network using docker compose
