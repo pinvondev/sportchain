@@ -14,6 +14,10 @@ router.get('/', function(req, res, next) {
   }
 });
 
+router.get('/msp', function (req, res, next) {
+    queryfabric.queryByUsers('admin', '');
+});
+
 // 获取历史信息
 router.get('/history', function (req, res, next) {
     queryfabric.queryByUsers('admin', 'getHistory', [req.query.name], function (error, result) {

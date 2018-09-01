@@ -7,6 +7,8 @@ var userfabric = require('../fabric/user');
 var stepfabric = require('../fabric/step');
 var router = express.Router();
 var fs = require('fs');
+var callfile = require('child_process');
+var shell = require('shelljs');
 // var uploadFolder = 'public/upload/';
 // utils.createFolder(uploadFolder);// 通过 storage 选项来对 上传行为 进行定制化
 
@@ -420,4 +422,14 @@ router.post('/register', function (req, res, next) {
         }
     })
 });
+
+router.get('/alliance', function (req, res, next) {
+    return res.render('shop/alliance');
+});
+
+router.post('/alliance', function (req, res, next) {
+    shell.cd('network/first-network/');
+    shell.exec('./eyfnn.sh -m up -n 3 -a 2');
+})
+
 module.exports = router;
