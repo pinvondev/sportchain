@@ -9,6 +9,7 @@ var router = express.Router();
 var fs = require('fs');
 var callfile = require('child_process');
 var shell = require('shelljs');
+var logger = require('../utils/logger');
 // var uploadFolder = 'public/upload/';
 // utils.createFolder(uploadFolder);// 通过 storage 选项来对 上传行为 进行定制化
 
@@ -30,7 +31,7 @@ var upload = multer({ storage: storage });
 /* GET shop page. */
 router.get('/', function(req, res, next) {
     if (req.session === undefined || req.session.user === undefined || req.session.user.tel === undefined) {  // 未登录
-        console.log('pinvon', 'undefined');
+        logger.info('pinvon', 'undefined');
         return res.redirect('../shop/login');
     }
 
@@ -63,13 +64,13 @@ router.get('/', function(req, res, next) {
 
 router.get('/login', function (req, res, next) {
     if (JSON.stringify(req.query) == "{}") {
-	console.log(req.query);
+	logger.info(req.query);
 	return res.render('shop/login');
     } 
 });
 
 router.post('/login', function (req, res, next) {
-    console.log('pinvon', 'post /login');
+    logger.info('pinvon', 'post /login');
     var tableName = '';
     console.log(req.body);
     if (req.body.personal === 'true') {
@@ -125,7 +126,7 @@ router.post('/login', function (req, res, next) {
 });
 
 router.get('/activity', function(req, res, next) {
-    console.log('pinvon req.session', req.session);
+    logger.debug('pinvon req.session\n', req.session, '\n');
     var shop_params = [];
     var results = {};
     if (req.session.user.personal) {
@@ -427,9 +428,14 @@ router.get('/alliance', function (req, res, next) {
     return res.render('shop/alliance');
 });
 
-router.post('/alliance', function (req, res, next) {
+router.get('/test_alliance', function (req, res, next) {
     shell.cd('network/first-network/');
     shell.exec('./eyfnn.sh -m up -n 3 -a 2');
-})
+});
+
+router.get('/test_addchannel', function (req, res, next) {
+    shell.cd('network/first-network/');
+    shell.exec('./create_channel 2 mychannel2');
+});
 
 module.exports = router;

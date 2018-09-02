@@ -1,10 +1,11 @@
 var express = require('express');
 var queryfabric = require('../fabric/query');
 var router = express.Router();
+var logger = require('../utils/logger');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  console.log(req.session);
+  logger.debug(req.session);
   if (req.session === undefined) {
     res.render('index', { title: '首页', username: '请登录'});
   } else if (req.session.user) {
@@ -15,7 +16,8 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/msp', function (req, res, next) {
-    queryfabric.queryByUsers('admin', '');
+    //queryfabric.queryByUsers('admin', '');
+    queryfabric.queryOrgs();
 });
 
 // 获取历史信息
@@ -48,7 +50,7 @@ router.get('/block', function (req, res, next) {
     if (error) {
       return res.json(error);
     } else {
-      console.log('pinvon', result);
+      logger.debug('pinvon', result);
       return res.json(result);
     }
   })

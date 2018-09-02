@@ -5,3 +5,7 @@ fabric/hfc-key-store
 log
 public/upload/*
 test.json
+network/first-network/org[0-9]{1,}-artifacts
+network/first-network/crypto-config/*
+network/first-network/channel-artifacts/*
+chaincode/hyperledger/*

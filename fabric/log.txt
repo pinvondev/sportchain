@@ -1,0 +1,17 @@
+1. getPeers()
+[ Peer {
+    clientCert: null,
+    _options: 
+     { 'grpc.max_receive_message_length': -1,
+       'grpc.max_send_message_length': -1,
+       'grpc.primary_user_agent': 'grpc-node/1.10.1' },
+    _url: 'grpc://localhost:7051',
+    _endpoint: Endpoint { addr: 'localhost:7051', creds: ChannelCredentials {} },
+    _request_timeout: 45000,
+    _endorserClient: ServiceClient { '$channel': Channel {} },
+    _roles: {} } ]
+
+2. newChannel() 这类方法并未真的创建一个通道, 只是在代码中实例化了一个 channel 对象而已.
+
+3. 商家的 orgid 用正整数表示, 每个 orgid 对应一个 url+port, 这些数据都存储在商家表中. 当商家上线时, 
+   若商家点击查看自己的联盟, 就根据对应的 url+port 来显示相关信息.

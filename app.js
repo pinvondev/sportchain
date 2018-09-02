@@ -6,13 +6,12 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var redis = require('redis');
 var redisStore = require('connect-redis')(session);
-var logger = require('morgan');
 var schedule = require('./utils/schedule');
-
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
 var shopRouter	= require('./routes/shop');
+var logger = require('morgan');
 
 var redisClient = redis.createClient(6379, '127.0.0.1', {auth_pass: ''});
 
