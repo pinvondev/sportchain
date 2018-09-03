@@ -80,3 +80,19 @@ git checkout v1.1.0
 npm install
 npm start
 #+END_SRC
+
+* 启动
+
+** 启动网络
+
+#+BEGIN_SRC Shell
+cd network/first-network
+./byfn.sh -m generate -c mychannel
+#+END_SRC
+
+** 启动服务器
+
+进入 sportchain 目录.
+#+BEGIN_SRC Shell
+npm start
+#+END_SRC
