@@ -111,22 +111,22 @@ router.post('/login', function (req, res, next) {
                 'pass': req.body.password,
                 'personal': req.body.personal
             }
-	    if(result[0].shopname){
-	    	paramss = [
-       			 result[0].shopname
-   	    	];
-	    }
-    		sql.queryByshopid(paramss,function(error,result1) {
-                	if(error){
-				throw error;
-			}else{
-	    		if(result1.name){
-				req.session.user.alliancename = result1.name;	
-	 		}else{
-				console.log('未找到联盟名')
-			}
-			}
-		});
+//	    if(result[0].shopname){
+//	    	paramss = [
+//       			 result[0].shopname
+//   	    	];
+//	    }
+//    		sql.queryByshopid(paramss,function(error,result1) {
+//                	if(error){
+//				throw error;
+//			}else{
+//	    		if(result1.name){
+//				req.session.user.alliancename = result1.name;	
+//	 		}else{
+//				console.log('未找到联盟名')
+//			}
+//			}
+//		});
             if (result[0].shopname) {
                 req.session.user.name = result[0].shopname;
             }
@@ -466,20 +466,35 @@ router.get('/my_alliance', function (req, res, next) {
 
 router.get('/rmy_alliance', function (req, res, next) {
     params = [
-	req.session.user.alliancename
+	'NIKE'
     ];
-    sql.queryByalliance_id(params)
-	.then((result) => {
-		var temp = new Array();
-		logger.info(result);
-		for(var i = 0;i< result.length; i++){
-		    temp[i] = result[i];
-		}
-	        return res.render('shop/myalliance',{results:temp});	
-	})
-	.catch((error) => {
-		return console.log(error);
-	});
+    sql.queryByalliance_id(params, function (error, result) {
+        if (error) {
+            logger.info(error);
+        } else {
+            var temp = new Array();
+            logger.info(result);
+             for(var i = 0; i< result.length; i++){
+                temp[i] = result[i];
+             }
+            return res.render('shop/myalliance', {results:temp});
+        }
+    })
+});
+
+router.get('/del_member',function(req, res, next) {
+	param = ['NIKE'];
+	sql.deleteByalliance_id(param, function (error, result) {
+                if (error) {
+                    throw error;
+                } else {
+                    console.log(result);
+                    back = {
+                        code:200,
+                        msg:'删除成功'
+                    }
+                }
+            });
 });
 
 router.get('/alliance_list', function (req, res, next) {

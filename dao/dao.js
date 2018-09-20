@@ -236,21 +236,17 @@ module.exports = {
             });
         });
     },
-
-
 	queryByalliance_id: function (params, callback) {
-       		 console.log('wlf', 'querymember');
-	         var sql = $memberSQL;
-        query(sql.queryByalliance_id, params, function (error, result) {
-            if (error) {
-                return callback(error, null);
-            } else {
-		console.log(result);
+        var sql = $memberSQL;
+	    query(sql.queryByalliance_id, params, function (error, result) {
+        	if (error) {
+               	return callback(error, null);
+          	} else {
+               	logger.info('result',result);
                 return callback(null, result);
             }
         });
-
-},
+    },
 	queryByshopid: function (params, callback) {
                 console.log('wlf', 'querymember');
                 var sql = $memberSQL;
@@ -258,11 +254,22 @@ module.exports = {
             if (error) {
                 return callback(error, null);
             } else {
-		console.log(result);
+		console.log('result',result);
                 return callback(null, result);
             }
         });
-}
+	},
+	deleteByalliance_id: function (param, callback) {
+                var sql = $memberSQL;
+                query(sql.deleteByalliance_id, param, function (error, result) {
+                        if (error) {
+                                return callback(error, null);
+                        } else {
+                                return callback(null, result);
+                        }
+                });
+        },
+
 }
 
 
