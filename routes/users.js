@@ -8,6 +8,7 @@ var qr_image = require('qr-image');
 var path = require('path');
 var sql = require('../dao/dao');
 var router = express.Router();
+var logger = require('../utils/logger');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -488,5 +489,39 @@ router.get('/logout', function (req, res, next) {
   console.log('/logout success');
   res.redirect('/');
 })
-  
+
+// 关注列表
+router.get('/focus', function (req, res, next) {
+    params = ['messages', 'messages_title, messages_info', ''];
+    sql.queryByConditions(params)
+        .then(function (value) {
+            result = {
+                msg: value
+            }
+            logger.info(result);
+            res.json(result);
+        })
+        .catch(function (error) {
+            throw error;
+        });
+});
+
+// 推荐列表
+router.get('/recommend', function (req, res, next) {
+    
+});
+
+// 发表帖子
+router.post('/publish', function (req, res, next) {
+    param = ['messages', 'messages_title, messages_info, messages_time, messages_commentnum, messages_transpondnum, messages_agreenum, messages_response, user_id', '"标题", "内容", now(), 1, 1, 1, "评论", 1', ''];
+    sql.insertByConditions(param)
+        .then(function (value) {
+            logger.info(value);
+        })
+        .catch(function (error) {
+            throw error;
+        });
+});
+
+
 module.exports = router;

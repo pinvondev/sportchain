@@ -111,7 +111,22 @@ router.post('/login', function (req, res, next) {
                 'pass': req.body.password,
                 'personal': req.body.personal
             }
-
+	    if(result[0].shopname){
+	    	paramss = [
+       			 result[0].shopname
+   	    	];
+	    }
+    		sql.queryByshopid(paramss,function(error,result1) {
+                	if(error){
+				throw error;
+			}else{
+	    		if(result1.name){
+				req.session.user.alliancename = result1.name;	
+	 		}else{
+				console.log('未找到联盟名')
+			}
+			}
+		});
             if (result[0].shopname) {
                 req.session.user.name = result[0].shopname;
             }
@@ -442,11 +457,33 @@ router.get('/my_alliance', function (req, res, next) {
              for(var i = 0; i< result.length; i++){
                 temp[i] = result[i];
              }
-            return res.render('shop/malloc_alliance', results:temp);
+            return res.render('shop/malloc_alliance', {results:temp});
         })
         .catch((error) => {
             return console.log(error);
         });
+});
+
+router.get('/rmy_alliance', function (req, res, next) {
+    params = [
+	req.session.user.alliancename
+    ];
+    sql.queryByalliance_id(params)
+	.then((result) => {
+		var temp = new Array();
+		logger.info(result);
+		for(var i = 0;i< result.length; i++){
+		    temp[i] = result[i];
+		}
+	        return res.render('shop/myalliance',{results:temp});	
+	})
+	.catch((error) => {
+		return console.log(error);
+	});
+});
+
+router.get('/alliance_list', function (req, res, next) {
+    return res.render('shop/malloc_list');
 });
 
 router.get('/test_alliance', function (req, res, next) {

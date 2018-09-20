@@ -5,7 +5,7 @@
 <title>Clean Blog - Portfolio</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
-<link href="templatemo_style.css" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/shop/templatemo_style.css" rel="stylesheet" type="text/css" />
 
 <!--////// CHOOSE ONE OF THE 3 PIROBOX STYLES  \\\\\\\-->
 
@@ -71,13 +71,13 @@ font-weight: bold;
 	<div id="templatemo_menu">
                 
         <ul>
-            <li><a href="index.html">我的信息</a></li>
-            <li><a href="portfolio.html" class="current">排行</a></li>
-            <li><a href="contact.html">我的活动</a></li>
-            <li><a href="about.html">联合活动</a></li>
-            <li><a href="#" >我的联盟</a></li>
-            <li><a href="#">已有联盟</a></li>
-            <li><a href="#">创建联盟</a></li>
+            <li><a href="/shop/">我的信息</a></li>
+            <li><a href="/shop/rank1">排行</a></li>
+            <li><a href="/shop/activity">我的活动</a></li>
+            <li><a href="/shop/alliance">联合活动</a></li>
+            <li><a href="/shop/my_alliance" >已有联盟</a></li>
+            <li><a href="/shop/rmy_alliance">我的联盟</a></li>
+            <li><a href="/shop/alliance">创建联盟</a></li>
         </ul> 	
     
     </div> <!-- end of templatemo_menu -->
@@ -145,10 +145,10 @@ font-weight: bold;
                         <tbody>
                                 {{#each results}}
 						        <tr>
-                                  <td style="width:15%;">{{ @gindex }}</td>
-                                  <td style="width:15%;">{{  }}</td>
-                                  <td style="width:25%;"><a href='{{  }}'>{{}}</a></td>
-                                  <td style="width:35%;">{{ }}</td>
+                                  <td style="width:15%;">{{ this.name }}</td>
+                                  <td style="width:15%;">{{ this.generator }}</td>
+                                  <td style="width:25%;">{{ this.generate_time }}</td>
+                                  <td style="width:35%;">{{ this.join_condition }}</td>
                                   <td style="width:10%;"><a href="#">申请加入</a></td>
                                 </tr>
                                 {{/each}}

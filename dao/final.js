@@ -16,9 +16,9 @@ var final = {
     insertByConditions: function (tables, columns, values, filter) {
         let sql = '';
         if (filter === '') {
-            sql = `insert into ${tables}(${columns}) values${values}`;
+            sql = `insert into ${tables}(${columns}) values(${values})`;
         } else {
-            sql = `insert into ${tables}(${columns}) values${values} where ${filter}`;
+            sql = `insert into ${tables}(${columns}) values(${values}) where ${filter}`;
         }
         return sql;
     },

@@ -245,32 +245,20 @@ module.exports = {
             if (error) {
                 return callback(error, null);
             } else {
-		console.log(result);
                 return callback(null, result);
             }
         });
 
 },
 	queryByshopid: function (params, callback) {
-                console.log('wlf', 'querymember');
-                var sql = $memberSQL;
+        	console.log('wlf', 'querymember');
+        	var sql = $memberSQL;
         query(sql.queryByshopid, params, function (error, result) {
             if (error) {
                 return callback(error, null);
             } else {
-		console.log(result);
                 return callback(null, result);
             }
         });
 }
-}
-
-
-
-
-
-
-
-
-
 
