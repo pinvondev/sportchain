@@ -428,6 +428,27 @@ router.get('/alliance', function (req, res, next) {
     return res.render('shop/alliance');
 });
 
+// 我的联盟
+router.get('/my_alliance', function (req, res, next) {
+    params = [
+        'alliance',
+        'name, generator, generate_time, join_condition',
+        ''
+    ];
+    sql.queryByConditions(params)
+        .then((result) => {
+            var temp = new Array();
+            logger.info(result);
+             for(var i = 0; i< result.length; i++){
+                temp[i] = result[i];
+             }
+            return res.render('shop/malloc_alliance', results:temp);
+        })
+        .catch((error) => {
+            return console.log(error);
+        });
+});
+
 router.get('/test_alliance', function (req, res, next) {
     shell.cd('network/first-network/');
     shell.exec('./eyfnn.sh -m up -n 3 -a 2');

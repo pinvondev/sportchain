@@ -137,20 +137,22 @@ font-weight: bold;
                     
                      <form role="form" id="form1">
                        <table id="table-6" style="width:100%;">
-                        <thead>
-                          <th style="width:15%;">联盟名称 </th> <th style="width:15%;">联盟发起者 </th>
-                          <th style="width:25%;"> 创建时间 </th> <th style="width:35%;"> 加入要求 </th>
-                          <th style="width:10%">申请加入</th>
-                       </thead>
-                      <tbody>
-						<tr>
-                         <td style="width:15%;">{{  }}</td>
-                         <td style="width:15%;">{{  }}</td>
-                         <td style="width:25%;"><a href='{{  }}'>{{}}</a></td>
-                         <td style="width:35%;">{{ }}</td>
-                         <td style="width:10%;"><a href="#">申请加入</a></td>
-                      </tr>
-					</tbody>                                                                                            
+                         <thead>
+                           <th style="width:15%;">联盟名称 </th> <th style="width:15%;">联盟发起者 </th>
+                           <th style="width:25%;"> 创建时间 </th> <th style="width:35%;"> 加入要求 </th>
+                           <th style="width:10%">申请加入</th>
+                        </thead>
+                        <tbody>
+                                {{#each results}}
+						        <tr>
+                                  <td style="width:15%;">{{ @gindex }}</td>
+                                  <td style="width:15%;">{{  }}</td>
+                                  <td style="width:25%;"><a href='{{  }}'>{{}}</a></td>
+                                  <td style="width:35%;">{{ }}</td>
+                                  <td style="width:10%;"><a href="#">申请加入</a></td>
+                                </tr>
+                                {{/each}}
+					    </tbody>                                                                                            
                     </table>
                     </form>
 
