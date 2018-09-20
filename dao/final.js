@@ -43,7 +43,15 @@ var final = {
             sql = `select ${columns} from ${tables} where ${filter} order by ${order_name} desc`;
         }
         return sql;
+    },
+    queryUsersByTopic: function (topic_id) {
+        let sql = 'select users.username from users,users_topic where (users_topic.users_id=users.id and users_topic.topic_id=${topic_id})';
+        return sql;
+    },
+    queryTopicByUsers: function (username) {
+        let sql = `select distinct users_topic.topic_id from users, users_topic where (users_topic.users_id=(select users.id from users where users.username=${username}))`;
+        return sql;
     }
 };
- 
+
 module.exports = final;
