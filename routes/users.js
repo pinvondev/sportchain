@@ -504,7 +504,9 @@ router.get('/focus', function (req, res, next) {
 // 推荐列表
 router.get('/recommend', function (req, res, next) {
     // 获取用户关注的话题
-    sql.queryTopicByUsers(req.session.user.name)
+    var params = [req.session.user.name];
+    logger.info(params);
+    sql.queryTopicByUsers(params)
         .then(function (value) {
             logger.info(value);
         })
@@ -516,7 +518,7 @@ router.get('/recommend', function (req, res, next) {
 
 // 发表帖子
 router.post('/publish', function (req, res, next) {
-    param = ['messages', 'messages_title, messages_info, messages_time, messages_commentnum, messages_transpondnum, messages_agreenum, messages_response, user_id', '"标题", "内容", now(), 1, 1, 1, "评论", 1', ''];
+    var param = ['messages', 'messages_title, messages_info, messages_time, messages_commentnum, messages_transpondnum, messages_agreenum, messages_response, user_id', '"标题", "内容", now(), 1, 1, 1, "评论", 1', ''];
     sql.insertByConditions(param)
         .then(function (value) {
             logger.info(value);

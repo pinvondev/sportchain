@@ -260,19 +260,19 @@ module.exports = {
         });
 	},
 	deleteByalliance_id: function (param, callback) {
-                var sql = $memberSQL;
-                query(sql.deleteByalliance_id, param, function (error, result) {
-                        if (error) {
-                                return callback(error, null);
-                        } else {
-                                return callback(null, result);
-                        }
-                });
-        },
+        var sql = $memberSQL;
+        query(sql.deleteByalliance_id, param, function (error, result) {
+            if (error) {
+                return callback(error, null);
+            } else {
+                return callback(null, result);
+            }
+        });
     },
     queryUsersByTopic: function (params) { // 查找关注该话题的用户
         return new Promise(function (resolve, reject) {
-            var sql = final.insertByConditions(params);
+            logger.info('pinvon');
+            var sql = final.queryUsersByTopic(params);
             logger.info(sql);
             query(sql, (error, result) => {
                 error ? reject(error) : resolve(result);
@@ -282,20 +282,10 @@ module.exports = {
     queryTopicByUsers: function (params) {
         return new Promise(function (resolve, reject) {
             var sql = final.queryTopicByUsers(params);
-            loggor.info(sql);
+            logger.info(sql);
             query(sql, (error, result) => {
                 error ? reject(error) : resolve(result);
             });
         });
     }
 }
-
-
-
-
-
-
-
-
-
-
