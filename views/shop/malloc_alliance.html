@@ -14,7 +14,7 @@
 <!--////// END  \\\\\\\-->
 
 <!--////// INCLUDE THE JS AND PIROBOX OPTION IN YOUR HEADER  \\\\\\\-->
-<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="public/javascripts/jquery.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -135,7 +135,8 @@ font-weight: bold;
                 
                     <div class="left">
                     
-                     <form role="form" id="form1">
+                 <!--    <form action="/shop/application_for_alliance" name="form1" method="post" enctype="multipart/form-data">  --!>
+			<input name="aaa" value="111"></input><button type="submit" class="btn btn-default">提交</button>
                        <table id="table-6" style="width:100%;">
                          <thead>
                            <th style="width:15%;">联盟名称 </th> <th style="width:15%;">联盟发起者 </th>
@@ -143,24 +144,45 @@ font-weight: bold;
                            <th style="width:10%">申请加入</th>
                         </thead>
                         <tbody>
-                                {{#each results}}
-						        <tr>
-                                  <td style="width:15%;">{{ this.name }}</td>
-                                  <td style="width:15%;">{{ this.generator }}</td>
-                                  <td style="width:25%;">{{ this.generate_time }}</td>
-                                  <td style="width:35%;">{{ this.join_condition }}</td>
-                                  <td style="width:10%;"><a href="#">申请加入</a></td>
-                                </tr>
-                                {{/each}}
+                            {{#each results}}
+						    <tr>
+                              <td style="width:15%;"><input type='text' value='{{this.name}}' name='{{@index}}' style="width:50px"></input></td>
+                              <td style="width:15%;">{{ this.generator }}</td>
+                              <td style="width:25%;">{{ this.generate_time }}</td>
+                              <td style="width:35%;">{{ this.join_condition }}</td>
+                              <td style="width:10%;"><input id='{{ @index }}' type='submit' value='{{ @index }}'></input>
+			                                           <!--  <button id='{{@index}}'type="submit" class="btn btn-default">提交</button> --!></td>
+                            </tr>
+                            {{/each}}
+			              <script>
+                            function application() {
+                                console.log("test");
+                            }
+                            
+			    $('#1').on('click', function() {
+                                console.log("test");
+                                var name = $.trim($('#1').val()),
+				                data = {name : name};
+				                $.ajax({
+					                type : 'POST',
+					                url : '/shop/application_for_alliance',
+					                data : data,
+                                    			console.log(data);
+					                success : function(data){
+					                    console.log(data);
+							        		}
+					            });
+				            })
+			              </script>
 					    </tbody>                                                                                            
-                    </table>
-                    </form>
-
-                </div>    
-               
-            
+                       </table>
+                 <!--    </form> --!>
+                     
+                    </div>    
+                    
+                    
             </div>
-        
+            
         </div> <!-- end of main -->
         <div class="cleaner"></div>
     </div>  <!-- end of right column -->

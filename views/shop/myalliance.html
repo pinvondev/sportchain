@@ -76,6 +76,32 @@ cursor: pointer;
 .basic-grey .button:hover {
 background: #CF7A7A
 }
+#table-6 thead th {
+background-color: #8B795E;
+color: #fff;
+border-bottom-width: 0;
+}
+
+/* Column Style */
+#table-6 td {
+color: #000;
+background-color: #F5F5F5;
+}
+/* Heading and Column Style */
+#table-6 tr, #table-6 th {
+border-bottom-width: 1px;
+border-bottom-style: solid;
+border-bottom-color: black;
+height:40px;
+}
+
+/* Padding and font style */
+#table-6 td, #table-6 th {
+padding: 5px 10px;
+font-size: 12px;
+font-family: Verdana;
+font-weight: bold;
+}
 </style>
 
 <body>
@@ -136,24 +162,24 @@ background: #CF7A7A
             </div>
         
         <div class="cleaner_h50"></div>
-            <h2>我已创建的联盟<h2>
-
+            <h2>我已创建的联盟<h2>&nbsp&nbsp&nbsp&nbsp<div style="font-size:13px;margin-top:-30px;margin-left:10px"><a href='/shop//alliance_list'>查看申请列表</a></div>
             <div id="contact_form">
-			<table id="table-6" style="width:70%;margin-left:30%;">
-  				<font size="4px">这里写联盟名称--创建时间：这里写创建时间&nbsp&nbsp&nbsp&nbsp<a href="#">删除联盟</a>&nbsp&nbsp&nbsp<a href="/shop/alliance_list">查看申请列表</a></font>
+			<table id="table-6" style="width:100%;">
   				<thead>
-        			<th style="width:15%;font-size:15px;align-text:center;">联盟成员 </th>
-        			<th style="align-text:center;width:25%;font-size:15px;">成员简介 </th>
-				 <th style="align-text:center;width:15%;font-size:15px;">成员热度 </th>
-					<th style="align-text:center;width:15%;font-size:15px;">管理成员 </th>
+				<th style="width:15%;">联盟名称 </th>
+        			<th style="width:15%;">联盟成员 </th>
+        			<th style="width:25%">成员简介 </th>
+				 <th style="width:15%">成员热度 </th>
+					<th style="width:15%;">管理成员 </th>
 				</thead>
   				<tbody>
   					 {{#each results}}
      						 <tr>
-       						 <td style="width:15%;font-size:13px">{{ this.member_name }}</td>
-					        <td style="width:25%;font-size:13px">{{ this.member_des }}</td>
-						<td style="width:15%;font-size:13px">{{ this.member_energy }}</td>
-       						 <td style="width:15%;font-size:13px"><a href='/shop/del_member'>删除成员</a></td>
+						<th style="width:15%;">{{this.alliance_id}}</th>
+       						 <td style="width:15%;">{{ this.member_name }}</td>
+					        <td style="width:25%;">{{ this.member_des }}</td>
+						<td style="width:15%;">{{ this.member_energy }}</td>
+       						 <td style="width:15%;"><a href='/shop/del_member'>删除成员</a></td>
        			     						 </tr>
      					 {{/each}}
         					</tbody>                                                                                            

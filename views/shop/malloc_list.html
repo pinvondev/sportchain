@@ -76,6 +76,32 @@ cursor: pointer;
 .basic-grey .button:hover {
 background: #CF7A7A
 }
+#table-6 thead th {
+background-color: #8B795E;
+color: #fff;
+border-bottom-width: 0;
+}
+
+/* Column Style */
+#table-6 td {
+color: #000;
+background-color: #F5F5F5;
+}
+/* Heading and Column Style */
+#table-6 tr, #table-6 th {
+border-bottom-width: 1px;
+border-bottom-style: solid;
+border-bottom-color: black;
+height:40px;
+}
+
+/* Padding and font style */
+#table-6 td, #table-6 th {
+padding: 5px 10px;
+font-size: 12px;
+font-family: Verdana;
+font-weight: bold;
+}
 </style>
 
 <body>
@@ -139,22 +165,26 @@ background: #CF7A7A
             <h2>联盟申请列表<h2>
 
             <div id="contact_form">
-			<table id="table-6" style="width:100%;margin-left:30%;">
-  			<thead>
-        			<th style="width:45%;font-size:15px;align-text:center;">申请人信息</th>
-        			<th style="align-text:center;width:35%;font-size:15px;">交易额 </th>
-					<th style="align-text:center;width:20%;font-size:15px;">管理申请 </th>
-				</thead>
-  				<tbody>
-  					<tr>
-        			<td style="align-text:center;width:45%;font-size:15px;color:red;">这里填写申请人信息</td>
-        			<td style="align-text:center;width:35%;font-size:15px;color:red;">这里显示交易能量值</td>
-        			<td style="align-text:center;width:20%;font-size:15px"><a href="#">同意</a>&nbsp&nbsp<a href="#">拒绝</a></td>
-      				</tr>
-				</tbody>                                                                                            
-  			</table>
-			
-               
+		     <table id="table-6" style="width:100%;">
+                                <thead>
+                                <th style="width:15%;font-size:15px;align-text:center;">联盟名称 </th>
+                                <th style="width:15%;font-size:15px;align-text:center;">发起企业 </th>
+                                <th style="align-text:center;width:50%;font-size:15px;align-text:center">加入要求 </th>
+                                <th style="align-text:center;width:15%;font-size:15px;align-text:center">管理申请 </th>
+			        </thead>
+                                <tbody>
+                                       <!--  {{#each results}} --!>
+                                                 <tr>
+                                                <th style="width:15%;font-size:15px;align-text:center;color:red;align-text:center">N-A-P</th>
+                                                 <td style="width:15%;font-size:13px;color:red;align-text:center">NIKE</td>
+                                                <td style="width:50%;font-size:13px;color:red;align-text:center">交易额达到100以上;同时满足资产在1000w以上</td>
+                                                 <td style="width:15%;font-size:13px;color:red;align-text:center"><a href=''>同意</a>&nbsp&nbsp<a href=''>拒绝</a></td>
+                                                                         </tr>
+                                     <!--    {{/each}}--!>
+                                                </tbody>                                                                                            
+                        </table>
+                                                          
+
             </div> 
         
         </div> <!-- end of main -->
