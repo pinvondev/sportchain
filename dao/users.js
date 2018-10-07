@@ -7,5 +7,5 @@ var users = {
 	queryByName: 'select * from users where username=?',
 	queryAll: 'select * from users'
 };
- 
+
 module.exports = users;

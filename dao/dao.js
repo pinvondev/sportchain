@@ -181,21 +181,10 @@ module.exports = {
 			}
 		});
 	},
-	// queryByConditions: function (params, callback) {
-	// 	var sql = final.queryByConditions(params[0], params[1], params[2]);
-	// 	query(sql, params[3], function (error, result) {
-	// 		console.log(sql);
-	// 		if (error) {
-	// 			return callback(error, null);
-	// 		} else {
-	// 			return callback(null, result);
-	// 		}
-	// 	})
-	// },
 	queryByConditions: function (params) {
 		return new Promise(function (resolve, reject) {
 			var sql = final.queryByConditions(params[0], params[1], params[2]);
-			console.log('pinvon queryByConditions', sql);
+			logger.info(sql, 'pinvon queryByConditions');
 			query(sql, params[3], (error, result) => {
 				error ? reject(error) : resolve(result);
 			});
@@ -204,6 +193,7 @@ module.exports = {
 	updateByConditions: function (params) {
 		return new Promise(function (resolve, reject) {
 			var sql = final.updateByConditions(params[0], params[1], params[2]);
+            logger.debug(sql);
 			query(sql, params[3], (error, result) => {
 				error ? reject(error) : resolve(result);
 			});
@@ -238,6 +228,7 @@ module.exports = {
     },
 	queryByalliance_id: function (params, callback) {
         var sql = $memberSQL;
+        logger.info(sql.queryByalliance_id, 'pinvon dao.js queryByalliance_id');
 	    query(sql.queryByalliance_id, params, function (error, result) {
         	if (error) {
                	return callback(error, null);
@@ -282,6 +273,15 @@ module.exports = {
     queryTopicByUsers: function (params) {
         return new Promise(function (resolve, reject) {
             var sql = final.queryTopicByUsers(params);
+            logger.info(sql);
+            query(sql, (error, result) => {
+                error ? reject(error) : resolve(result);
+            });
+        });
+    },
+    deleteByConditions: function (params) {
+        return new Promise(function (resolve, reject) {
+            var sql = final.deleteByConditions(params);
             logger.info(sql);
             query(sql, (error, result) => {
                 error ? reject(error) : resolve(result);

@@ -51,6 +51,10 @@ var final = {
     queryTopicByUsers: function (username) {
         let sql = `select distinct users_topic.topic_id from users, users_topic where (users_topic.users_id=(select users.id from users where users.username="${username}"))`;
         return sql;
+    },
+    deleteByConditions: function (tables, columns) {
+        let sql = `delete from ${tables} where ${columns}`;
+        return sql;
     }
 };
 
