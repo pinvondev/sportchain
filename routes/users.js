@@ -36,7 +36,7 @@ router.post('/register', function(req, res, next) {
     // 临时 将邮箱与电话改为可选
     params[2] = 'test';
     params[3] = 'test';
-    
+
     console.log(params);
     // 增加用户名是否已注册的判断
     if (params[0] && params[1] && params[2] && params[3]) {
