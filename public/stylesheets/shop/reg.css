@@ -11,7 +11,7 @@ body{
     position:  relative;
 }
 .form-data{
-    background-color: #FF5151;
+    background-color: #3da2e3;
     width: 760px;
 	height:400px;
     left: 50%;
@@ -42,7 +42,7 @@ body{
     padding: 5px 0;
     height: 44px;
     box-sizing: border-box;
-    border-bottom: 1px solid #AE0000;
+    border-bottom: 1px solid white;
     width: 340px;
     margin: 0 auto 16px;
     line-height: 14px;

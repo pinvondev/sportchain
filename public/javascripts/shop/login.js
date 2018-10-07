@@ -19,7 +19,6 @@ $(function(){
         $(".account_number").removeClass("on");
 		$(".form2").removeClass("hide");
 		$(".form1").addClass("hide");
-		
     });
 
 	$('#num').keyup(function(event) {
@@ -178,7 +177,7 @@ $(function(){
 						ldata.code = code;
 					}
 					$.ajax({
-			            url: '/shops/login',
+			            url: '/shop/login',
 			            type: 'post',
 			            dataType: 'json',
 			            async: true,
@@ -212,9 +211,7 @@ $(function(){
 			                	return false;
 			                }
 			            },
-			            error:function(){
-			                
-			            }
+			            error:function(){}
 			        });
 				} else {
 					return false;
@@ -227,7 +224,7 @@ $(function(){
 				var pcode = $.trim($('#veri-code').val());
 				if (checkPhone(phone) && checkPass(pcode)) {
 					$.ajax({
-			            url: '/plogin',
+			            url: '/shop/login',
 			            type: 'post',
 			            dataType: 'json',
 			            async: true,
@@ -337,7 +334,7 @@ function login() {
                 if (data.code === 200) {
                     layer.msg(data.msg);
                     setTimeout(function () {
-                        location.href = '/shop/person';
+                        location.href = '/shop';
                     }, 2000);
                 } else if (data.code === 400) {
                     layer.msg(data.msg);

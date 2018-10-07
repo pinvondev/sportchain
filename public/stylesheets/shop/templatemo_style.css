@@ -129,7 +129,7 @@ em { color: #5d6d1e; }
 /* menu */
 
 #templatemo_menu {
-	width: 830px;
+	width: auto;
 	height: 50px;
 	margin: 0 10px 0 100px;
 	padding: 20px 30px 0 0;
@@ -409,7 +409,7 @@ em { color: #5d6d1e; }
 	padding: 5px 10px;
 	background: #EEEEEE;
 	border: 1px solid #AAAAAA;
-	color: #666666;
+	color: #87CEEB;
 }
 
 .service_box {
