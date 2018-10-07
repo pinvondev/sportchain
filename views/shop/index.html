@@ -6,14 +6,6 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <link href="/stylesheets/shop/templatemo_style.css" rel="stylesheet" type="text/css" />
-<!-- JavaScripts-->
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#slider').s3Slider({
-            timeOut: 1600
-        });
-    });
-</script>
 <style type="text/css">
 table.gridtable {
     font-family: verdana,arial,sans-serif;
@@ -44,81 +36,106 @@ table.gridtable td {
 </head>
 <body>
   <script type="text/javascript" src="/javascripts/shop/jquery.js"></script>
-<div id="templatemo_wrapper">
-        <div id="templatemo_menu">
-        <ul>
-            <li><a href="#" class="current">我的信息</a></li>
+  <div id="templatemo_wrapper">
+    <div id="templatemo_menu">
+      <ul>
+        <li><a href="#" class="current">我的信息</a></li>
 	    <li><a href="/shop/rank1">排行</a></li>
-            <li><a href="/shop/activity">我的活动</a></li>
-            <li><a href="/shop/alliance">联合活动</a></li>
+        <li><a href="/shop/activity">我的活动</a></li>
+        <li><a href="/shop/alliance">联合活动</a></li>
 	    <li><a href="/shop/my_alliance">已有联盟</a></li>
 	    <li><a href="/shop/rmy_alliance">我的联盟</a></li>
 	    <li><a href="/shop/alliance">创建联盟</a></li>
-        </ul>   
-    </div> <!-- end of templatemo_menu -->
+      </ul>   
+    </div>
     <div id="templatemo_left_column">
-        <div id="templatemo_header">
-            <div id="site_title">
-		<h1><a href="#"><span>{{shop.enterpriseName}}</span></a></h1>
-            </div><!-- end of site_title -->
-        </div> <!-- end of header -->  
-        <div id="templatemo_sidebar">
-            <div id="templatemo_rss">
-                <img src="{{shop.shoplogo}}" height="200px" width="200px">
-            </div>
-            <h4>店铺信息</h4>
-            <ul class="templatemo_list">
-                <li><a href="#">店铺链接: {{shop.shoplink}}</a></li>
-                <li><a href="#">店铺类型：{{shop.category}}</a></li>
-                <li><a href="#">联系电话：{{shop.phone}}</a></li>
-                <li><a href="#">邮箱：{{shop.phone}}</a></li>
-                <li><a href="#">店铺简介：{{shop.introduction}}</a></li>
-                <li><a style="color: blue" href="/shop/person">修改信息</a></li>
-	     </ul>  
-        </div> <!-- end of templatemo_sidebar --> 
+      <div id="templatemo_header">
+        <div id="site_title">
+		  <h1><a href="#"><span><img src="{{shop.shoplogo}}" height="200px" width="200px"></span></a></h1>
+        </div>
+      </div>
+      <div id="templatemo_sidebar">
+        <h4>店铺信息</h4>
+        <ul class="templatemo_list">
+          <li><a href="#">店铺链接: {{shop.shoplink}}</a></li>
+          <li><a href="#">店铺类型：{{shop.category}}</a></li>
+          <li><a href="#">联系电话：{{shop.phone}}</a></li>
+          <li><a href="#">邮箱：{{shop.phone}}</a></li>
+          <li><a href="#">店铺简介：{{shop.introduction}}</a></li>
+          <li><a style="color: blue" href="/shop/person">修改信息</a></li>
+	    </ul>  
+      </div> <!-- end of templatemo_sidebar --> 
     </div> <!-- end of templatemo_left_column -->
     <div id="templatemo_right_column">
-        <div id="templatemo_main">
-            <div id="show_time0" style="height: 20px">
-                  <script>
-                    setInterval("show_time0.innerHTML=new Date().toLocaleString()+' 星期'+'日一二三>四五六'.charAt(new Date().getDay());",1000); 
-                  </script>
-            </div>
-            <div class="post_section">
-		<h2><a href="#">今日店铺能量</a></h2>
-                <p>此处显示店铺能量</p>
-            </div>
-            <div class="post_section">
-                <h2><a href="#">店铺往期能量查询</a></h2>
-		        <input type="button" value="查询" onClick="toggle('gridtable')" style="width: 100px; height: 30px; margin: 0 0 10px 0;" />
-                <script type="text/javascript">
-                  function toggle(id){
-                    var tb=document.getElementById(id);
-                   if(tb.style.display=='none') tb.style.display='block';
-                   else tb.style.display='none';
-                  }
-</script>
-                <table id="gridtable" class="gridtable">
-                 <tr><th>日期</th><th>店铺能量</th>
-                 <tr><td>A</td><td>B</td> 
-                </table>
+      <div id="templatemo_main">
+        <div id="show_time0" style="height: 20px">
+          <script>
+            setInterval("show_time0.innerHTML=new Date().toLocaleString()+' 星期'+'日一二三>四五六'.charAt(new Date().getDay());",1000);
+          </script>
+        </div>
+        <div class="post_section">
+		  <h2><a href="#">今日店铺能量</a></h2>
+          <p>此处显示店铺能量</p>
+        </div>
+        <div class="post_section">
+          <h2><a href="#">店铺往期能量查询</a></h2>
+		  <input type="button" value="查询" onClick="toggle('gridtable')" style="width: 100px; height: 30px; margin: 0 0 10px 0;" />
+          <script type="text/javascript">
+            function toggle(id){
+              var tb=document.getElementById(id);
+              if(tb.style.display=='none') tb.style.display='block';
+              else tb.style.display='none';
+            }
+          </script>
+          <table id="gridtable" class="gridtable">
+            <tr><th>日期</th><th>店铺能量</th>
+            <tr><td>A</td><td>B</td> 
+          </table>
 	    </div>
-                </div>
-  <div class="cleaner"></div>
-  </div> 
-    <!-- end of templatemo_main -->
-  <div class="cleaner_h20"></div>
-        <div id="templatemo_footer">
-                Copyright © 2048 <a href="#">Sportchain</a>  
+        </div>
+          <div class="post_section">
+            <h2><a href="#">店铺商品</a></h2>
+            <script type="text/javascript">
+              var reg = /.*\//g;
+              var file_path = "{{shop.shoplogo}}".match(reg).toString();
+              console.log(file_path);
+              var p = "{{product.a}}";
+              console.log(p);
+              if ("{{product.a}}") {
+                document.write('<img src="{{product.a}}" height="200px" width="200px">');
+                document.write('<p>"{{product.A}}"</p>');
+              }
+              if ("{{product.b}}") {
+                document.write('<img src="{{product.b}}" height="200px" width="200px">');
+                document.write('<p>"{{product.B}}"</p>');
+              }
+              if ("{{product.c}}") {
+                document.write('<img src="{{product.c}}" height="200px" width="200px">');
+                document.write('<p>"{{product.C}}"</p>');                       }
+              if ("{{product.d}}") {
+                document.write('<img src="{{product.d}}" height="200px" width="200px">');
+                document.write('<p>"{{product.D}}"</p>');                       }
+              if ("{{product.e}}") {
+                document.write('<img src="{{product.e}}" height="200px" width="200px">');
+                document.write('<p>"{{product.E}}"</p>');                       }              
+              if ("{{product.f}}") {
+                console.log("{{product.f}}");
+                document.write('<img src="{{product.f}}" height="200px" width="200px">');
+                document.write('<p>"{{product.F}}"</p>');                       }              
+            </script>
+            <form action="/shop/upload" enctype="multipart/form-data" method="post">
+              <input type="file" name="upload" multiple="multiple">
+              <input type="text" name="desc" placeholder="请输入商品描述" >
+              <input type="submit" value="上传商品" />
+            </form>
+	      </div>
+          <div class="cleaner"></div>
+        </div> 
+      <div class="cleaner_h20"></div>
+      <div id="templatemo_footer">
+        Copyright © 2048 <a href="#">Sportchain</a>  
+      </div>
+      <div class="cleaner"></div>
     </div>
-    <div class="cleaner"></div>
-</div> <!-- end of warpper -->
-<!-- templatemo 251 clean blog -->
-<!-- 
-Clean Blog Template 
-http://www.templatemo.com/preview/templatemo_251_clean_blog 
--->
-</body>
+  </body>
 </html>
-
-
